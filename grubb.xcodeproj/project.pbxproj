@@ -13,6 +13,9 @@
 		8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A67E1D144996009D4506 /* grubb.xcdatamodeld */; };
 		8E54A6821D144996009D4506 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E54A6811D144996009D4506 /* Assets.xcassets */; };
 		8E54A6851D144996009D4506 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E54A6831D144996009D4506 /* LaunchScreen.storyboard */; };
+		8E54A6901D14564A009D4506 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A68F1D14564A009D4506 /* Food.swift */; };
+		8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6911D1458C0009D4506 /* ExploreVC.swift */; };
+		8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6931D145AF6009D4506 /* FoodCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		8E54A6811D144996009D4506 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E54A6841D144996009D4506 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E54A6861D144996009D4506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E54A68F1D14564A009D4506 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		8E54A6911D1458C0009D4506 /* ExploreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
+		8E54A6931D145AF6009D4506 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +62,10 @@
 		8E54A6761D144996009D4506 /* grubb */ = {
 			isa = PBXGroup;
 			children = (
+				8E54A68E1D144E86009D4506 /* Model */,
+				8E54A68D1D144E83009D4506 /* View */,
+				8E54A68C1D144E7C009D4506 /* Controller */,
 				8E54A6771D144996009D4506 /* AppDelegate.swift */,
-				8E54A6791D144996009D4506 /* ViewController.swift */,
 				8E54A67B1D144996009D4506 /* Main.storyboard */,
 				8E54A6811D144996009D4506 /* Assets.xcassets */,
 				8E54A6831D144996009D4506 /* LaunchScreen.storyboard */,
@@ -65,6 +73,31 @@
 				8E54A67E1D144996009D4506 /* grubb.xcdatamodeld */,
 			);
 			path = grubb;
+			sourceTree = "<group>";
+		};
+		8E54A68C1D144E7C009D4506 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E54A6791D144996009D4506 /* ViewController.swift */,
+				8E54A6911D1458C0009D4506 /* ExploreVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		8E54A68D1D144E83009D4506 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E54A6931D145AF6009D4506 /* FoodCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8E54A68E1D144E86009D4506 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E54A68F1D14564A009D4506 /* Food.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +172,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E54A67A1D144996009D4506 /* ViewController.swift in Sources */,
+				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
+				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
+				8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */,
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
 			);
