@@ -46,7 +46,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+        let item = food[indexPath.row]
+        performSegueWithIdentifier("itemVC", sender: item)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,5 +62,14 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         return CGSizeMake(screenWidth / 3, screenWidth / 3)
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "itemVC" {
+            if let destinationVC = segue.destinationViewController as? itemVC {
+                if let item = sender as? Food {
+                    destinationVC.food = item
+                }
+            }
+        }
+    }
 
 }
