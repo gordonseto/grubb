@@ -24,8 +24,13 @@ class itemVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        nameLabel.text = food.name
+        descLabel.text = food.desc
+        foodImage.image = food.foodImage
+        priceLabel.text = "$\(food.price)"
+        restaurantLabel.text = food.restaurant
+        
     }
 
     @IBAction func backButtonPressed(sender: AnyObject) {

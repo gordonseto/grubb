@@ -17,6 +17,8 @@
 		8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6911D1458C0009D4506 /* ExploreVC.swift */; };
 		8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6931D145AF6009D4506 /* FoodCell.swift */; };
 		8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6951D146C9C009D4506 /* itemVC.swift */; };
+		8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6971D14B2CD009D4506 /* CameraVC.swift */; };
+		D455998AE30EE6517BEBD3CF /* Pods_grubb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF47434F0575E06892BACAB /* Pods_grubb.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,10 @@
 		8E54A6911D1458C0009D4506 /* ExploreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		8E54A6931D145AF6009D4506 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 		8E54A6951D146C9C009D4506 /* itemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemVC.swift; sourceTree = "<group>"; };
+		8E54A6971D14B2CD009D4506 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.debug.xcconfig"; sourceTree = "<group>"; };
+		EEF47434F0575E06892BACAB /* Pods_grubb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_grubb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.release.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +45,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D455998AE30EE6517BEBD3CF /* Pods_grubb.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C7B4758679729885FBFC842 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */,
+				FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8E54A66B1D144996009D4506 = {
 			isa = PBXGroup;
 			children = (
 				8E54A6761D144996009D4506 /* grubb */,
 				8E54A6751D144996009D4506 /* Products */,
+				5C7B4758679729885FBFC842 /* Pods */,
+				C6B292F1ECF6E27324B9EFF8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +101,7 @@
 				8E54A6791D144996009D4506 /* ViewController.swift */,
 				8E54A6911D1458C0009D4506 /* ExploreVC.swift */,
 				8E54A6951D146C9C009D4506 /* itemVC.swift */,
+				8E54A6971D14B2CD009D4506 /* CameraVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -103,6 +122,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		C6B292F1ECF6E27324B9EFF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EEF47434F0575E06892BACAB /* Pods_grubb.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -110,9 +137,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E54A6891D144996009D4506 /* Build configuration list for PBXNativeTarget "grubb" */;
 			buildPhases = (
+				DAA6DAC10D9F6632CEF37A28 /* [CP] Check Pods Manifest.lock */,
 				8E54A6701D144996009D4506 /* Sources */,
 				8E54A6711D144996009D4506 /* Frameworks */,
 				8E54A6721D144996009D4506 /* Resources */,
+				610ED32A187A092736287781 /* [CP] Embed Pods Frameworks */,
+				840E7BA67E62C9F9954E2E50 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +199,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		610ED32A187A092736287781 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-grubb/Pods-grubb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		840E7BA67E62C9F9954E2E50 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-grubb/Pods-grubb-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DAA6DAC10D9F6632CEF37A28 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8E54A6701D144996009D4506 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -177,6 +255,7 @@
 				8E54A67A1D144996009D4506 /* ViewController.swift in Sources */,
 				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
 				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
+				8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */,
 				8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */,
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
@@ -291,6 +370,7 @@
 		};
 		8E54A68A1D144996009D4506 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = grubb/Info.plist;
@@ -302,6 +382,7 @@
 		};
 		8E54A68B1D144996009D4506 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = grubb/Info.plist;
@@ -330,6 +411,7 @@
 				8E54A68B1D144996009D4506 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nUg-HZ-ChK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rNl-jc-1h9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,6 +8,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
         </mutableArray>
     </customFonts>
@@ -31,6 +32,58 @@
             </objects>
             <point key="canvasLocation" x="1152" y="349"/>
         </scene>
+        <!--CameraVC-->
+        <scene sceneID="qP0-Rx-nIR">
+            <objects>
+                <viewController id="0Ix-PG-Quu" customClass="CameraVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fFE-gZ-vzc"/>
+                        <viewControllerLayoutGuide type="bottom" id="QQP-np-HUS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rpy-0p-NSH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vb1-DZ-FnX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ida-wu-ZDA">
+                                        <rect key="frame" x="8" y="42" width="60" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="QS1-Xz-D13"/>
+                                            <constraint firstAttribute="width" constant="60" id="sTh-Ey-N0w"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onCameraCancelPressed:" destination="0Ix-PG-Quu" eventType="touchUpInside" id="g4x-eg-40b"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="3qQ-mp-mTP"/>
+                                    <constraint firstItem="ida-wu-ZDA" firstAttribute="leading" secondItem="Vb1-DZ-FnX" secondAttribute="leading" constant="8" id="Pmk-lg-pIq"/>
+                                    <constraint firstAttribute="bottom" secondItem="ida-wu-ZDA" secondAttribute="bottom" constant="8" id="hjV-DT-76f"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="IMG_0161" translatesAutoresizingMaskIntoConstraints="NO" id="IpR-Cb-BfO">
+                                <rect key="frame" x="20" y="184" width="120" height="120"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="downloads" id="NyQ-cz-11O"/>
+                    <connections>
+                        <outlet property="foodImage" destination="IpR-Cb-BfO" id="hzx-LG-HCN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wJY-Q4-LjK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="374" y="-448"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Dik-o4-AVW">
             <objects>
@@ -43,6 +96,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="SeJ-Xq-XBE"/>
                         <segue destination="Neu-CJ-BbI" kind="relationship" relationship="viewControllers" id="cnI-vF-cSl"/>
+                        <segue destination="0Ix-PG-Quu" kind="relationship" relationship="viewControllers" id="bnK-ab-Oa0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ou-ai-9Wg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -389,6 +443,7 @@
                                             <constraint firstItem="4O9-8s-zNk" firstAttribute="top" secondItem="u8F-6n-lQR" secondAttribute="top" id="GR8-lJ-g53"/>
                                             <constraint firstItem="KrS-lD-epW" firstAttribute="top" secondItem="cqD-lD-8MI" secondAttribute="bottom" constant="19" id="Laj-tU-uzc"/>
                                             <constraint firstItem="pZM-jW-oHr" firstAttribute="trailing" secondItem="u8F-6n-lQR" secondAttribute="trailingMargin" id="LfC-rX-15b"/>
+                                            <constraint firstItem="X6s-XQ-uSr" firstAttribute="leading" secondItem="1ar-J2-Qex" secondAttribute="leading" constant="-5" id="MX6-Nf-cGy"/>
                                             <constraint firstAttribute="bottom" secondItem="vrT-ZI-I1s" secondAttribute="bottom" constant="37" id="Mhl-vk-AeO"/>
                                             <constraint firstItem="4O9-8s-zNk" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leading" id="OWo-dm-zup"/>
                                             <constraint firstItem="vrT-ZI-I1s" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leading" id="S0n-MU-LF0"/>

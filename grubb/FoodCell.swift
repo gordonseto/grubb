@@ -27,6 +27,7 @@ class FoodCell: UICollectionViewCell {
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 guard let data = data where error == nil else { return }
                 self.foodImage.image = UIImage(data: data)
+                self.food.foodImage = self.foodImage.image
             }
         }
     }
