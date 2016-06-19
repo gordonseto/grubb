@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E0137401D172E5C0041FDAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */; };
+		8E0137421D1739100041FDAD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137411D1739100041FDAD /* Constants.swift */; };
+		8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137451D17525F0041FDAD /* newPostVC.swift */; };
 		8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6771D144996009D4506 /* AppDelegate.swift */; };
 		8E54A67A1D144996009D4506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6791D144996009D4506 /* ViewController.swift */; };
 		8E54A67D1D144996009D4506 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E54A67B1D144996009D4506 /* Main.storyboard */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E0137411D1739100041FDAD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8E0137451D17525F0041FDAD /* newPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostVC.swift; sourceTree = "<group>"; };
 		8E54A6741D144996009D4506 /* grubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E54A6771D144996009D4506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E54A6791D144996009D4506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,8 +95,10 @@
 				8E54A67B1D144996009D4506 /* Main.storyboard */,
 				8E54A6811D144996009D4506 /* Assets.xcassets */,
 				8E54A6831D144996009D4506 /* LaunchScreen.storyboard */,
+				8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */,
 				8E54A6861D144996009D4506 /* Info.plist */,
 				8E54A67E1D144996009D4506 /* grubb.xcdatamodeld */,
+				8E0137411D1739100041FDAD /* Constants.swift */,
 			);
 			path = grubb;
 			sourceTree = "<group>";
@@ -102,6 +110,7 @@
 				8E54A6911D1458C0009D4506 /* ExploreVC.swift */,
 				8E54A6951D146C9C009D4506 /* itemVC.swift */,
 				8E54A6971D14B2CD009D4506 /* CameraVC.swift */,
+				8E0137451D17525F0041FDAD /* newPostVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 				TargetAttributes = {
 					8E54A6731D144996009D4506 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = E2C8DDCQR7;
 					};
 				};
 			};
@@ -194,6 +204,7 @@
 				8E54A6851D144996009D4506 /* LaunchScreen.storyboard in Resources */,
 				8E54A6821D144996009D4506 /* Assets.xcassets in Resources */,
 				8E54A67D1D144996009D4506 /* Main.storyboard in Resources */,
+				8E0137401D172E5C0041FDAD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E54A67A1D144996009D4506 /* ViewController.swift in Sources */,
+				8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */,
 				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
 				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
 				8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */,
@@ -260,6 +272,7 @@
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
 				8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */,
+				8E0137421D1739100041FDAD /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,10 +386,13 @@
 			baseConfigurationReference = B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = grubapp.grubb;
+				PRODUCT_BUNDLE_IDENTIFIER = grubbapp.grubb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -385,10 +401,13 @@
 			baseConfigurationReference = FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = grubapp.grubb;
+				PRODUCT_BUNDLE_IDENTIFIER = grubbapp.grubb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

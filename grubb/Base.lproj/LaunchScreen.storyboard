@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="grubb" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYT-lY-xrq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="grubb" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYT-lY-xrq">
                                 <rect key="frame" x="185" y="235" width="231" height="102"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="231" id="BhN-LV-R9F"/>
@@ -33,10 +33,12 @@
                             <constraint firstItem="VYT-lY-xrq" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="151" id="9om-tU-KyH"/>
                             <constraint firstItem="VYT-lY-xrq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="RHH-fx-6aM"/>
                             <constraint firstItem="VYT-lY-xrq" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="215" id="TUI-Hf-qIO"/>
+                            <constraint firstItem="VYT-lY-xrq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="c5q-d2-HYs"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="9om-tU-KyH"/>
+                                <exclude reference="TUI-Hf-qIO"/>
                             </mask>
                         </variation>
                     </view>

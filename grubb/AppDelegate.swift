@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Firebase
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        FIRApp.configure()
+        FIRAuth.auth()?.signInAnonymouslyWithCompletion({ (user, error) in
+            let uid = user!.uid
+            print(uid)
+            NSUserDefaults.standardUserDefaults().setObject(uid, forKey: "USER_UID")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        })
+        GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
         return true
     }
 

@@ -7,4 +7,8 @@ target 'grubb' do
 
   # Pods for grubb
   pod 'Fusuma'
+  pod 'Firebase'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
+  pod 'GoogleMaps'
 end

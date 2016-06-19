@@ -9,20 +9,17 @@
 import UIKit
 import Fusuma
 
-class CameraVC: UIViewController, FusumaDelegate{
-
-    @IBOutlet weak var foodImage: UIImageView!
+class CameraVC: UIViewController, FusumaDelegate {
     
     var cameraIsCancelled: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
 
     override func viewDidAppear(animated: Bool) {
-        if foodImage.image == nil && cameraIsCancelled == false {
+        if cameraIsCancelled == false {
             let fusuma = FusumaViewController()
             fusuma.delegate = self
             fusuma.hasVideo = false
@@ -32,7 +29,6 @@ class CameraVC: UIViewController, FusumaDelegate{
     }
     
     func fusumaImageSelected(image: UIImage) {
-        foodImage.image = image
         return
     }
     
@@ -41,6 +37,7 @@ class CameraVC: UIViewController, FusumaDelegate{
     }
     
     func fusumaDismissedWithImage(image: UIImage) {
+        performSegueWithIdentifier("newPostVC", sender: image)
         return
     }
     
@@ -52,15 +49,23 @@ class CameraVC: UIViewController, FusumaDelegate{
         postingCanceled()
     }
     
-    @IBAction func onCameraCancelPressed(sender: AnyObject) {
-        postingCanceled()
-    }
-    
     func postingCanceled() {
         if let tabBarController = self.tabBarController {
-            foodImage.image = nil
             tabBarController.selectedIndex = 0
             cameraIsCancelled = false
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "newPostVC" {
+            if let destinationVC = segue.destinationViewController as? newPostVC {
+                if let image = sender as? UIImage {
+                    destinationVC.image = image
+                    cameraIsCancelled = false
+                }
+            }
+        }
+    }
 }
+
+
