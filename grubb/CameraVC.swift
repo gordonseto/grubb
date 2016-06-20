@@ -16,6 +16,8 @@ class CameraVC: UIViewController, FusumaDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        prefersStatusBarHidden()
+        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -26,6 +28,10 @@ class CameraVC: UIViewController, FusumaDelegate {
             self.presentViewController(fusuma, animated: true, completion: nil)
             cameraIsCancelled = true
         }
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     func fusumaImageSelected(image: UIImage) {

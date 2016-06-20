@@ -10,6 +10,8 @@
 		8E0137401D172E5C0041FDAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */; };
 		8E0137421D1739100041FDAD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137411D1739100041FDAD /* Constants.swift */; };
 		8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137451D17525F0041FDAD /* newPostVC.swift */; };
+		8E01374D1D185CD10041FDAD /* newPostTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01374C1D185CD10041FDAD /* newPostTextField.swift */; };
+		8E0137511D187D140041FDAD /* categoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137501D187D140041FDAD /* categoryButton.swift */; };
 		8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6771D144996009D4506 /* AppDelegate.swift */; };
 		8E54A67A1D144996009D4506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6791D144996009D4506 /* ViewController.swift */; };
 		8E54A67D1D144996009D4506 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E54A67B1D144996009D4506 /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 		8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E0137411D1739100041FDAD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8E0137451D17525F0041FDAD /* newPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostVC.swift; sourceTree = "<group>"; };
+		8E01374C1D185CD10041FDAD /* newPostTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostTextField.swift; sourceTree = "<group>"; };
+		8E0137501D187D140041FDAD /* categoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = categoryButton.swift; sourceTree = "<group>"; };
 		8E54A6741D144996009D4506 /* grubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E54A6771D144996009D4506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E54A6791D144996009D4506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8E0137491D184CD30041FDAD /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				8E0137411D1739100041FDAD /* Constants.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 		8E54A66B1D144996009D4506 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +100,7 @@
 		8E54A6761D144996009D4506 /* grubb */ = {
 			isa = PBXGroup;
 			children = (
+				8E0137491D184CD30041FDAD /* Util */,
 				8E54A68E1D144E86009D4506 /* Model */,
 				8E54A68D1D144E83009D4506 /* View */,
 				8E54A68C1D144E7C009D4506 /* Controller */,
@@ -98,7 +111,6 @@
 				8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */,
 				8E54A6861D144996009D4506 /* Info.plist */,
 				8E54A67E1D144996009D4506 /* grubb.xcdatamodeld */,
-				8E0137411D1739100041FDAD /* Constants.swift */,
 			);
 			path = grubb;
 			sourceTree = "<group>";
@@ -119,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				8E54A6931D145AF6009D4506 /* FoodCell.swift */,
+				8E01374C1D185CD10041FDAD /* newPostTextField.swift */,
+				8E0137501D187D140041FDAD /* categoryButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -268,11 +282,13 @@
 				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
 				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
 				8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */,
+				8E0137511D187D140041FDAD /* categoryButton.swift in Sources */,
 				8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */,
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
 				8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */,
 				8E0137421D1739100041FDAD /* Constants.swift in Sources */,
+				8E01374D1D185CD10041FDAD /* newPostTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

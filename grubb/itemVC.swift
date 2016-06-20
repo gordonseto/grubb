@@ -26,7 +26,6 @@ class itemVC: UIViewController {
         super.viewDidLoad()
         
         nameLabel.text = food.name
-        descLabel.text = food.desc
         foodImage.image = food.foodImage
         priceLabel.text = "$\(food.price)"
         restaurantLabel.text = food.restaurant
