@@ -1,3 +1,4 @@
+
 //
 //  ExploreVC.swift
 //  grubb
@@ -8,6 +9,8 @@
 
 import UIKit
 import AVFoundation
+import GeoFire
+import FirebaseDatabase
 
 class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
@@ -32,6 +35,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         layout.minimumLineSpacing = 0
         
         food = [Food(name: "test1"), Food(name: "test2"), Food(name: "test3"), Food(name: "test4"), Food(name: "test5")]
+        
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

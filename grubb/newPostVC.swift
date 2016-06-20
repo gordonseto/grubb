@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import GoogleMaps
+import GeoFire
 
 class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
@@ -91,6 +92,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                 let key = firebase.child("posts").childByAutoId().key
                                 let post: [String: AnyObject] = ["name": nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": categoryArray]
                                 firebase.child("posts").child(key).setValue(post)
+                                let geoFire = GeoFire(firebaseRef: firebase.child("geolocations"))
+                                geoFire.setLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude), forKey: key)
                                 print(post)
                                 print(coordinate)
                                 performSegueWithIdentifier("tabBarVC", sender: nil)

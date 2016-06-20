@@ -32,6 +32,7 @@
 		8E0137451D17525F0041FDAD /* newPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostVC.swift; sourceTree = "<group>"; };
 		8E01374C1D185CD10041FDAD /* newPostTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostTextField.swift; sourceTree = "<group>"; };
 		8E0137501D187D140041FDAD /* categoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = categoryButton.swift; sourceTree = "<group>"; };
+		8E0137541D189E180041FDAD /* grubb-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "grubb-Bridging-Header.h"; sourceTree = "<group>"; };
 		8E54A6741D144996009D4506 /* grubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E54A6771D144996009D4506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E54A6791D144996009D4506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 				8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */,
 				8E54A6861D144996009D4506 /* Info.plist */,
 				8E54A67E1D144996009D4506 /* grubb.xcdatamodeld */,
+				8E0137541D189E180041FDAD /* grubb-Bridging-Header.h */,
 			);
 			path = grubb;
 			sourceTree = "<group>";
@@ -402,13 +404,20 @@
 			baseConfigurationReference = B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = grubbapp.grubb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -417,13 +426,19 @@
 			baseConfigurationReference = FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = grubbapp.grubb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 			};
 			name = Release;
 		};
