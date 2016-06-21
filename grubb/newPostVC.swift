@@ -113,10 +113,13 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                     let uploadTask = childRef.putData(imgData, metadata: nil) { metadata, error in
                                         if (error != nil) {
                                             print(error.debugDescription)
+                                            self.showErrorAlert("Oops! There was an error sharing your dish.", msg: "Please make sure you have an internet connection.")
+                                            self.shareButton.enabled = true
                                         } else {
-                                            let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price,    "restaurant":  restaurant, "categoryArray": self.categoryArray]
+                                            let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray]
                                             
                                             self.firebase.child("posts").child(key).setValue(post)
+                                            self.firebase.child("users").child(uid).child("posts").child(key).setValue(true)
                                             
                                             let geoFire = GeoFire(firebaseRef: self.firebase.child("geolocations"))
                                             geoFire.setLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude), forKey: key)
@@ -140,6 +143,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                             self.progressBar.setProgress(Float(percentComplete), animated: true)
                                         }
                                     }
+                                    
+                                    
                                 }
                             }
                         }
