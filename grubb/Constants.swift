@@ -11,3 +11,4 @@ import UIKit
 
 let GOOGLE_PLACES_API_KEY = "AIzaSyCENg1VAWUBmdqqzaTsYGN0WBzzgwK_E34"
 let SHADOW_COLOR: CGFloat = 157.0 / 255.0
+let FIREBASE_STORAGE = "gs://project-2517122813874323165.appspot.com"

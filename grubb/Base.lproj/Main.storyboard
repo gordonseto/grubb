@@ -152,7 +152,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="a8C-Ej-gUW">
-                                <rect key="frame" x="0.0" y="47" width="600" height="496"/>
+                                <rect key="frame" x="0.0" y="63" width="600" height="496"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-TY-RiW">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="124"/>
@@ -403,13 +403,25 @@
                                     </mask>
                                 </variation>
                             </stackView>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SvA-5n-tSo">
+                                <rect key="frame" x="-11" y="53" width="611" height="2"/>
+                                <color key="tintColor" red="0.95408653850000003" green="0.0" blue="0.27912668039999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="ypi-oP-Ecy"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="SvA-5n-tSo" secondAttribute="trailing" id="3Z0-UX-oUV"/>
                             <constraint firstAttribute="trailing" secondItem="HI8-Xx-mpt" secondAttribute="trailing" id="5Dj-uL-2Qz"/>
+                            <constraint firstItem="a8C-Ej-gUW" firstAttribute="top" secondItem="HI8-Xx-mpt" secondAttribute="bottom" id="FHB-fh-Hdp"/>
                             <constraint firstItem="IxB-85-7yA" firstAttribute="top" secondItem="a8C-Ej-gUW" secondAttribute="bottom" id="GZO-0b-jvX"/>
                             <constraint firstItem="L62-AG-fPJ" firstAttribute="top" secondItem="a8C-Ej-gUW" secondAttribute="bottom" id="NBT-LT-CV4"/>
                             <constraint firstItem="HI8-Xx-mpt" firstAttribute="top" secondItem="iFo-sp-OxR" secondAttribute="topMargin" id="Nd0-9E-p2N"/>
+                            <constraint firstItem="SvA-5n-tSo" firstAttribute="leading" secondItem="iFo-sp-OxR" secondAttribute="leading" id="QCC-FD-dRM"/>
                             <constraint firstItem="IxB-85-7yA" firstAttribute="top" secondItem="a8C-Ej-gUW" secondAttribute="bottom" id="QTS-qT-FdR"/>
+                            <constraint firstItem="a8C-Ej-gUW" firstAttribute="top" secondItem="HI8-Xx-mpt" secondAttribute="bottom" id="R3V-Ia-kaS"/>
+                            <constraint firstItem="a8C-Ej-gUW" firstAttribute="top" secondItem="SvA-5n-tSo" secondAttribute="bottom" id="bfM-qa-GXm"/>
                             <constraint firstItem="L62-AG-fPJ" firstAttribute="bottom" secondItem="iFo-sp-OxR" secondAttribute="bottomMargin" id="eta-nW-iWd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="L62-AG-fPJ" secondAttribute="trailing" constant="-20" id="h8j-5x-pPr"/>
                             <constraint firstItem="a8C-Ej-gUW" firstAttribute="top" secondItem="HI8-Xx-mpt" secondAttribute="bottom" id="hsg-cE-HdO"/>
@@ -420,6 +432,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="FHB-fh-Hdp"/>
+                                <exclude reference="hsg-cE-HdO"/>
                                 <exclude reference="GZO-0b-jvX"/>
                                 <exclude reference="QTS-qT-FdR"/>
                             </mask>
@@ -430,6 +444,8 @@
                         <outlet property="locationButton" destination="Uud-CQ-FG1" id="dzj-HN-z2G"/>
                         <outlet property="nameInput" destination="ROn-7L-gI6" id="rNm-EI-ZTj"/>
                         <outlet property="priceInput" destination="7AM-Dg-3zS" id="JNI-kz-cdJ"/>
+                        <outlet property="progressBar" destination="SvA-5n-tSo" id="SmH-8v-xKM"/>
+                        <outlet property="shareButton" destination="L62-AG-fPJ" id="kyU-yb-TsY"/>
                         <segue destination="rNl-jc-1h9" kind="show" identifier="tabBarVC" id="YKK-7t-rIq"/>
                     </connections>
                 </viewController>

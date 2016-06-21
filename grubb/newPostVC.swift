@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import GoogleMaps
 import GeoFire
+import FirebaseStorage
 
 class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
@@ -17,6 +18,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var nameInput: UITextView!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var priceInput: UITextField!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     var firebase: FIRDatabaseReference!
     var restaurant: String!
@@ -45,6 +48,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -83,20 +88,59 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     @IBAction func onSharePressed(sender: AnyObject) {
+        savePostToDatabase()
+    }
+    
+    func savePostToDatabase(){
         if nameInput.text != "" || nameInput.text != TEXTVIEW_PLACEHOLDER {
             if let price = Double(priceInput.text!) {
                 if !categoryArray.isEmpty {
                     if let restaurant = restaurant {
                         if let coordinate = coordinate {
                             if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
-                                let key = firebase.child("posts").childByAutoId().key
-                                let post: [String: AnyObject] = ["name": nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": categoryArray]
-                                firebase.child("posts").child(key).setValue(post)
-                                let geoFire = GeoFire(firebaseRef: firebase.child("geolocations"))
-                                geoFire.setLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude), forKey: key)
-                                print(post)
-                                print(coordinate)
-                                performSegueWithIdentifier("tabBarVC", sender: nil)
+                                if let img = foodImage.image {
+                                    shareButton.enabled = false
+                                    progressBar.hidden = false
+                                    
+                                    let key = firebase.child("posts").childByAutoId().key
+                                
+                                    let storage = FIRStorage.storage()
+                                    let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
+                                    let imagesRef = storageRef.child("images")
+                                    let childRef = imagesRef.child(key)
+                                    let imgData: NSData = UIImageJPEGRepresentation(img, 1)!
+                                    
+                                    let uploadTask = childRef.putData(imgData, metadata: nil) { metadata, error in
+                                        if (error != nil) {
+                                            print(error.debugDescription)
+                                        } else {
+                                            let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price,    "restaurant":  restaurant, "categoryArray": self.categoryArray]
+                                            
+                                            self.firebase.child("posts").child(key).setValue(post)
+                                            
+                                            let geoFire = GeoFire(firebaseRef: self.firebase.child("geolocations"))
+                                            geoFire.setLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude), forKey: key)
+                                            
+                                            print(post)
+                                            print(coordinate)
+                                            self.shareButton.enabled = true
+                                            
+                                            let delay = 1.0 * Double(NSEC_PER_SEC)
+                                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                            dispatch_after(time, dispatch_get_main_queue()) {
+                                                self.performSegueWithIdentifier("tabBarVC", sender: nil)
+                                            }
+                                        }
+                                    }
+                                    
+                                    uploadTask.observeStatus(.Progress) { snapshot in
+                                        // Upload reported progress
+                                        if let progress = snapshot.progress {
+                                            let percentComplete = 100.0 * Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                                            self.progressBar.setProgress(Float(percentComplete), animated: true)
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
