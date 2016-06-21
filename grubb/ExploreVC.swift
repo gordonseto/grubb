@@ -34,8 +34,31 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         
-        food = [Food(name: "test1"), Food(name: "test2"), Food(name: "test3"), Food(name: "test4"), Food(name: "test5")]
+        let firebase = FIRDatabase.database().reference()
+        let geofireRef = firebase.child("geolocations")
+        let geofire = GeoFire(firebaseRef: geofireRef)
         
+        let center = CLLocation(latitude: 51.1262105, longitude: -114.2073206)
+        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+        var circleQuery = geofire.queryAtLocation(center, withRadius: 0.6)
+        
+        var queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+            print("Key '\(key)' entered the search area and is at location '\(location)'")
+            
+            firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                let name = snapshot.value!["name"] as! String
+                let price = snapshot.value!["price"] as! Double
+                let restaurant = snapshot.value!["restaurant"] as! String
+                let categoryArray = snapshot.value!["categoryArray"] as! [String]
+                let geolocation = location
+                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation)
+                self.food.append(newFood)
+                print(newFood.restaurant)
+                self.collection.reloadData()
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        })
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

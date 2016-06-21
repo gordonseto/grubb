@@ -11,21 +11,25 @@ import MapKit
 
 class Food {
 
-    private var _id: String!
+    private var _key: String!
     private var _name: String!
-    private var _category: [String]!
+    private var _categoryArray: [String]!
     private var _price: Double!
     private var _restaurant: String!
     private var _geolocation: CLLocation!
     private var _imageUrl: String!
     var foodImage: UIImage?
     
+    var key: String {
+        return _key
+    }
+    
     var name: String {
         return _name
     }
     
-    var category: [String] {
-        return _category
+    var categoryArray: [String] {
+        return _categoryArray
     }
     
     var price: Double {
@@ -44,14 +48,13 @@ class Food {
         return _imageUrl
     }
     
-    
-    
-    init(name: String){
+    init(key: String, name: String, restaurant: String, price: Double, categoryArray: [String], geolocation: CLLocation){
+        _key = key
         _name = name
+        _restaurant = restaurant
+        _price = price
+        _categoryArray = categoryArray
+        _geolocation = geolocation
         _imageUrl = "http://res.cloudinary.com/gordonseto/image/upload/v1465232634/trnorlc6ihzqjcngyybx.jpg"
-        _category = ["breakfast", "lunch", "dinner", "dessert"]
-        _price = 21
-        _restaurant = "Mucho Burrito"
-        _geolocation = CLLocation(latitude: 51.128735, longitude: -114.196981)
     }
 }
