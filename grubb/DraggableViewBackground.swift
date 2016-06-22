@@ -12,7 +12,7 @@ import GeoFire
 import FirebaseDatabase
 import FirebaseStorage
 
-protocol DraggableViewBackgroundDelegate {
+protocol DraggableViewBackgroundDelegate: class {
     func onCardTapped(sender: Food)
 }
 
@@ -32,7 +32,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     var xButton: UIButton!
     
     var food = [Food]()
-    var delegate: DraggableViewBackgroundDelegate!
+    weak var delegate: DraggableViewBackgroundDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -127,6 +127,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
                 print(error.debugDescription)
             } else {
                 let foodImage: UIImage! = UIImage(data: data!)
+                card.food.foodImage = foodImage
                 card.foodImage.image = foodImage
                 print("loaded \(card.food.restaurant)'s image")
             }

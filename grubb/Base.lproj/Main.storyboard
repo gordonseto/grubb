@@ -675,6 +675,7 @@
                                                     <constraint firstAttribute="width" constant="600" id="Nhf-V5-uMy"/>
                                                     <constraint firstAttribute="height" constant="573" id="Ovo-Kj-dec"/>
                                                     <constraint firstAttribute="width" secondItem="4O9-8s-zNk" secondAttribute="height" multiplier="120:101" id="PBf-pr-tA2"/>
+                                                    <constraint firstAttribute="width" secondItem="4O9-8s-zNk" secondAttribute="height" multiplier="1:1" id="eYw-aM-ejE"/>
                                                     <constraint firstAttribute="height" constant="380" id="gfO-z8-s6h"/>
                                                     <constraint firstAttribute="width" secondItem="4O9-8s-zNk" secondAttribute="height" multiplier="200:191" id="grT-FY-3vY"/>
                                                 </constraints>
@@ -684,6 +685,7 @@
                                                         <exclude reference="Ovo-Kj-dec"/>
                                                         <exclude reference="PBf-pr-tA2"/>
                                                         <exclude reference="gfO-z8-s6h"/>
+                                                        <exclude reference="grT-FY-3vY"/>
                                                     </mask>
                                                 </variation>
                                             </imageView>
@@ -805,7 +807,7 @@
                                             <constraint firstItem="yQ2-xe-d9q" firstAttribute="centerY" secondItem="KrS-lD-epW" secondAttribute="centerY" constant="7" id="1MA-pL-36G"/>
                                             <constraint firstItem="cqD-lD-8MI" firstAttribute="top" secondItem="X6s-XQ-uSr" secondAttribute="bottom" constant="25" id="2sK-jx-2s3"/>
                                             <constraint firstItem="fi6-dg-slG" firstAttribute="centerY" secondItem="w0z-iA-Dvt" secondAttribute="centerY" id="4A3-Aa-W5f"/>
-                                            <constraint firstItem="w0z-iA-Dvt" firstAttribute="top" secondItem="4O9-8s-zNk" secondAttribute="bottom" constant="70" id="8wU-dz-Tlb"/>
+                                            <constraint firstItem="w0z-iA-Dvt" firstAttribute="top" secondItem="4O9-8s-zNk" secondAttribute="bottom" constant="20" id="8wU-dz-Tlb"/>
                                             <constraint firstItem="Ctw-ec-OWc" firstAttribute="trailing" secondItem="u8F-6n-lQR" secondAttribute="trailingMargin" id="9hL-fh-84b"/>
                                             <constraint firstItem="cqD-lD-8MI" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leading" constant="30" id="9w8-rD-Hi1"/>
                                             <constraint firstItem="w0z-iA-Dvt" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leadingMargin" id="D3Q-bh-JvN"/>
@@ -910,6 +912,6 @@
         <image name="noun_366038_cc" width="700" height="700"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WkF-jZ-Ozx"/>
+        <segue reference="h5i-bF-ZWG"/>
     </inferredMetricsTieBreakers>
 </document>

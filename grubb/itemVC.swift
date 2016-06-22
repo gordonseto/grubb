@@ -3,7 +3,7 @@
 //  grubb
 //
 //  Created by Gordon Seto on 2016-06-17.
-//  Copyright © 2016 grubapp. All rights reserved.
+//  Copyright © 2016 grubbapp. All rights reserved.
 //
 
 import UIKit
@@ -27,7 +27,7 @@ class itemVC: UIViewController {
         
         nameLabel.text = food.name
         foodImage.image = food.foodImage
-        priceLabel.text = "$\(food.price)"
+        priceLabel.text = String.localizedStringWithFormat("$%.2f", food.price)
         restaurantLabel.text = food.restaurant
         
     }

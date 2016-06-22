@@ -3,12 +3,12 @@
 //  grubb
 //
 //  Created by Gordon Seto on 2016-06-17.
-//  Copyright © 2016 grubapp. All rights reserved.
+//  Copyright © 2016 grubbapp. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, DraggableViewBackgroundDelegate {
+class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,12 +16,19 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate {
 
         let draggableBackground: DraggableViewBackground = DraggableViewBackground(frame: self.view.frame)
         self.view.addSubview(draggableBackground)
-        /*
-        let searchView: UIView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 55))
-        searchView.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(searchView)
-        */
         draggableBackground.delegate = self
+        
+        let navigationLayer = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 70))
+        navigationLayer.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(navigationLayer)
+        
+        let search = searchField(frame: CGRectMake(8, 30, self.view.frame.size.width * 0.8, 30))
+        search.delegate = self
+        self.view.addSubview(search)
+        
+        let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 50, 25, 40, 40))
+        filterButton.setImage(UIImage(named: "filterButton"), forState: UIControlState.Normal)
+        self.view.addSubview(filterButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +48,15 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate {
                 }
             }
         }
+    }
+    
+    func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
+    {
+        if string == "\n" {
+            textField.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }
 

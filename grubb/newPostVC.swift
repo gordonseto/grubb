@@ -3,7 +3,7 @@
 //  grubb
 //
 //  Created by Gordon Seto on 2016-06-19.
-//  Copyright © 2016 grubapp. All rights reserved.
+//  Copyright © 2016 grubbapp. All rights reserved.
 //
 
 import UIKit
