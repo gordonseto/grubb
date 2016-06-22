@@ -7,14 +7,23 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import GeoFire
 
 class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate {
+    
+    var food = [Food]()
+    var searchedFood = [Food]()
+    var circleQuery: GFCircleQuery!
+    var draggableBackground: DraggableViewBackground!
+    
+    var search: searchField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        let draggableBackground: DraggableViewBackground = DraggableViewBackground(frame: self.view.frame)
+        draggableBackground = DraggableViewBackground(frame: self.view.frame)
         self.view.addSubview(draggableBackground)
         draggableBackground.delegate = self
         
@@ -22,18 +31,55 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         navigationLayer.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(navigationLayer)
         
-        let search = searchField(frame: CGRectMake(8, 30, self.view.frame.size.width * 0.8, 30))
+        search = searchField(frame: CGRectMake(8, 30, self.view.frame.size.width * 0.8, 30))
         search.delegate = self
         self.view.addSubview(search)
         
         let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 50, 25, 40, 40))
         filterButton.setImage(UIImage(named: "filterButton"), forState: UIControlState.Normal)
         self.view.addSubview(filterButton)
+        
+        queryDishes(draggableBackground)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    func queryDishes(draggableBackground: DraggableViewBackground){
+        var cardIndex = 0
+        
+        let firebase = FIRDatabase.database().reference()
+        let geofireRef = firebase.child("geolocations")
+        let geofire = GeoFire(firebaseRef: geofireRef)
+        
+        let center = CLLocation(latitude: 51.1262105, longitude: -114.2073206)
+        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+        circleQuery = geofire.queryAtLocation(center, withRadius: 0.6)
+        
+        var queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+            print("Key '\(key)' entered the search area and is at location '\(location)'")
+            
+            firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                let name = snapshot.value!["name"] as! String
+                let price = snapshot.value!["price"] as! Double
+                let restaurant = snapshot.value!["restaurant"] as! String
+                let categoryArray = snapshot.value!["categoryArray"] as! [String]
+                let geolocation = location
+                let search_key = "\(name) \(restaurant) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: ""))"
+                
+                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, search_key: search_key)
+                self.food.append(newFood)
+                print(newFood.restaurant)
+                
+                draggableBackground.addToCards(cardIndex, newFood: newFood)
+                cardIndex++
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        })
+        
+        var keyExited = circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
+            print("Key '\(key)' has exited and is at location '\(location)'")
+        })
     }
     
     func onCardTapped(sender: Food){
@@ -50,6 +96,11 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         }
     }
     
+    func onRestartTapped(){
+        let query = search.text!
+        searchFood(query)
+    }
+    
     func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
     {
         if string == "\n" {
@@ -57,6 +108,41 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             return false
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        let search = textField.text!
+        searchFood(search)
+    }
+
+    func searchFood(search: String){
+        if search == "" {
+            shuffleFood(food)
+            print("loading food array")
+        } else {
+            searchedFood = food.filter({$0.search_key.rangeOfString(search) != nil})
+            shuffleFood(searchedFood)
+        }
+    }
+    
+    func shuffleFood(foodArray: [Food]){
+        var foodArray = shuffleArray(foodArray)
+        draggableBackground.loadDeckOfCards(foodArray)
+    }
+    
+    func shuffleArray<T>(array: Array<T>) -> Array<T>
+    {
+        var array = array
+        for var index = array.count - 1; index > 0; index--
+        {
+            // Random int from 0 to index-1
+            var j = Int(arc4random_uniform(UInt32(index-1)))
+            
+            // Swap two array elements
+            // Notice '&' required as swap uses 'inout' parameters
+            swap(&array[index], &array[j])
+        }
+        return array
     }
 }
 

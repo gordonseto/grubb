@@ -14,6 +14,7 @@ import FirebaseStorage
 
 protocol DraggableViewBackgroundDelegate: class {
     func onCardTapped(sender: Food)
+    func onRestartTapped()
 }
 
 class DraggableViewBackground: UIView, DraggableViewDelegate {
@@ -23,6 +24,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     let MAX_BUFFER_SIZE = 5
     var CARD_HEIGHT: CGFloat!
     var CARD_WIDTH: CGFloat!
+    let CARD_TAG = 9
     
     var cardsLoadedIndex: Int!
     var loadedCards: [DraggableView]!
@@ -55,42 +57,8 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         self.loadedCards = []
         self.cardsLoadedIndex = 0
         
-        queryDishes()
     }
     
-    func queryDishes(){
-        var cardIndex = 0
-        
-        let firebase = FIRDatabase.database().reference()
-        let geofireRef = firebase.child("geolocations")
-        let geofire = GeoFire(firebaseRef: geofireRef)
-        
-        let center = CLLocation(latitude: 51.1262105, longitude: -114.2073206)
-        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
-        var circleQuery = geofire.queryAtLocation(center, withRadius: 0.6)
-        
-        var queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
-            print("Key '\(key)' entered the search area and is at location '\(location)'")
-            
-            firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-                let name = snapshot.value!["name"] as! String
-                let price = snapshot.value!["price"] as! Double
-                let restaurant = snapshot.value!["restaurant"] as! String
-                let categoryArray = snapshot.value!["categoryArray"] as! [String]
-                let geolocation = location
-                
-                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation)
-                self.food.append(newFood)
-                print(newFood.restaurant)
-                
-                self.addToCards(cardIndex, newFood: newFood)
-                cardIndex++
-                
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        })
-    }
     
     func addToCards(cardIndex: Int, newFood: Food) -> Void {
         let draggableView = DraggableView(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2, (self.frame.size.height - CARD_HEIGHT)/2 - 20, CARD_WIDTH, CARD_HEIGHT))
@@ -99,12 +67,12 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         draggableView.price.text = String.localizedStringWithFormat("$%.2f", newFood.price)
         draggableView.restaurant.text = newFood.restaurant
         draggableView.delegate = self
+        draggableView.tag = CARD_TAG
         allCards.append(draggableView)
-    
-        let numLoadedCardsCap = food.count > MAX_BUFFER_SIZE ? MAX_BUFFER_SIZE : food.count
+
+        let numLoadedCardsCap = allCards.count > MAX_BUFFER_SIZE ? MAX_BUFFER_SIZE : allCards.count
         if cardIndex < numLoadedCardsCap {
             loadedCards.append(draggableView)
-            
             loadCardImage(draggableView)
             
             if cardIndex > 0 {
@@ -122,16 +90,36 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
         let imagesRef = storageRef.child("images")
         let childRef = imagesRef.child(card.food.key)
-        childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
-            if (error != nil){
-                print(error.debugDescription)
-            } else {
-                let foodImage: UIImage! = UIImage(data: data!)
-                card.food.foodImage = foodImage
-                card.foodImage.image = foodImage
-                print("loaded \(card.food.restaurant)'s image")
+        
+        if card.food.foodImage == nil {
+            childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                if (error != nil){
+                    print(error.debugDescription)
+                } else {
+                    let foodImage: UIImage! = UIImage(data: data!)
+                    card.food.foodImage = foodImage
+                    card.foodImage.image = foodImage
+                    print("loaded \(card.food.restaurant)'s image")
+                }
+            })
+        } else {
+            card.foodImage.image = card.food.foodImage
+        }
+    }
+    
+    func loadDeckOfCards(deckOfCards: [Food]){
+        let subViews = self.subviews
+        for subView in subViews {
+            if subView.tag == CARD_TAG {
+                subView.removeFromSuperview()
             }
-        })
+        }
+        allCards = []
+        loadedCards = []
+        cardsLoadedIndex = 0
+        for var i = 0; i < deckOfCards.count; i++ {
+            addToCards(i, newFood: deckOfCards[i])
+        }
     }
     
     func setupView() -> Void {
@@ -148,6 +136,11 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         
         self.addSubview(xButton)
         self.addSubview(checkButton)
+        
+        let restartButton = UIButton(frame: CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2, 40, 40))
+        restartButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
+        restartButton.addTarget(self, action: #selector(onRestartTapped), forControlEvents: .TouchUpInside)
+        self.addSubview(restartButton)
     }
     
     func createDraggableViewWithDataAtIndex(index: NSInteger) -> DraggableView {
@@ -207,6 +200,10 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     
     func onCardTapped(food: Food){
         delegate?.onCardTapped(food)
+    }
+    
+    func onRestartTapped(){
+        delegate?.onRestartTapped()
     }
     
     func swipeRight() -> Void {

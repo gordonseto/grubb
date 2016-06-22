@@ -51,7 +51,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 let restaurant = snapshot.value!["restaurant"] as! String
                 let categoryArray = snapshot.value!["categoryArray"] as! [String]
                 let geolocation = location
-                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation)
+                let search_key = "\(name) \(restaurant)"
+                
+                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, search_key: search_key)
                 self.food.append(newFood)
                 print(newFood.restaurant)
                 self.collection.reloadData()
