@@ -9,10 +9,18 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        let draggableBackground: DraggableViewBackground = DraggableViewBackground(frame: self.view.frame)
+        self.view.addSubview(draggableBackground)
+        /*
+        let searchView: UIView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 55))
+        searchView.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(searchView)
+        */
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,6 +12,9 @@
 		8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137451D17525F0041FDAD /* newPostVC.swift */; };
 		8E01374D1D185CD10041FDAD /* newPostTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01374C1D185CD10041FDAD /* newPostTextField.swift */; };
 		8E0137511D187D140041FDAD /* categoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137501D187D140041FDAD /* categoryButton.swift */; };
+		8E01376A1D19E4E80041FDAD /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137691D19E4E80041FDAD /* DraggableView.swift */; };
+		8E01376C1D19E5070041FDAD /* DraggableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01376B1D19E5070041FDAD /* DraggableViewBackground.swift */; };
+		8E01376E1D19E5200041FDAD /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01376D1D19E5200041FDAD /* OverlayView.swift */; };
 		8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6771D144996009D4506 /* AppDelegate.swift */; };
 		8E54A67A1D144996009D4506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6791D144996009D4506 /* ViewController.swift */; };
 		8E54A67D1D144996009D4506 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E54A67B1D144996009D4506 /* Main.storyboard */; };
@@ -33,6 +36,9 @@
 		8E01374C1D185CD10041FDAD /* newPostTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostTextField.swift; sourceTree = "<group>"; };
 		8E0137501D187D140041FDAD /* categoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = categoryButton.swift; sourceTree = "<group>"; };
 		8E0137541D189E180041FDAD /* grubb-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "grubb-Bridging-Header.h"; sourceTree = "<group>"; };
+		8E0137691D19E4E80041FDAD /* DraggableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
+		8E01376B1D19E5070041FDAD /* DraggableViewBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewBackground.swift; sourceTree = "<group>"; };
+		8E01376D1D19E5200041FDAD /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		8E54A6741D144996009D4506 /* grubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E54A6771D144996009D4506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E54A6791D144996009D4506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +126,7 @@
 		8E54A68C1D144E7C009D4506 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8E01376B1D19E5070041FDAD /* DraggableViewBackground.swift */,
 				8E54A6791D144996009D4506 /* ViewController.swift */,
 				8E54A6911D1458C0009D4506 /* ExploreVC.swift */,
 				8E54A6951D146C9C009D4506 /* itemVC.swift */,
@@ -135,6 +142,8 @@
 				8E54A6931D145AF6009D4506 /* FoodCell.swift */,
 				8E01374C1D185CD10041FDAD /* newPostTextField.swift */,
 				8E0137501D187D140041FDAD /* categoryButton.swift */,
+				8E0137691D19E4E80041FDAD /* DraggableView.swift */,
+				8E01376D1D19E5200041FDAD /* OverlayView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -279,13 +288,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E01376C1D19E5070041FDAD /* DraggableViewBackground.swift in Sources */,
 				8E54A67A1D144996009D4506 /* ViewController.swift in Sources */,
+				8E01376A1D19E4E80041FDAD /* DraggableView.swift in Sources */,
 				8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */,
 				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
 				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
 				8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */,
 				8E0137511D187D140041FDAD /* categoryButton.swift in Sources */,
 				8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */,
+				8E01376E1D19E5200041FDAD /* OverlayView.swift in Sources */,
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
 				8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */,
