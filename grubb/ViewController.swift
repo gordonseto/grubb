@@ -9,13 +9,19 @@
 import UIKit
 import FirebaseDatabase
 import GeoFire
+import AZDropdownMenu
 
 class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate {
     
     var food = [Food]()
     var searchedFood = [Food]()
+    var filteredFood = [Food]()
     var circleQuery: GFCircleQuery!
     var draggableBackground: DraggableViewBackground!
+    
+    var filterLayer: UIView!
+    var menu: AZDropdownMenu!
+    var filter = ""
     
     var search: searchField!
     
@@ -37,9 +43,26 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         
         let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 50, 25, 40, 40))
         filterButton.setImage(UIImage(named: "filterButton"), forState: UIControlState.Normal)
+        filterButton.addTarget(self, action: #selector(onFilterTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(filterButton)
         
+        filterLayer = UIView(frame: CGRectMake(0, 71, self.view.frame.size.width, 70))
+        filterLayer.backgroundColor = UIColor.clearColor()
+        self.view.addSubview(filterLayer)
+        let filterTitles = ["", "Breakfast", "Lunch", "Dinner", "Dessert", "All Dishes"]
+        menu = AZDropdownMenu(titles: filterTitles)
+        menu.shouldDismissMenuOnDrag = true
+        menu.itemFontColor = UIColor.darkGrayColor()
+        menu.itemFontName = "HelveticaNeue-Bold"
+        menu.itemFontSize = 17
+        menu.itemAlignment = .Center
+        menu.menuSeparatorStyle = .None
+        menu.cellTapHandler = { [weak self] (indexPath: NSIndexPath) -> Void in
+            self!.filterSelected(indexPath.row)
+        }
+        
         queryDishes(draggableBackground)
+    
     }
     
     
@@ -96,9 +119,34 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         }
     }
     
+    func onFilterTapped(){
+        menu.showMenuFromView(self.view)
+    }
+    
+    func filterSelected(index: Int){
+        switch(index) {
+        case 1:
+            filter = "Breakfast"
+        case 2:
+            filter = "Lunch"
+        case 3:
+            filter = "Dinner"
+        case 4:
+            filter = "Dessert"
+        case 5:
+            filter = ""
+        default:
+            filter = ""
+        }
+        let delay = 0.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.queryFood()
+        }
+    }
+    
     func onRestartTapped(){
-        let query = search.text!
-        searchFood(query)
+        queryFood()
     }
     
     func textField(textField: UITextField,shouldChangeCharactersInRange range: NSRange,replacementString string: String) -> Bool
@@ -111,18 +159,27 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        let search = textField.text!
-        searchFood(search)
+        queryFood()
     }
 
     func searchFood(search: String){
         if search == "" {
-            shuffleFood(food)
+            searchedFood = food
             print("loading food array")
         } else {
             searchedFood = food.filter({$0.search_key.rangeOfString(search) != nil})
-            shuffleFood(searchedFood)
         }
+        if filter == "" {
+            filteredFood = searchedFood
+        } else {
+            filteredFood = searchedFood.filter({$0.categoryArray.indexOf(filter) != nil})
+        }
+        shuffleFood(filteredFood)
+    }
+    
+    func queryFood(){
+        let query = search.text!
+        searchFood(query)
     }
     
     func shuffleFood(foodArray: [Food]){
