@@ -10,8 +10,9 @@ import UIKit
 import FirebaseDatabase
 import GeoFire
 import AZDropdownMenu
+import GoogleMaps
 
-class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, CLLocationManagerDelegate {
     
     var food = [Food]()
     var searchedFood = [Food]()
@@ -24,6 +25,11 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     var filter = ""
     
     var search: searchField!
+    
+    let locationManager = CLLocationManager()
+    var geofire: GeoFire!
+    var center: CLLocation!
+    var radius = 0.6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,27 +64,26 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         menu.itemAlignment = .Center
         menu.menuSeparatorStyle = .None
         menu.cellTapHandler = { [weak self] (indexPath: NSIndexPath) -> Void in
-            self!.filterSelected(indexPath.row)
+            if indexPath.row != 0 {
+                self!.filterSelected(indexPath.row)
+            }
         }
-        
-        queryDishes(draggableBackground)
-    
+
+        getUsersLocation()
     }
     
     
-    func queryDishes(draggableBackground: DraggableViewBackground){
+    func queryDishes(draggableBackground: DraggableViewBackground, center: CLLocation, radius: Double){
         var cardIndex = 0
         
         let firebase = FIRDatabase.database().reference()
         let geofireRef = firebase.child("geolocations")
-        let geofire = GeoFire(firebaseRef: geofireRef)
-        
-        let center = CLLocation(latitude: 51.1262105, longitude: -114.2073206)
-        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
-        circleQuery = geofire.queryAtLocation(center, withRadius: 0.6)
+        geofire = GeoFire(firebaseRef: geofireRef)
+
+        circleQuery = geofire.queryAtLocation(center, withRadius: radius)
         
         var queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
-            print("Key '\(key)' entered the search area and is at location '\(location)'")
+            //print("Key '\(key)' entered the search area and is at location '\(location)'")
             
             firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 let name = snapshot.value!["name"] as! String
@@ -125,6 +130,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     
     func filterSelected(index: Int){
         switch(index) {
+        case 0:
+            break
         case 1:
             filter = "Breakfast"
         case 2:
@@ -200,6 +207,28 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             swap(&array[index], &array[j])
         }
         return array
+    }
+    
+    func getUsersLocation(){
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.distanceFilter = 500
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = manager.location {
+            food = []
+            draggableBackground.clearCards()
+            var coordinate:CLLocationCoordinate2D = location.coordinate
+            print("LOCATION \(coordinate.latitude), \(coordinate.longitude)")
+            center = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            queryDishes(draggableBackground, center: center, radius: radius)
+        }
     }
 }
 

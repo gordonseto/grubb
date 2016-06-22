@@ -100,7 +100,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
                     card.food.foodImage = foodImage
                     card.foodImage.image = foodImage
                     print("loaded \(card.food.restaurant)'s image")
-                }
+            }
             })
         } else {
             card.foodImage.image = card.food.foodImage
@@ -119,6 +119,18 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         cardsLoadedIndex = 0
         for var i = 0; i < deckOfCards.count; i++ {
             addToCards(i, newFood: deckOfCards[i])
+        }
+    }
+    
+    func clearCards(){
+        allCards = []
+        loadedCards = []
+        cardsLoadedIndex = 0
+        let subViews = self.subviews
+        for subView in subViews {
+            if subView.tag == CARD_TAG {
+                subView.removeFromSuperview()
+            }
         }
     }
     
