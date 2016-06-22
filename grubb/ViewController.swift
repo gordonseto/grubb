@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, DraggableViewBackgroundDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +21,27 @@ class ViewController: UIViewController {
         searchView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(searchView)
         */
+        draggableBackground.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func onCardTapped(sender: Food){
+        performSegueWithIdentifier("itemVCFromHome", sender: sender)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "itemVCFromHome" {
+            if let destinationVC = segue.destinationViewController as? itemVC {
+                if let item = sender as? Food {
+                    destinationVC.food = item
+                }
+            }
+        }
+    }
 }
 
 extension UIViewController {
@@ -47,3 +61,5 @@ extension UIViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
 }
+
+    

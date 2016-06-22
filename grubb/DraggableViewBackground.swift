@@ -12,6 +12,10 @@ import GeoFire
 import FirebaseDatabase
 import FirebaseStorage
 
+protocol DraggableViewBackgroundDelegate {
+    func onCardTapped(sender: Food)
+}
+
 class DraggableViewBackground: UIView, DraggableViewDelegate {
     var exampleCardLabels: [String]!
     var allCards: [DraggableView]!
@@ -28,6 +32,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     var xButton: UIButton!
     
     var food = [Food]()
+    var delegate: DraggableViewBackgroundDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -40,7 +45,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
         
-        CARD_HEIGHT = screenHeight * 0.6
+        CARD_HEIGHT = screenHeight * 0.65
         CARD_WIDTH = screenWidth * 0.95
         
         super.layoutSubviews()
@@ -92,6 +97,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         draggableView.food = newFood
         draggableView.name.text = newFood.name
         draggableView.price.text = String.localizedStringWithFormat("$%.2f", newFood.price)
+        draggableView.restaurant.text = newFood.restaurant
         draggableView.delegate = self
         allCards.append(draggableView)
     
@@ -178,7 +184,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     
     func cardSwipedLeft(card: UIView) -> Void {
         loadedCards.removeAtIndex(0)
-        
+
         if cardsLoadedIndex < allCards.count {
             loadedCards.append(allCards[cardsLoadedIndex])
             loadCardImage(allCards[cardsLoadedIndex])
@@ -196,6 +202,10 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
             cardsLoadedIndex = cardsLoadedIndex + 1
             self.insertSubview(loadedCards[MAX_BUFFER_SIZE - 1], belowSubview: loadedCards[MAX_BUFFER_SIZE - 2])
         }
+    }
+    
+    func onCardTapped(food: Food){
+        delegate?.onCardTapped(food)
     }
     
     func swipeRight() -> Void {
@@ -223,4 +233,5 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         })
         dragView.leftClickAction()
     }
+    
 }

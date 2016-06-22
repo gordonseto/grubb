@@ -19,6 +19,7 @@ let ROTATION_ANGLE: Float = 3.14/8  //%%% Higher = stronger rotation angle
 protocol DraggableViewDelegate {
     func cardSwipedLeft(card: UIView) -> Void
     func cardSwipedRight(card: UIView) -> Void
+    func onCardTapped(sender: Food)
 }
 
 class DraggableView: UIView {
@@ -32,6 +33,7 @@ class DraggableView: UIView {
     
     var name: UILabel!
     var price: UILabel!
+    var restaurant: UILabel!
     var foodImage: UIImageView!
     var food: Food!
     
@@ -44,7 +46,7 @@ class DraggableView: UIView {
         
         self.setupView()
         
-        name = UILabel(frame: CGRectMake(8, self.frame.size.height - 115, self.frame.size.width * 0.6, 100))
+        name = UILabel(frame: CGRectMake(8, self.frame.size.height - 105, self.frame.size.width * 0.6, 100))
         name.text = ""
         name.textAlignment = NSTextAlignment.Left
         name.textColor = UIColor.darkGrayColor()
@@ -52,13 +54,21 @@ class DraggableView: UIView {
         name.minimumScaleFactor = 1
         name.adjustsFontSizeToFitWidth = true
         
-        price = UILabel(frame: CGRectMake(-8, self.frame.size.height - 115, self.frame.size.width, 100))
+        price = UILabel(frame: CGRectMake(-8, self.frame.size.height - 105, self.frame.size.width, 100))
         price.text = ""
         price.textAlignment = NSTextAlignment.Right
         price.textColor = UIColor.darkGrayColor()
         price.font = UIFont(name:"HelveticaNeue-Bold", size: 17.0)
         
-        foodImage = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 80))
+        restaurant = UILabel(frame: CGRectMake(8, self.frame.size.height - 85, self.frame.size.width * 0.6, 100))
+        restaurant.text = ""
+        restaurant.textAlignment = NSTextAlignment.Left
+        restaurant.textColor = UIColor.lightGrayColor()
+        restaurant.font = UIFont(name:"HelveticaNeue-Bold", size: 17.0)
+        name.minimumScaleFactor = 0.8
+        name.adjustsFontSizeToFitWidth = true
+        
+        foodImage = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 70))
         foodImage.contentMode = UIViewContentMode.ScaleAspectFill
         foodImage.clipsToBounds = true
         
@@ -69,6 +79,7 @@ class DraggableView: UIView {
         self.addGestureRecognizer(panGestureRecognizer)
         self.addSubview(name)
         self.addSubview(price)
+        self.addSubview(restaurant)
         self.addSubview(foodImage)
         
         overlayView = OverlayView(frame: CGRectMake(self.frame.size.width/2-100, 0, 100, 100))
@@ -77,6 +88,13 @@ class DraggableView: UIView {
         
         xFromCenter = 0
         yFromCenter = 0
+        
+        var tapCard = UITapGestureRecognizer(target: self, action: "onCardTapped")
+        self.addGestureRecognizer(tapCard)
+    }
+    
+    func onCardTapped(){
+        delegate?.onCardTapped(food)
     }
     
     func setupView() -> Void {

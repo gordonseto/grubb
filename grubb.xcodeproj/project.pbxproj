@@ -126,7 +126,6 @@
 		8E54A68C1D144E7C009D4506 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8E01376B1D19E5070041FDAD /* DraggableViewBackground.swift */,
 				8E54A6791D144996009D4506 /* ViewController.swift */,
 				8E54A6911D1458C0009D4506 /* ExploreVC.swift */,
 				8E54A6951D146C9C009D4506 /* itemVC.swift */,
@@ -144,6 +143,7 @@
 				8E0137501D187D140041FDAD /* categoryButton.swift */,
 				8E0137691D19E4E80041FDAD /* DraggableView.swift */,
 				8E01376D1D19E5200041FDAD /* OverlayView.swift */,
+				8E01376B1D19E5070041FDAD /* DraggableViewBackground.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";

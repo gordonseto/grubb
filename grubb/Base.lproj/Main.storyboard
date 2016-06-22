@@ -27,6 +27,9 @@
                         <color key="backgroundColor" red="0.96078431369999995" green="0.25490196079999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="ol1-SG-kJi"/>
+                    <connections>
+                        <segue destination="nUg-HZ-ChK" kind="show" identifier="itemVCFromHome" id="WkF-jZ-Ozx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -906,4 +909,7 @@
         <image name="noun_292025_cc" width="700" height="700"/>
         <image name="noun_366038_cc" width="700" height="700"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="WkF-jZ-Ozx"/>
+    </inferredMetricsTieBreakers>
 </document>
