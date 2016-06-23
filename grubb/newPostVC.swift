@@ -20,6 +20,10 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var priceInput: UITextField!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var breakfastButton: categoryButton!
+    @IBOutlet weak var lunchButton: categoryButton!
+    @IBOutlet weak var dinnerButton: categoryButton!
+    @IBOutlet weak var dessertButton: categoryButton!
     
     var firebase: FIRDatabaseReference!
     var restaurant: String!
@@ -101,6 +105,10 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                 if let img = foodImage.image {
                                     shareButton.enabled = false
                                     progressBar.hidden = false
+                                    breakfastButton.enabled = false
+                                    lunchButton.enabled = false
+                                    dinnerButton.enabled = false
+                                    dessertButton.enabled = false
                                     
                                     let key = firebase.child("posts").childByAutoId().key
                                 

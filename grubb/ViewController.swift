@@ -17,7 +17,6 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     var food = [Food]()
     var searchedFood = [Food]()
     var filteredFood = [Food]()
-    var circleQuery: GFCircleQuery!
     var draggableBackground: DraggableViewBackground!
     
     var filterLayer: UIView!
@@ -29,7 +28,12 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     let locationManager = CLLocationManager()
     var geofire: GeoFire!
     var center: CLLocation!
-    var radius = 0.6
+    var radius = DEFAULT_SEARCH_RADIUS
+    var previousCenter: CLLocation?
+    
+    var circleQuery: GFCircleQuery!
+    var queryHandle: UInt!
+    var keyExited: UInt!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,10 +72,29 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
                 self!.filterSelected(indexPath.row)
             }
         }
-
+        
         getUsersLocation()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        print(radius)
+        if let searchRadius = NSUserDefaults.standardUserDefaults().objectForKey("SEARCH_RADIUS") {
+            print(searchRadius as! NSNumber)
+            var newRadius = Double(Int(searchRadius as! NSNumber)/1000)
+            if radius != newRadius {
+                radius = newRadius
+                if center == nil {
+                    getUsersLocation()
+                } else {
+                    food = []
+                    draggableBackground.clearCards()
+                    queryDishes(draggableBackground, center: center, radius: radius)
+                }
+            }
+        } else {
+            radius = DEFAULT_SEARCH_RADIUS
+        }
+    }
     
     func queryDishes(draggableBackground: DraggableViewBackground, center: CLLocation, radius: Double){
         var cardIndex = 0
@@ -82,9 +105,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
 
         circleQuery = geofire.queryAtLocation(center, withRadius: radius)
         
-        var queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+        queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
             //print("Key '\(key)' entered the search area and is at location '\(location)'")
-            
             firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 let name = snapshot.value!["name"] as! String
                 let price = snapshot.value!["price"] as! Double
@@ -105,7 +127,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             }
         })
         
-        var keyExited = circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
+        keyExited = circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
             print("Key '\(key)' has exited and is at location '\(location)'")
         })
     }
@@ -214,14 +236,21 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.distanceFilter = 500
+            locationManager.distanceFilter = MOVE_DISTANCE
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        previousCenter = center
         if let location = manager.location {
+            if let prevLocation = previousCenter {
+                print("distance: \(location.distanceFromLocation(prevLocation))")
+                if location.distanceFromLocation(prevLocation) < MOVE_DISTANCE {
+                    return
+                }
+            }
             food = []
             draggableBackground.clearCards()
             var coordinate:CLLocationCoordinate2D = location.coordinate
