@@ -33,7 +33,10 @@ class itemVC: UIViewController {
     }
 
     @IBAction func backButtonPressed(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        if let navController = self.navigationController {
+            navController.popViewControllerAnimated(true)
+        }
+        
     }
 
 }

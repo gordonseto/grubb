@@ -10,9 +10,8 @@ import UIKit
 import FirebaseDatabase
 import GeoFire
 import AZDropdownMenu
-import GoogleMaps
 
-class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate {
     
     var food = [Food]()
     var searchedFood = [Food]()
@@ -25,11 +24,9 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     
     var search: searchField!
     
-    let locationManager = CLLocationManager()
     var geofire: GeoFire!
     var center: CLLocation!
     var radius = DEFAULT_SEARCH_RADIUS
-    var previousCenter: CLLocation?
     
     var circleQuery: GFCircleQuery!
     var queryHandle: UInt!
@@ -49,7 +46,12 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         navigationLayer.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(navigationLayer)
         
-        search = searchField(frame: CGRectMake(8, 30, self.view.frame.size.width * 0.8, 30))
+        let backButton = UIButton(frame: CGRectMake(8, 32, 30, 30))
+        backButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
+        backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
+        self.view.addSubview(backButton)
+        
+        search = searchField(frame: CGRectMake(40, 30, self.view.frame.size.width * 0.7, 30))
         search.delegate = self
         self.view.addSubview(search)
         
@@ -75,24 +77,15 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             }
         }
         
-        getUsersLocation()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+        print(center)
         print(radius)
         if let searchRadius = NSUserDefaults.standardUserDefaults().objectForKey("SEARCH_RADIUS") {
             print(searchRadius as! NSNumber)
             var newRadius = Double(Int(searchRadius as! NSNumber)/1000)
-            if radius != newRadius {
-                radius = newRadius
-                if center == nil {
-                    getUsersLocation()
-                } else {
-                    food = []
-                    draggableBackground.clearCards()
-                    queryDishes(draggableBackground, center: center, radius: radius)
-                }
-            }
+            radius = newRadius
+            food = []
+            draggableBackground.clearCards()
+            queryDishes(draggableBackground, center: center, radius: radius)
         } else {
             radius = DEFAULT_SEARCH_RADIUS
         }
@@ -248,32 +241,9 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         return array
     }
     
-    func getUsersLocation(){
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.distanceFilter = MOVE_DISTANCE
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        previousCenter = center
-        if let location = manager.location {
-            if let prevLocation = previousCenter {
-                print("distance: \(location.distanceFromLocation(prevLocation))")
-                if location.distanceFromLocation(prevLocation) < MOVE_DISTANCE {
-                    return
-                }
-            }
-            food = []
-            draggableBackground.clearCards()
-            var coordinate:CLLocationCoordinate2D = location.coordinate
-            print("LOCATION \(coordinate.latitude), \(coordinate.longitude)")
-            center = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            queryDishes(draggableBackground, center: center, radius: radius)
+    func onBackButtonTapped(){
+        if let navController = self.navigationController {
+            navController.popViewControllerAnimated(true)
         }
     }
 }

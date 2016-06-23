@@ -14,6 +14,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var radiusLabel: UILabel!
     @IBOutlet weak var radiusSlider: UISlider!
+    @IBOutlet weak var searchButton: UIButton!
+    
     let locationManager = CLLocationManager()
     
     var regionRadius: CLLocationDistance = 1000
@@ -30,7 +32,21 @@ class MapVC: UIViewController, MKMapViewDelegate {
             radiusLabel.text = "Search Radius: \(Int(DEFAULT_SEARCH_RADIUS))km"
             radiusSlider.value = Float(DEFAULT_SEARCH_RADIUS)
         }
+        
+        let titleLogo = UILabel(frame: CGRectMake(0, 0, 50, 40))
+        titleLogo.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 35)
+        titleLogo.text = "grubb"
+        titleLogo.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
+        titleLogo.textColor = UIColor.darkGrayColor()
+        self.view.addSubview(titleLogo)
+        
+        searchButton.layer.borderColor = UIColor.darkGrayColor().CGColor
+        searchButton.layer.borderWidth = 1.0
+        searchButton.layer.cornerRadius = 5.0
+        
         map.delegate = self
+        
+        self.navigationController?.navigationBarHidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -99,6 +115,19 @@ class MapVC: UIViewController, MKMapViewDelegate {
                 self.map.addOverlay(circle!)
                 NSUserDefaults.standardUserDefaults().setObject(regionRadius, forKey: "SEARCH_RADIUS")
                 NSUserDefaults.standardUserDefaults().synchronize()
+            }
+        }
+    }
+    @IBAction func onSearchPressed(sender: AnyObject) {
+        if currentLocation != nil {
+            self.performSegueWithIdentifier("showCardsVC", sender: nil)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showCardsVC" {
+            if let destinationVC = segue.destinationViewController as? ViewController {
+                destinationVC.center = CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude)
             }
         }
     }
