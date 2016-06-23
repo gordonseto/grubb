@@ -112,8 +112,9 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
                 let categoryArray = snapshot.value!["categoryArray"] as! [String]
                 let geolocation = location
                 let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
+                var placeID = snapshot.value?["placeID"] as! String
                 
-                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, search_key: search_key)
+                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key)
                 self.food.append(newFood)
                 print(newFood.restaurant)
                 
@@ -154,6 +155,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             if let destinationVC = segue.destinationViewController as? itemVC {
                 if let item = sender as? Food {
                     destinationVC.food = item
+                    destinationVC.searchLocation = center
                 }
             }
         }

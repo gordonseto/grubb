@@ -30,6 +30,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     var coordinate: CLLocationCoordinate2D!
     var image: UIImage?
     var categoryArray = [String]()
+    var placeID: String!
     
     var priceInputIsEditing: Bool = false
     
@@ -124,7 +125,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                             self.showErrorAlert("Oops! There was an error sharing your dish.", msg: "Please make sure you have an internet connection.")
                                             self.shareButton.enabled = true
                                         } else {
-                                            let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray]
+                                            let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray, "placeID": self.placeID]
                                             
                                             self.firebase.child("posts").child(key).setValue(post)
                                             self.firebase.child("users").child(uid).child("posts").child(key).setValue(true)
@@ -300,6 +301,7 @@ extension newPostVC: GMSAutocompleteViewControllerDelegate {
         print("Place coordinates: ", place.coordinate)
         restaurant = place.name
         coordinate = place.coordinate
+        placeID = place.placeID
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
