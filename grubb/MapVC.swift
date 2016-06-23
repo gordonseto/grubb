@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import GoogleMaps
 
 class MapVC: UIViewController, MKMapViewDelegate {
 
@@ -18,9 +19,12 @@ class MapVC: UIViewController, MKMapViewDelegate {
     
     let locationManager = CLLocationManager()
     
-    var regionRadius: CLLocationDistance = 1000
+    var regionRadius: CLLocationDistance = 7000
     var circle: MKOverlay?
     var currentLocation: CLLocationCoordinate2D?
+    
+    var titleLogo: UILabel!
+    var backButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,28 +37,35 @@ class MapVC: UIViewController, MKMapViewDelegate {
             radiusSlider.value = Float(DEFAULT_SEARCH_RADIUS)
         }
         
-        let titleLogo = UILabel(frame: CGRectMake(0, 0, 50, 40))
+        titleLogo = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width * 0.8, 40))
         titleLogo.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 35)
-        titleLogo.text = "grubb"
+        titleLogo.text = "Your Location"
+        titleLogo.textAlignment = .Center
         titleLogo.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
         titleLogo.textColor = UIColor.darkGrayColor()
+        titleLogo.minimumScaleFactor = 0.8
         self.view.addSubview(titleLogo)
         
-        searchButton.layer.borderColor = UIColor.darkGrayColor().CGColor
-        searchButton.layer.borderWidth = 1.0
-        searchButton.layer.cornerRadius = 5.0
+        let peekButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+        peekButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width - 23, 40)
+        peekButton.setImage(UIImage(named: "noun_293383_cc"), forState: UIControlState.Normal)
+        peekButton.addTarget(self, action: #selector(onPeekButtonTapped), forControlEvents: .TouchUpInside)
+        self.view.addSubview(peekButton)
+        
+        searchButton.layer.cornerRadius = 4.0
         
         map.delegate = self
         
         self.navigationController?.navigationBarHidden = true
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+        
+        if let searchRadius = NSUserDefaults.standardUserDefaults().objectForKey("SEARCH_RADIUS") {
+            print(searchRadius as! NSNumber)
+            regionRadius = CLLocationDistance(searchRadius as! NSNumber)
+        } else {
+            regionRadius = DEFAULT_SEARCH_RADIUS
+        }
+        
         locationAuthStatus()
-    }
-    
-    override func viewWillDisappear(animated: Bool){
-        map.showsUserLocation = false
     }
     
     func locationAuthStatus() {
@@ -132,4 +143,53 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func onPeekButtonTapped(){
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        self.presentViewController(autocompleteController, animated: true, completion: nil)
+    }
+    
+    func peekLocation(place: GMSPlace){
+        map.showsUserLocation = false
+        self.titleLogo.text = place.name
+        currentLocation = place.coordinate
+        centerMapOnLocation(CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude))
+        if let circle = circle {
+            self.map.removeOverlay(circle)
+        }
+        circle = MKCircle(centerCoordinate: currentLocation!, radius: regionRadius)
+        self.map.addOverlay(circle!)
+        
+        backButton = UIButton(frame: CGRectMake(8, 27, 22, 22))
+        backButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
+        backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
+        self.view.addSubview(backButton)
+    }
+    
+    func onBackButtonTapped(){
+        stopPeekLocation()
+    }
+    
+    func stopPeekLocation(){
+        map.showsUserLocation = true
+        self.titleLogo.text = "Your Location"
+        backButton.removeFromSuperview()
+    }
+    
+}
+
+extension MapVC: GMSAutocompleteViewControllerDelegate {
+    func viewController(viewController: GMSAutocompleteViewController, didAutocompleteWithPlace place: GMSPlace) {
+        peekLocation(place)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+    func viewController(viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: NSError) {
+        print("Error: ", error.description)
+    }
+    
+    func wasCancelled(viewController: GMSAutocompleteViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

@@ -921,6 +921,7 @@
                             </mapView>
                             <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="7" minValue="0.0" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="LRp-pd-Xox">
                                 <rect key="frame" x="42" y="425" width="516" height="31"/>
+                                <color key="tintColor" red="1" green="0.35665173680000001" blue="0.32734857989999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hkd-Zf-rKD"/>
                                 </constraints>
@@ -939,19 +940,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1N-IK-4QW">
-                                <rect key="frame" x="222" y="473" width="156" height="30"/>
+                                <rect key="frame" x="222" y="500" width="156" height="43"/>
+                                <color key="backgroundColor" red="1" green="0.35665173682660567" blue="0.32734857988872157" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="82" id="8bU-AB-9eM"/>
                                     <constraint firstAttribute="width" constant="156" id="cNP-wj-YUG"/>
+                                    <constraint firstAttribute="height" constant="43" id="eFB-CY-Y2b"/>
                                     <constraint firstAttribute="height" constant="30" id="nKf-Tq-amc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                 <state key="normal" title="Search">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="8bU-AB-9eM"/>
+                                        <exclude reference="cNP-wj-YUG"/>
+                                        <exclude reference="nKf-Tq-amc"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -973,13 +978,16 @@
                             <constraint firstItem="LRp-pd-Xox" firstAttribute="top" secondItem="BV6-Y9-LVh" secondAttribute="bottom" constant="23" id="NMZ-mM-E6h"/>
                             <constraint firstItem="LRp-pd-Xox" firstAttribute="top" secondItem="LhG-xx-6r6" secondAttribute="bottom" constant="23" id="aBH-fj-qtL"/>
                             <constraint firstItem="d1N-IK-4QW" firstAttribute="top" secondItem="LRp-pd-Xox" secondAttribute="bottom" constant="18" id="aO6-56-Sqt"/>
+                            <constraint firstItem="d1N-IK-4QW" firstAttribute="width" secondItem="LRp-pd-Xox" secondAttribute="width" id="bIh-pD-HHK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LRp-pd-Xox" secondAttribute="trailing" constant="24" id="dkf-YP-Y2M"/>
                             <constraint firstAttribute="trailing" secondItem="z8O-D8-9xR" secondAttribute="trailing" id="fvy-Hq-dMq"/>
+                            <constraint firstItem="d1N-IK-4QW" firstAttribute="top" secondItem="LRp-pd-Xox" secondAttribute="bottom" constant="45" id="hrG-Jx-T8d"/>
                             <constraint firstItem="BV6-Y9-LVh" firstAttribute="top" secondItem="LhG-xx-6r6" secondAttribute="bottom" constant="22" id="mHj-Am-WeE"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="aBH-fj-qtL"/>
+                                <exclude reference="aO6-56-Sqt"/>
                             </mask>
                         </variation>
                     </view>

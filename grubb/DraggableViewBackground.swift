@@ -33,6 +33,9 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     var checkButton: UIButton!
     var xButton: UIButton!
     
+    var loadingLabel: UILabel!
+    var activityIndicator: UIActivityIndicatorView!
+    
     var food = [Food]()
     weak var delegate: DraggableViewBackgroundDelegate!
     
@@ -120,6 +123,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         for var i = 0; i < deckOfCards.count; i++ {
             addToCards(i, newFood: deckOfCards[i])
         }
+        stopLoadingAnimation()
     }
     
     func clearCards(){
@@ -149,10 +153,27 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         self.addSubview(xButton)
         self.addSubview(checkButton)
         
-        let restartButton = UIButton(frame: CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2, 40, 40))
-        restartButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
-        restartButton.addTarget(self, action: #selector(onRestartTapped), forControlEvents: .TouchUpInside)
-        self.addSubview(restartButton)
+        startLoadingAnimation()
+        
+    }
+    
+    func startLoadingAnimation(){
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2 - 32, UIScreen.mainScreen().bounds.size.height/2 - 30)
+        activityIndicator.startAnimating()
+        self.addSubview(activityIndicator)
+        
+        loadingLabel = UILabel(frame: CGRectMake(0, 0, 100, 30))
+        loadingLabel.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2 + 32, UIScreen.mainScreen().bounds.size.height/2 - 30)
+        loadingLabel.text = "Loading..."
+        loadingLabel.textColor = UIColor.grayColor()
+        self.addSubview(loadingLabel)
+    }
+    
+    func stopLoadingAnimation(){
+        activityIndicator.removeFromSuperview()
+        loadingLabel.removeFromSuperview()
     }
     
     func createDraggableViewWithDataAtIndex(index: NSInteger) -> DraggableView {
@@ -191,17 +212,16 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     func cardSwipedLeft(card: UIView) -> Void {
         loadedCards.removeAtIndex(0)
 
-        if cardsLoadedIndex < allCards.count {
-            loadedCards.append(allCards[cardsLoadedIndex])
-            loadCardImage(allCards[cardsLoadedIndex])
-            cardsLoadedIndex = cardsLoadedIndex + 1
-            self.insertSubview(loadedCards[MAX_BUFFER_SIZE - 1], belowSubview: loadedCards[MAX_BUFFER_SIZE - 2])
-        }
+        displayNextCards()
     }
     
     func cardSwipedRight(card: UIView) -> Void {
         loadedCards.removeAtIndex(0)
         
+        displayNextCards()
+    }
+    
+    func displayNextCards(){
         if cardsLoadedIndex < allCards.count {
             loadedCards.append(allCards[cardsLoadedIndex])
             loadCardImage(allCards[cardsLoadedIndex])

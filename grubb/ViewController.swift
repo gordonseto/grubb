@@ -131,6 +131,9 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         
         circleQuery.observeReadyWithBlock({
             self.totalCardsRetrieved = cardsRetrieved
+            if self.totalCardsRetrieved == 0 {
+                draggableBackground.stopLoadingAnimation()
+            }
         })
         
         keyExited = circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
