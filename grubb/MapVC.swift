@@ -37,6 +37,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
         locationAuthStatus()
     }
     
+    override func viewWillDisappear(animated: Bool){
+        map.showsUserLocation = false
+    }
+    
     func locationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             map.showsUserLocation = true

@@ -35,6 +35,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     var queryHandle: UInt!
     var keyExited: UInt!
     
+    var totalCardsRetrieved = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -98,38 +100,53 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     
     func queryDishes(draggableBackground: DraggableViewBackground, center: CLLocation, radius: Double){
         var cardIndex = 0
+        var cardsRetrieved = 0
         
         let firebase = FIRDatabase.database().reference()
         let geofireRef = firebase.child("geolocations")
         geofire = GeoFire(firebaseRef: geofireRef)
 
         circleQuery = geofire.queryAtLocation(center, withRadius: radius)
-        
+
         queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
             //print("Key '\(key)' entered the search area and is at location '\(location)'")
+            cardsRetrieved++
+            
             firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 let name = snapshot.value!["name"] as! String
                 let price = snapshot.value!["price"] as! Double
                 let restaurant = snapshot.value!["restaurant"] as! String
                 let categoryArray = snapshot.value!["categoryArray"] as! [String]
                 let geolocation = location
-                let search_key = "\(name) \(restaurant) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: ""))"
+                let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
                 
                 let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, search_key: search_key)
                 self.food.append(newFood)
                 print(newFood.restaurant)
                 
-                draggableBackground.addToCards(cardIndex, newFood: newFood)
+                //draggableBackground.addToCards(cardIndex, newFood: newFood)
                 cardIndex++
+                
+                if cardIndex == self.totalCardsRetrieved {
+                    self.doneRetrievingCards()
+                }
                 
             }) { (error) in
                 print(error.localizedDescription)
             }
         })
         
+        circleQuery.observeReadyWithBlock({
+            self.totalCardsRetrieved = cardsRetrieved
+        })
+        
         keyExited = circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
             print("Key '\(key)' has exited and is at location '\(location)'")
         })
+    }
+    
+    func doneRetrievingCards() {
+        queryFood()
     }
     
     func onCardTapped(sender: Food){
@@ -207,7 +224,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func queryFood(){
-        let query = search.text!
+        let query = search.text!.lowercaseString
         searchFood(query)
     }
     
