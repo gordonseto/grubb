@@ -15,7 +15,6 @@ import FirebaseDatabase
 class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
     @IBOutlet weak var collection: UICollectionView!
-    @IBOutlet weak var searchBar: UISearchBar!
     
     var food = [Food]()
     let screenWidth = UIScreen.mainScreen().bounds.size.width
@@ -27,41 +26,48 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         collection.delegate = self
         collection.dataSource = self
         
-        searchBar.delegate = self
-        searchBar.returnKeyType = UIReturnKeyType.Done
-        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-        
-        let firebase = FIRDatabase.database().reference()
-        let geofireRef = firebase.child("geolocations")
-        let geofire = GeoFire(firebaseRef: geofireRef)
-        
-        let center = CLLocation(latitude: 51.1262105, longitude: -114.2073206)
-        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
-        var circleQuery = geofire.queryAtLocation(center, withRadius: 0.6)
-        
+     
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        getLikedFood()
+    }
+    
+    func getLikedFood(){
+        food = []
+        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
+            let firebase = FIRDatabase.database().reference()
+            firebase.child("users").child(uid).child("likes").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+                let newFood = snapshot.value as? NSNumber
+                if newFood == 1 {
+                    self.addToFoodArray(snapshot.key)
+                }
+            })
+            firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+
+            })
+        }
+    }
+    
+    func addToFoodArray(key: String){
+        print(key)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FoodCell", forIndexPath: indexPath) as? FoodCell {
-            print(food[indexPath.row].name)
-            cell.configureCell(food[indexPath.row])
-            return cell
-        } else {
-            return FoodCell()
-        }
+       return UICollectionViewCell()
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let item = food[indexPath.row]
-        performSegueWithIdentifier("itemVC", sender: item)
+       // let item = food[indexPath.row]
+        //performSegueWithIdentifier("itemVC", sender: item)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return food.count
+        return 0
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

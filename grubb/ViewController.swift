@@ -117,7 +117,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
                 let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key)
                 self.food.append(newFood)
                 print(newFood.restaurant)
-                
+                print("NAME: \(newFood.name)")
                 //draggableBackground.addToCards(cardIndex, newFood: newFood)
                 cardIndex++
                 

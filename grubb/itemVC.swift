@@ -8,8 +8,10 @@
 
 import UIKit
 import GoogleMaps
+import FirebaseDatabase
 
 class itemVC: UIViewController {
+
 
     @IBOutlet weak var nameLabel: UITextView!
     @IBOutlet weak var foodImage: UIImageView!
@@ -19,20 +21,24 @@ class itemVC: UIViewController {
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var ratingImage: UIImageView!
     @IBOutlet weak var openNowLabel: UILabel!
+    @IBOutlet weak var likeImage: UIImageView!
     
     var food: Food!
     var searchLocation: CLLocation!
     
     var placesClient: GMSPlacesClient?
+    var uid: String?
+    var firebase: FIRDatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         nameLabel.text = food.name
         foodImage.image = food.foodImage
         priceLabel.text = String.localizedStringWithFormat("$%.2f", food.price)
         restaurantLabel.text = food.restaurant
         openNowLabel.text = ""
+        
+        checkLikedStatus()
         
         placesClient = GMSPlacesClient()
         
@@ -49,6 +55,52 @@ class itemVC: UIViewController {
         }
         
     }
+
+    func checkLikedStatus(){
+        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
+            self.uid = uid
+            firebase = FIRDatabase.database().reference()
+            firebase.child("users").child(uid).child("likes").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                // Get user value
+                if let foodLiked = snapshot.value![self.food.key] as? Bool{
+                    if foodLiked {
+                        self.foodLiked()
+                    } else {
+                        self.foodNotLiked()
+                    }
+                } else {
+                    self.foodNotLiked()
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func foodLiked(){
+        likeImage.image = UIImage(named: "filledHeart")
+    }
+    
+    func foodNotLiked(){
+        likeImage.image = UIImage(named: "emptyHeart")
+    }
+    
+    @IBAction func onHeartTapped(sender: UITapGestureRecognizer) {
+        print("tapped")
+        if likeImage.image == UIImage(named: "emptyHeart"){
+            if let uid = uid {
+                foodLiked()
+                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(true)
+            }
+            
+        } else {
+            if let uid = uid {
+                foodNotLiked()
+                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(false)
+            }
+        }
+    }
+
     
     func findDistanceFromSearch(){
         var distance = searchLocation.distanceFromLocation(food.geolocation)

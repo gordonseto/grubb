@@ -470,50 +470,10 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hro-64-11x">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" misplaced="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="MoQ-5w-qtV">
-                                        <rect key="frame" x="8" y="28" width="504" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="rpY-kq-77i"/>
-                                        </constraints>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTb-dV-bUM">
-                                        <rect key="frame" x="540" y="32" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="56" id="07O-16-uqL"/>
-                                            <constraint firstAttribute="width" constant="40" id="0c4-L5-eV7"/>
-                                            <constraint firstAttribute="height" constant="40" id="6EV-Ql-0cA"/>
-                                            <constraint firstAttribute="width" constant="56" id="cID-Mx-iAJ"/>
-                                        </constraints>
-                                        <state key="normal" image="noun_172906_cc"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="07O-16-uqL"/>
-                                                <exclude reference="cID-Mx-iAJ"/>
-                                            </mask>
-                                        </variation>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dTb-dV-bUM" secondAttribute="trailing" constant="16" id="FOe-Z2-DD8"/>
-                                    <constraint firstAttribute="trailing" secondItem="dTb-dV-bUM" secondAttribute="trailing" constant="20" id="NLr-gf-XrI"/>
-                                    <constraint firstItem="dTb-dV-bUM" firstAttribute="top" secondItem="hro-64-11x" secondAttribute="top" constant="32" id="X7G-wa-jzo"/>
-                                    <constraint firstItem="MoQ-5w-qtV" firstAttribute="top" secondItem="hro-64-11x" secondAttribute="top" constant="28" id="aIv-zc-VrV"/>
                                     <constraint firstAttribute="height" constant="80" id="dnx-82-wNs"/>
-                                    <constraint firstItem="dTb-dV-bUM" firstAttribute="top" secondItem="hro-64-11x" secondAttribute="top" constant="22" id="mKA-WR-chT"/>
-                                    <constraint firstItem="dTb-dV-bUM" firstAttribute="leading" secondItem="MoQ-5w-qtV" secondAttribute="trailing" constant="16" id="vus-Gg-eYT"/>
-                                    <constraint firstItem="dTb-dV-bUM" firstAttribute="leading" secondItem="MoQ-5w-qtV" secondAttribute="trailing" constant="16" id="wRC-ZO-Y1P"/>
-                                    <constraint firstItem="MoQ-5w-qtV" firstAttribute="leading" secondItem="hro-64-11x" secondAttribute="leading" constant="8" id="ydX-Db-CuC"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="FOe-Z2-DD8"/>
-                                        <exclude reference="mKA-WR-chT"/>
-                                        <exclude reference="wRC-ZO-Y1P"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-fB-ydw">
                                 <rect key="frame" x="0.0" y="80" width="600" height="471"/>
@@ -585,7 +545,6 @@
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="1W7-Er-pzH"/>
                     <connections>
                         <outlet property="collection" destination="Cdf-fB-ydw" id="Zrw-1b-C7P"/>
-                        <outlet property="searchBar" destination="MoQ-5w-qtV" id="RRB-uX-hCs"/>
                         <segue destination="nUg-HZ-ChK" kind="showDetail" identifier="itemVC" id="h5i-bF-ZWG"/>
                     </connections>
                 </viewController>
@@ -653,8 +612,9 @@
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8F-6n-lQR">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="519"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="IMG_0161" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-8s-zNk">
+                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="IMG_0161" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-8s-zNk">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="355"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="600" id="Nhf-V5-uMy"/>
                                                     <constraint firstAttribute="height" constant="573" id="Ovo-Kj-dec"/>
@@ -680,12 +640,16 @@
                                                     <constraint firstAttribute="height" constant="1" id="qaF-LX-a4I"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="noun_366038_cc" translatesAutoresizingMaskIntoConstraints="NO" id="w0z-iA-Dvt">
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="emptyHeart" translatesAutoresizingMaskIntoConstraints="NO" id="w0z-iA-Dvt">
                                                 <rect key="frame" x="22" y="368" width="48" height="48"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="48" id="Q4o-dR-PQs"/>
                                                     <constraint firstAttribute="height" constant="48" id="qh1-d2-eBq"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="UT7-Cw-quT" appends="YES" id="Qq4-mw-ZQ0"/>
+                                                </connections>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="$23.95" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ec-OWc">
                                                 <rect key="frame" x="540" y="411" width="52" height="26"/>
@@ -717,7 +681,27 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="500 km away" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-dg-slG">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6s-XQ-uSr">
+                                                <rect key="frame" x="8" y="417" width="516" height="61"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="516" id="AwC-8i-Mrc"/>
+                                                    <constraint firstAttribute="height" constant="46" id="NH8-WU-sMl"/>
+                                                    <constraint firstAttribute="height" constant="61" id="oQv-oI-5vV"/>
+                                                </constraints>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="AwC-8i-Mrc"/>
+                                                        <exclude reference="NH8-WU-sMl"/>
+                                                    </mask>
+                                                </variation>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 km away" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-dg-slG">
                                                 <rect key="frame" x="482" y="375" width="110" height="22"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -758,26 +742,6 @@
                                                     <constraint firstAttribute="height" constant="114" id="wD7-vu-FMc"/>
                                                 </constraints>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6s-XQ-uSr">
-                                                <rect key="frame" x="8" y="417" width="516" height="61"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="516" id="AwC-8i-Mrc"/>
-                                                    <constraint firstAttribute="height" constant="46" id="NH8-WU-sMl"/>
-                                                    <constraint firstAttribute="height" constant="61" id="oQv-oI-5vV"/>
-                                                </constraints>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="AwC-8i-Mrc"/>
-                                                        <exclude reference="NH8-WU-sMl"/>
-                                                    </mask>
-                                                </variation>
-                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -868,7 +832,8 @@
                     <connections>
                         <outlet property="distanceLabel" destination="fi6-dg-slG" id="Sgk-rK-e6d"/>
                         <outlet property="foodImage" destination="4O9-8s-zNk" id="BQh-Jg-ZqT"/>
-                        <outlet property="nameLabel" destination="X6s-XQ-uSr" id="cEI-h0-o8D"/>
+                        <outlet property="likeImage" destination="w0z-iA-Dvt" id="I7Y-jk-xrX"/>
+                        <outlet property="nameLabel" destination="X6s-XQ-uSr" id="tf7-Ch-t2M"/>
                         <outlet property="openNowLabel" destination="pZM-jW-oHr" id="8jq-0b-X7z"/>
                         <outlet property="priceLabel" destination="Ctw-ec-OWc" id="B1h-LC-HyG"/>
                         <outlet property="ratingImage" destination="yQ2-xe-d9q" id="Gwq-9k-0Yb"/>
@@ -877,6 +842,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqD-IO-zFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="UT7-Cw-quT">
+                    <connections>
+                        <action selector="onHeartTapped:" destination="nUg-HZ-ChK" id="X2T-9T-iQW"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="484" y="1210"/>
         </scene>
@@ -1039,11 +1009,10 @@
     <resources>
         <image name="3" width="700" height="700"/>
         <image name="IMG_0161" width="3024" height="4032"/>
-        <image name="noun_172906_cc" width="700" height="700"/>
+        <image name="emptyHeart" width="700" height="700"/>
         <image name="noun_26915_cc" width="700" height="700"/>
-        <image name="noun_366038_cc" width="700" height="700"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i1I-hY-xmv"/>
+        <segue reference="h5i-bF-ZWG"/>
     </inferredMetricsTieBreakers>
 </document>
