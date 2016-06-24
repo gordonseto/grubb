@@ -11,14 +11,17 @@ import UIKit
 import AVFoundation
 import GeoFire
 import FirebaseDatabase
+import FirebaseStorage
 
 class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
     @IBOutlet weak var collection: UICollectionView!
     
-    var food = [Food]()
+    var likedfoodPreviews = [foodPreview]()
     let screenWidth = UIScreen.mainScreen().bounds.size.width
     let numOfCells: CGFloat = 3
+    
+    var imagesRef: FIRStorageReference?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,44 +33,79 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
      
+        getLikedFood()
+        
+        let storage = FIRStorage.storage()
+        let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
+        imagesRef = storageRef.child("images")
+        
     }
     
     override func viewDidAppear(animated: Bool) {
-        getLikedFood()
+        print(likedfoodPreviews.count)
     }
     
     func getLikedFood(){
-        food = []
+        likedfoodPreviews = []
+        var queryCount = 0
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             let firebase = FIRDatabase.database().reference()
-            firebase.child("users").child(uid).child("likes").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
                 let newFood = snapshot.value as? NSNumber
-                if newFood == 1 {
-                    self.addToFoodArray(snapshot.key)
-                }
+                self.addToFoodPreviewArray(snapshot.key)
             })
-            firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
-
+            firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
+                self.removeFromFoodPreviewArray(snapshot.key)
             })
         }
     }
     
-    func addToFoodArray(key: String){
-        print(key)
+    func addToFoodPreviewArray(key: String){
+        var newFoodPreview = foodPreview(key: key)
+        likedfoodPreviews.append(newFoodPreview)
+        
+        if let imagesRef = imagesRef {
+            let childRef = imagesRef.child(key)
+            childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                if (error != nil){
+                    print(error.debugDescription)
+                } else {
+                    let foodImage: UIImage! = UIImage(data: data!)
+                    newFoodPreview.foodImage = foodImage
+                    print("downloaded \(key)'s image")
+                    self.collection.reloadData()
+                }
+            })
+        }
+    }
+    
+    func removeFromFoodPreviewArray(key: String){
+        print("REMOVE \(key)")
+        let foodPreviewKeys = likedfoodPreviews.map { $0.key }
+        let index = foodPreviewKeys.indexOf(key)
+        if index != nil {
+            likedfoodPreviews.removeAtIndex(index!)
+        }
+        collection.reloadData()
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-       return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FoodCell", forIndexPath: indexPath) as! FoodCell
+        let foodPrev: foodPreview!
+        foodPrev = likedfoodPreviews[likedfoodPreviews.count - 1 - indexPath.row]
+        cell.configureCell(foodPrev)
+        return cell
+        
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-       // let item = food[indexPath.row]
+        //let item = likedfoodPreviews[likedfoodPreviews.count - 1 - indexPath.row]
         //performSegueWithIdentifier("itemVC", sender: item)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return likedfoodPreviews.count
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -81,8 +119,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "itemVC" {
             if let destinationVC = segue.destinationViewController as? itemVC {
-                if let item = sender as? Food {
-                    destinationVC.food = item
+                if let item = sender as? foodPreview {
+                    
                 }
             }
         }

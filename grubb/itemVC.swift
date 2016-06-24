@@ -62,12 +62,8 @@ class itemVC: UIViewController {
             firebase = FIRDatabase.database().reference()
             firebase.child("users").child(uid).child("likes").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 // Get user value
-                if let foodLiked = snapshot.value![self.food.key] as? Bool{
-                    if foodLiked {
-                        self.foodLiked()
-                    } else {
-                        self.foodNotLiked()
-                    }
+                if let foodLiked = snapshot.value![self.food.key] as? Double{
+                    self.foodLiked()
                 } else {
                     self.foodNotLiked()
                 }
@@ -90,13 +86,14 @@ class itemVC: UIViewController {
         if likeImage.image == UIImage(named: "emptyHeart"){
             if let uid = uid {
                 foodLiked()
-                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(true)
+                let time = NSDate().timeIntervalSince1970
+                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(time)
             }
             
         } else {
             if let uid = uid {
                 foodNotLiked()
-                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(false)
+                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(nil)
             }
         }
     }

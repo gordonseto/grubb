@@ -7,36 +7,22 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class FoodCell: UICollectionViewCell {
 
     @IBOutlet weak var foodImage: UIImageView!
-    var food: Food!
-
-    func configureCell(food: Food){
+    
+    required init?(coder aDecoder: NSCoder){
+        super.init(coder: aDecoder)
         
-        self.food = food
-        if let url = NSURL(string: food.imageUrl){
-            print(url)
-            downloadImage(url)
-        }
+        
     }
     
-    func downloadImage(url: NSURL){
-        getDataFromUrl(url) { (data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                guard let data = data where error == nil else { return }
-                self.foodImage.image = UIImage(data: data)
-                self.food.foodImage = self.foodImage.image
-            }
+    func configureCell(foodPrev: foodPreview) {
+        let image: UIImage? = foodPrev.foodImage
+        if image != nil {
+            foodImage.image = image
         }
     }
-    
-    func getDataFromUrl(url: NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError?) -> Void)){
-        
-        NSURLSession.sharedSession().dataTaskWithURL(url){ (data, response, error) in
-            completion(data: data, response: response, error: error)
-        }.resume()
-    }
-
 }
