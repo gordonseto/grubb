@@ -448,13 +448,30 @@
                     </tabBar>
                     <connections>
                         <segue destination="oR0-mu-tMU" kind="relationship" relationship="viewControllers" id="bPo-xe-nIQ"/>
-                        <segue destination="Neu-CJ-BbI" kind="relationship" relationship="viewControllers" id="cnI-vF-cSl"/>
+                        <segue destination="xnQ-ff-92c" kind="relationship" relationship="viewControllers" id="hz2-9n-T85"/>
                         <segue destination="0Ix-PG-Quu" kind="relationship" relationship="viewControllers" id="bnK-ab-Oa0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ou-ai-9Wg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="414" y="329"/>
+            <point key="canvasLocation" x="380" y="313"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ydw-8K-v3l">
+            <objects>
+                <navigationController id="xnQ-ff-92c" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="9Up-KI-Hsa"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jym-tw-zpm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Neu-CJ-BbI" kind="relationship" relationship="rootViewController" id="1YS-Wu-Jxe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1x-PC-6ol" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-535" y="489"/>
         </scene>
         <!--ExploreVC-->
         <scene sceneID="qYq-yb-miN">
@@ -493,7 +510,7 @@
                                     <constraint firstItem="STJ-IA-Pwi" firstAttribute="leading" secondItem="hro-64-11x" secondAttribute="leading" constant="164" id="d2E-Gb-G5H"/>
                                     <constraint firstAttribute="height" constant="70" id="dnx-82-wNs"/>
                                     <constraint firstItem="STJ-IA-Pwi" firstAttribute="centerX" secondItem="hro-64-11x" secondAttribute="centerX" id="iff-gI-uvb"/>
-                                    <constraint firstAttribute="bottom" secondItem="STJ-IA-Pwi" secondAttribute="bottom" constant="20" id="oAU-Pl-bWH"/>
+                                    <constraint firstAttribute="bottom" secondItem="STJ-IA-Pwi" secondAttribute="bottom" constant="14" id="oAU-Pl-bWH"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -570,15 +587,16 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="1W7-Er-pzH"/>
+                    <navigationItem key="navigationItem" id="LAW-HZ-sHE"/>
                     <connections>
                         <outlet property="collection" destination="Cdf-fB-ydw" id="Zrw-1b-C7P"/>
                         <outlet property="segmentedControl" destination="STJ-IA-Pwi" id="99c-4f-Jd5"/>
-                        <segue destination="nUg-HZ-ChK" kind="showDetail" identifier="itemVC" id="h5i-bF-ZWG"/>
+                        <segue destination="nUg-HZ-ChK" kind="show" identifier="itemVC" action="showDetailViewController:sender:" id="h5i-bF-ZWG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pr0-6G-nxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-219" y="1110"/>
+            <point key="canvasLocation" x="-403" y="1254"/>
         </scene>
         <!--ItemVC-->
         <scene sceneID="Rs1-1v-KKo">
@@ -679,21 +697,6 @@
                                                     <outletCollection property="gestureRecognizers" destination="UT7-Cw-quT" appends="YES" id="Qq4-mw-ZQ0"/>
                                                 </connections>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="$23.95" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ec-OWc">
-                                                <rect key="frame" x="540" y="411" width="52" height="26"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="9vX-c4-yTc"/>
-                                                    <constraint firstAttribute="height" constant="21" id="oGW-qS-dlQ"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="oGW-qS-dlQ"/>
-                                                    </mask>
-                                                </variation>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Denny's Crowfoot" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="KrS-lD-epW">
                                                 <rect key="frame" x="8" y="555" width="465" height="17"/>
                                                 <constraints>
@@ -729,6 +732,21 @@
                                                     </mask>
                                                 </variation>
                                             </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$23.95" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ec-OWc">
+                                                <rect key="frame" x="540" y="411" width="52" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="9vX-c4-yTc"/>
+                                                    <constraint firstAttribute="height" constant="21" id="oGW-qS-dlQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="oGW-qS-dlQ"/>
+                                                    </mask>
+                                                </variation>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 km away" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-dg-slG">
                                                 <rect key="frame" x="482" y="375" width="110" height="22"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
@@ -777,7 +795,7 @@
                                             <constraint firstItem="vrT-ZI-I1s" firstAttribute="top" secondItem="KrS-lD-epW" secondAttribute="bottom" constant="8" id="1B1-tn-Ywi"/>
                                             <constraint firstItem="yQ2-xe-d9q" firstAttribute="centerY" secondItem="KrS-lD-epW" secondAttribute="centerY" constant="7" id="1MA-pL-36G"/>
                                             <constraint firstItem="cqD-lD-8MI" firstAttribute="top" secondItem="X6s-XQ-uSr" secondAttribute="bottom" constant="10" id="2sK-jx-2s3"/>
-                                            <constraint firstItem="fi6-dg-slG" firstAttribute="centerY" secondItem="w0z-iA-Dvt" secondAttribute="centerY" id="4A3-Aa-W5f"/>
+                                            <constraint firstItem="fi6-dg-slG" firstAttribute="centerY" secondItem="w0z-iA-Dvt" secondAttribute="centerY" constant="-13" id="4A3-Aa-W5f"/>
                                             <constraint firstItem="yQ2-xe-d9q" firstAttribute="leading" secondItem="KrS-lD-epW" secondAttribute="trailing" constant="2" id="5kD-6x-eZ8"/>
                                             <constraint firstItem="w0z-iA-Dvt" firstAttribute="top" secondItem="4O9-8s-zNk" secondAttribute="bottom" constant="20" id="8wU-dz-Tlb"/>
                                             <constraint firstItem="Ctw-ec-OWc" firstAttribute="trailing" secondItem="u8F-6n-lQR" secondAttribute="trailingMargin" id="9hL-fh-84b"/>
@@ -800,12 +818,13 @@
                                             <constraint firstItem="KrS-lD-epW" firstAttribute="top" secondItem="cqD-lD-8MI" secondAttribute="bottom" constant="19" id="b94-3f-l7o"/>
                                             <constraint firstItem="fi6-dg-slG" firstAttribute="centerX" secondItem="w0z-iA-Dvt" secondAttribute="centerX" id="bBt-wQ-xyf"/>
                                             <constraint firstItem="pZM-jW-oHr" firstAttribute="centerX" secondItem="KrS-lD-epW" secondAttribute="centerX" id="btp-PS-gzB"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="X6s-XQ-uSr" secondAttribute="trailing" constant="38" id="dpE-4X-zOA"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="X6s-XQ-uSr" secondAttribute="trailing" constant="60" id="dpE-4X-zOA"/>
                                             <constraint firstItem="4O9-8s-zNk" firstAttribute="top" secondItem="u8F-6n-lQR" secondAttribute="top" id="eJV-fE-LXq"/>
                                             <constraint firstItem="KrS-lD-epW" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leadingMargin" id="ffj-q8-Vpa"/>
                                             <constraint firstItem="X6s-XQ-uSr" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leadingMargin" id="iMC-hL-mr9"/>
                                             <constraint firstItem="4O9-8s-zNk" firstAttribute="leading" secondItem="u8F-6n-lQR" secondAttribute="leading" id="ln1-n4-qui"/>
                                             <constraint firstAttribute="trailing" secondItem="4O9-8s-zNk" secondAttribute="trailing" id="lvh-L5-oyL"/>
+                                            <constraint firstItem="Ctw-ec-OWc" firstAttribute="top" secondItem="fi6-dg-slG" secondAttribute="bottom" id="m9i-t5-uPK"/>
                                             <constraint firstItem="fi6-dg-slG" firstAttribute="trailing" secondItem="u8F-6n-lQR" secondAttribute="trailingMargin" id="mH8-6H-mrk"/>
                                             <constraint firstItem="vrT-ZI-I1s" firstAttribute="leading" secondItem="KrS-lD-epW" secondAttribute="leading" id="orN-5q-EnM"/>
                                             <constraint firstAttribute="trailing" secondItem="4O9-8s-zNk" secondAttribute="trailing" id="pvW-Xy-iD1"/>

@@ -9,8 +9,9 @@
 import UIKit
 import GoogleMaps
 import FirebaseDatabase
+import GeoFire
 
-class itemVC: UIViewController {
+class itemVC: UIViewController, CLLocationManagerDelegate {
 
 
     @IBOutlet weak var nameLabel: UITextView!
@@ -25,13 +26,28 @@ class itemVC: UIViewController {
     
     var food: Food!
     var searchLocation: CLLocation!
+    var key: String!
+    var image: UIImage!
     
     var placesClient: GMSPlacesClient?
     var uid: String?
     var firebase: FIRDatabaseReference!
     
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        
+        if food == nil {
+            getFoodData()
+        } else {
+            initializeView()
+        }
+    }
+    
+    func initializeView(){
         nameLabel.text = food.name
         foodImage.image = food.foodImage
         priceLabel.text = String.localizedStringWithFormat("$%.2f", food.price)
@@ -42,18 +58,65 @@ class itemVC: UIViewController {
         
         placesClient = GMSPlacesClient()
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         findDistanceFromSearch()
         getPlaceDetails()
     }
+    
+    func getFoodData(){
+        foodImage.image = image
+        print(key)
+        locationManager.startUpdatingLocation()
+    }
 
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            searchLocation = location
+            locationManager.stopUpdatingLocation()
+            
+            let firebase = FIRDatabase.database().reference()
+            let geofireRef = firebase.child("geolocations")
+            let geofire = GeoFire(firebaseRef: geofireRef)
+            
+            geofire.getLocationForKey(key, withCallback: { (location, error) in
+                if (error != nil) {
+                    print(error.localizedDescription)
+                } else if (location != nil) {
+                    print(location)
+                    self.getFood(location)
+                } else {
+                    print("GeoFire does not contain a location for \(self.key)")
+                }
+            })
+        }
+    }
+    
+    func getFood(location: CLLocation){
+        let firebase = FIRDatabase.database().reference()
+        firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            let name = snapshot.value!["name"] as! String
+            let price = snapshot.value!["price"] as! Double
+            let restaurant = snapshot.value!["restaurant"] as! String
+            let categoryArray = snapshot.value!["categoryArray"] as! [String]
+            let geolocation = location
+            let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
+            var placeID = snapshot.value?["placeID"] as! String
+            
+            self.food = Food(key: self.key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key)
+            
+            self.food.foodImage = self.image
+            
+            self.initializeView()
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
     @IBAction func backButtonPressed(sender: AnyObject) {
         if let navController = self.navigationController {
             navController.popViewControllerAnimated(true)
+        } else {
+            dismissViewControllerAnimated(true, completion: nil)
         }
-        
     }
 
     func checkLikedStatus(){
@@ -101,7 +164,11 @@ class itemVC: UIViewController {
     
     func findDistanceFromSearch(){
         var distance = searchLocation.distanceFromLocation(food.geolocation)
-        distanceLabel.text = "\(Int(distance/1000.0)) km away"
+        if distance < 1000 {
+            distanceLabel.text = "\(Int(distance)) m away"
+        } else {
+            distanceLabel.text = "\(Int(distance/1000.0)) km away"
+        }
     }
     
     func getPlaceDetails(){

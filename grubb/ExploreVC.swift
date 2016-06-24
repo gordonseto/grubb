@@ -28,6 +28,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     var imagesRef: FIRStorageReference?
     
+    var loadingLabel: UILabel!
+    var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +40,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
+        
+        self.navigationController?.navigationBarHidden = true
      
         getLikedandMyFood()
         
@@ -45,6 +50,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         imagesRef = storageRef.child("images")
         
         displayMode = segmentedControl.selectedSegmentIndex
+        
+        startLoadingAnimation()
         
     }
     
@@ -87,11 +94,13 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
                 if (error != nil){
                     print(error.debugDescription)
+                    self.stopLoadingAnimation()
                 } else {
                     let foodImage: UIImage! = UIImage(data: data!)
                     newFoodPreview.foodImage = foodImage
                     print("downloaded \(key)'s image")
                     self.collection.reloadData()
+                    self.stopLoadingAnimation()
                 }
             })
         }
@@ -131,8 +140,14 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        //let item = likedfoodPreviews[likedfoodPreviews.count - 1 - indexPath.row]
-        //performSegueWithIdentifier("itemVC", sender: item)
+        let item: foodPreview
+        
+        if displayMode == LIKED_MODE {
+            item = likedFoodPreviews[likedFoodPreviews.count - 1 - indexPath.row]
+        } else {
+            item = myFoodPreviews[myFoodPreviews.count - 1 - indexPath.row]
+        }
+        performSegueWithIdentifier("itemVC", sender: item)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -160,10 +175,30 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         if segue.identifier == "itemVC" {
             if let destinationVC = segue.destinationViewController as? itemVC {
                 if let item = sender as? foodPreview {
-                    
+                    destinationVC.key = item.key
+                    destinationVC.image = item.foodImage
                 }
             }
         }
+    }
+    
+    func startLoadingAnimation(){
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2 - 32, UIScreen.mainScreen().bounds.size.height/2 - 90)
+        activityIndicator.startAnimating()
+        collection.addSubview(activityIndicator)
+        
+        loadingLabel = UILabel(frame: CGRectMake(0, 0, 100, 30))
+        loadingLabel.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2 + 32, UIScreen.mainScreen().bounds.size.height/2 - 90)
+        loadingLabel.text = "Loading..."
+        loadingLabel.textColor = UIColor.grayColor()
+        collection.addSubview(loadingLabel)
+    }
+    
+    func stopLoadingAnimation(){
+        activityIndicator.removeFromSuperview()
+        loadingLabel.removeFromSuperview()
     }
 
 }
