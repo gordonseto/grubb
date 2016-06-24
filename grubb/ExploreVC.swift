@@ -147,7 +147,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         } else {
             item = myFoodPreviews[myFoodPreviews.count - 1 - indexPath.row]
         }
-        performSegueWithIdentifier("itemVC", sender: item)
+        performSegueWithIdentifier("itemVCFromHome", sender: item)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -172,7 +172,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "itemVC" {
+        if segue.identifier == "itemVCFromHome" {
             if let destinationVC = segue.destinationViewController as? itemVC {
                 if let item = sender as? foodPreview {
                     destinationVC.key = item.key
