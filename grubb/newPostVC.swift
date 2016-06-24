@@ -128,7 +128,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                             let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray, "placeID": self.placeID]
                                             
                                             self.firebase.child("posts").child(key).setValue(post)
-                                            self.firebase.child("users").child(uid).child("posts").child(key).setValue(true)
+                                            let seconds = NSDate().timeIntervalSince1970
+                                            self.firebase.child("users").child(uid).child("posts").child(key).setValue(seconds)
                                             
                                             let geoFire = GeoFire(firebaseRef: self.firebase.child("geolocations"))
                                             geoFire.setLocation(CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude), forKey: key)

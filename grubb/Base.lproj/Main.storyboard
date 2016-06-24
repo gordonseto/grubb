@@ -469,15 +469,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hro-64-11x">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="STJ-IA-Pwi">
+                                        <rect key="frame" x="201" y="32" width="200" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="BEW-MS-hW0"/>
+                                            <constraint firstAttribute="height" constant="28" id="qTU-jh-v9t"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="My Likes"/>
+                                            <segment title="My Dishes"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="0.35665173680000001" blue="0.32734857989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="onSegmentedControlChanged:" destination="Neu-CJ-BbI" eventType="valueChanged" id="F6m-96-NYA"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="dnx-82-wNs"/>
+                                    <constraint firstAttribute="trailing" secondItem="STJ-IA-Pwi" secondAttribute="trailing" constant="164" id="FJJ-LL-w8K"/>
+                                    <constraint firstItem="STJ-IA-Pwi" firstAttribute="leading" secondItem="hro-64-11x" secondAttribute="leading" constant="164" id="d2E-Gb-G5H"/>
+                                    <constraint firstAttribute="height" constant="70" id="dnx-82-wNs"/>
+                                    <constraint firstItem="STJ-IA-Pwi" firstAttribute="centerX" secondItem="hro-64-11x" secondAttribute="centerX" id="iff-gI-uvb"/>
+                                    <constraint firstAttribute="bottom" secondItem="STJ-IA-Pwi" secondAttribute="bottom" constant="20" id="oAU-Pl-bWH"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="FJJ-LL-w8K"/>
+                                        <exclude reference="d2E-Gb-G5H"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-fB-ydw">
-                                <rect key="frame" x="0.0" y="80" width="600" height="471"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="70" width="600" height="481"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="NIW-Lk-tAE">
                                     <size key="itemSize" width="116" height="119"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -531,7 +558,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Xez-eM-CGi" firstAttribute="top" secondItem="Cdf-fB-ydw" secondAttribute="bottom" id="1uI-Bb-Q28"/>
                             <constraint firstAttribute="trailing" secondItem="Cdf-fB-ydw" secondAttribute="trailing" id="H2Z-Dp-g0b"/>
@@ -545,6 +572,7 @@
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="1W7-Er-pzH"/>
                     <connections>
                         <outlet property="collection" destination="Cdf-fB-ydw" id="Zrw-1b-C7P"/>
+                        <outlet property="segmentedControl" destination="STJ-IA-Pwi" id="99c-4f-Jd5"/>
                         <segue destination="nUg-HZ-ChK" kind="showDetail" identifier="itemVC" id="h5i-bF-ZWG"/>
                     </connections>
                 </viewController>
