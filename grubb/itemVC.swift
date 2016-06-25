@@ -23,6 +23,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var ratingImage: UIImageView!
     @IBOutlet weak var openNowLabel: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var likesLabel: UILabel!
     
     var food: Food!
     var searchLocation: CLLocation!
@@ -32,6 +33,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     var placesClient: GMSPlacesClient?
     var uid: String?
     var firebase: FIRDatabaseReference!
+    
+    var numLikes = 0
     
     let locationManager = CLLocationManager()
     
@@ -133,6 +136,20 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             }) { (error) in
                 print(error.localizedDescription)
             }
+            firebase.child("posts").child(food.key).child("likes").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                self.numLikes = snapshot.value as? Int ?? 0
+                self.updateLikesLabel(self.numLikes)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateLikesLabel(likes: Int){
+        if likes == 1 {
+            likesLabel.text = "\(likes) like"
+        } else {
+        likesLabel.text = "\(likes) likes"
         }
     }
     
@@ -149,15 +166,52 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         if likeImage.image == UIImage(named: "emptyHeart"){
             if let uid = uid {
                 foodLiked()
+                numLikes += 1
+                updateLikesLabel(numLikes)
                 let time = NSDate().timeIntervalSince1970
                 self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(time)
+                self.firebase.child("posts").child(food.key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
+                    if var post = currentData.value as? [String: AnyObject] {
+                        var likes = post["likes"] as? Int ?? 0
+                        likes += 1
+                        post["likes"] = likes
+                        currentData.value = post
+                        print(likes)
+                        return FIRTransactionResult.successWithValue(currentData)
+                    }
+                    return FIRTransactionResult.successWithValue(currentData)
+                }, andCompletionBlock: { (error, committed, snapshot) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                })
             }
             
         } else {
             if let uid = uid {
                 foodNotLiked()
+                numLikes -= 1
+                updateLikesLabel(numLikes)
                 self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(nil)
+                self.firebase.child("posts").child(food.key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
+                    if var post = currentData.value as? [String: AnyObject] {
+                        var likes = post["likes"] as? Int ?? 0
+                        likes -= 1
+                        post["likes"] = likes
+                        currentData.value = post
+                        
+                        return FIRTransactionResult.successWithValue(currentData)
+                    }
+                    return FIRTransactionResult.successWithValue(currentData)
+                    }, andCompletionBlock: { (error, committed, snapshot) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                })
             }
+        }
+        if let uid = uid {
+            let firebase = FIRDatabase.database().reference()
         }
     }
 
