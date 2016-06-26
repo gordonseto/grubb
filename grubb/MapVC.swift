@@ -73,6 +73,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
             map.showsUserLocation = true
         } else {
             locationManager.requestWhenInUseAuthorization()
+            map.showsUserLocation = true
         }
     }
     

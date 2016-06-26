@@ -211,13 +211,11 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     
     func cardSwipedLeft(card: UIView) -> Void {
         loadedCards.removeAtIndex(0)
-
         displayNextCards()
     }
     
     func cardSwipedRight(card: UIView) -> Void {
         loadedCards.removeAtIndex(0)
-        
         displayNextCards()
     }
     

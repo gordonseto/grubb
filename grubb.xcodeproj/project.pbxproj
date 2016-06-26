@@ -207,7 +207,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = grubapp;
+				ORGANIZATIONNAME = grubbapp;
 				TargetAttributes = {
 					8E54A6731D144996009D4506 = {
 						CreatedOnToolsVersion = 7.3.1;

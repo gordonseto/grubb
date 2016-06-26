@@ -20,8 +20,6 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var saveImage: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var restaurantLabel: UILabel!
-    @IBOutlet weak var ratingImage: UIImageView!
-    @IBOutlet weak var openNowLabel: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     
@@ -55,14 +53,12 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         foodImage.image = food.foodImage
         priceLabel.text = String.localizedStringWithFormat("$%.2f", food.price)
         restaurantLabel.text = food.restaurant
-        openNowLabel.text = ""
         
         checkLikedStatus()
         
         placesClient = GMSPlacesClient()
         
         findDistanceFromSearch()
-        getPlaceDetails()
     }
     
     func getFoodData(){
@@ -222,25 +218,6 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             distanceLabel.text = "\(Int(distance)) m away"
         } else {
             distanceLabel.text = "\(Int(distance/1000.0)) km away"
-        }
-    }
-    
-    func getPlaceDetails(){
-        placesClient!.lookUpPlaceID(food.placeID) { (place: GMSPlace?, error: NSError?) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            if let place = place {
-                print(place.rating)
-                var rating = round(place.rating)
-                if rating <= 0 {
-                    rating = 1
-                }
-                self.ratingImage.image = UIImage(named: "\(rating)")
-            } else {
-                print("No place details for \(self.food.placeID)")
-            }
         }
     }
     

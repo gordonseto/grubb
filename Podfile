@@ -14,4 +14,5 @@ target 'grubb' do
   pod 'GoogleMaps'
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
   pod 'AZDropdownMenu'
+  pod 'Batch'
 end
