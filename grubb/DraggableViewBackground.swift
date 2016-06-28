@@ -15,6 +15,7 @@ import FirebaseStorage
 protocol DraggableViewBackgroundDelegate: class {
     func onCardTapped(sender: Food)
     func onRestartTapped()
+    func onCardSwiped(key: String)
 }
 
 class DraggableViewBackground: UIView, DraggableViewDelegate {
@@ -210,11 +211,13 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     }
     
     func cardSwipedLeft(card: UIView) -> Void {
+        delegate?.onCardSwiped(loadedCards[0].food.key)
         loadedCards.removeAtIndex(0)
         displayNextCards()
     }
     
     func cardSwipedRight(card: UIView) -> Void {
+        delegate?.onCardSwiped(loadedCards[0].food.key)
         loadedCards.removeAtIndex(0)
         displayNextCards()
     }

@@ -34,6 +34,12 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     
     var totalCardsRetrieved = 0
     
+    var uid: String!
+    var firebase: FIRDatabaseReference!
+    
+    var swiped: [String: AnyObject]!
+    var swipedInThisSession: [String: AnyObject]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -77,6 +83,13 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             }
         }
         
+        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
+            self.uid = uid
+        }
+        
+        firebase = FIRDatabase.database().reference()
+        swipedInThisSession = [String:AnyObject]()
+        
         print(center)
         print(radius)
         if let searchRadius = NSUserDefaults.standardUserDefaults().objectForKey("SEARCH_RADIUS") {
@@ -98,49 +111,66 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         let firebase = FIRDatabase.database().reference()
         let geofireRef = firebase.child("geolocations")
         geofire = GeoFire(firebaseRef: geofireRef)
-
-        circleQuery = geofire.queryAtLocation(center, withRadius: radius)
-
-        queryHandle = circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
-            //print("Key '\(key)' entered the search area and is at location '\(location)'")
-            cardsRetrieved++
+        
+        firebase.child("users").child(uid).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            if let swiped = snapshot.value!["swiped"] as? [String: AnyObject] {
+                self.swiped = swiped
+                print(self.swiped)
+                print(self.swiped.count)
+            } else {
+                self.swiped = [String: AnyObject]()
+            }
             
-            firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-                let name = snapshot.value!["name"] as! String
-                let price = snapshot.value!["price"] as! Double
-                let restaurant = snapshot.value!["restaurant"] as! String
-                let categoryArray = snapshot.value!["categoryArray"] as! [String]
-                let geolocation = location
-                let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
-                var placeID = snapshot.value?["placeID"] as! String
-                let author = snapshot.value!["author"] as! String
+            self.circleQuery = self.geofire.queryAtLocation(center, withRadius: radius)
+
+            self.queryHandle = self.circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
                 
-                let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key, author: author)
-                self.food.append(newFood)
-                print(newFood.restaurant)
-                print("NAME: \(newFood.name)")
-                //draggableBackground.addToCards(cardIndex, newFood: newFood)
-                cardIndex++
+                if self.swiped[key] == nil {
+                    //print("Key '\(key)' entered the search area and is at location '\(location)'")
+                    cardsRetrieved++
+            
+                    firebase.child("posts").child(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                        let name = snapshot.value!["name"] as! String
+                        let price = snapshot.value!["price"] as! Double
+                        let restaurant = snapshot.value!["restaurant"] as! String
+                        let categoryArray = snapshot.value!["categoryArray"] as! [String]
+                        let geolocation = location
+                        let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
+                        var placeID = snapshot.value?["placeID"] as! String
+                        let author = snapshot.value!["author"] as! String
                 
-                if cardIndex == self.totalCardsRetrieved {
-                    self.doneRetrievingCards()
+                        let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key, author: author)
+                        self.food.append(newFood)
+                        print(newFood.restaurant)
+                        print("NAME: \(newFood.name)")
+                        //draggableBackground.addToCards(cardIndex, newFood: newFood)
+                        cardIndex++
+                
+                        if cardIndex == self.totalCardsRetrieved {
+                            self.doneRetrievingCards()
+                        }
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+                } else {
+                    print("\(key) has been swiped")
                 }
-                
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        })
+            })
         
-        circleQuery.observeReadyWithBlock({
-            self.totalCardsRetrieved = cardsRetrieved
-            if self.totalCardsRetrieved == 0 {
-                draggableBackground.stopLoadingAnimation()
-            }
-        })
+            self.circleQuery.observeReadyWithBlock({
+                self.totalCardsRetrieved = cardsRetrieved
+                if self.totalCardsRetrieved == 0 {
+                    draggableBackground.stopLoadingAnimation()
+                }
+            })
         
-        keyExited = circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
-            print("Key '\(key)' has exited and is at location '\(location)'")
-        })
+            self.keyExited = self.circleQuery.observeEventType(.KeyExited, withBlock: { (key: String!, location: CLLocation!) in
+                print("Key '\(key)' has exited and is at location '\(location)'")
+            })
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     func doneRetrievingCards() {
@@ -228,7 +258,13 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func shuffleFood(foodArray: [Food]){
-        var foodArray = shuffleArray(foodArray)
+        var foodArray = foodArray
+        print(swipedInThisSession)
+        for (key, time) in swipedInThisSession {
+            foodArray = foodArray.filter({$0.key != key})
+        }
+        
+        foodArray = shuffleArray(foodArray)
         draggableBackground.loadDeckOfCards(foodArray)
     }
     
@@ -253,6 +289,11 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         }
     }
     
+    func onCardSwiped(key: String) {
+        let time = NSDate().timeIntervalSince1970
+        firebase.child("users").child(uid).child("swiped").child(key).setValue(time)
+        swipedInThisSession[key] = true
+    }
 
 }
 

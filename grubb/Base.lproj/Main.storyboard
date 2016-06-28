@@ -1060,8 +1060,8 @@
                                         <state key="normal" image="noun_26915_cc"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="FK6-F9-18Y"/>
                                                 <exclude reference="DdB-Nq-1XX"/>
+                                                <exclude reference="FK6-F9-18Y"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1082,9 +1082,9 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="qtE-Zh-UIy"/>
-                                        <exclude reference="XMk-eO-OVg"/>
-                                        <exclude reference="EIp-Ny-VYx"/>
                                         <exclude reference="4yp-4f-0ov"/>
+                                        <exclude reference="EIp-Ny-VYx"/>
+                                        <exclude reference="XMk-eO-OVg"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -1108,10 +1108,10 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="H6a-fA-xyJ"/>
-                                                        <exclude reference="iq8-3L-wOG"/>
-                                                        <exclude reference="acA-Ox-aLK"/>
-                                                        <exclude reference="umn-fy-UIr"/>
                                                         <exclude reference="KN4-xA-jJA"/>
+                                                        <exclude reference="acA-Ox-aLK"/>
+                                                        <exclude reference="iq8-3L-wOG"/>
+                                                        <exclude reference="umn-fy-UIr"/>
                                                     </mask>
                                                 </variation>
                                             </imageView>
@@ -1133,8 +1133,8 @@
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="wRg-Fw-xxV"/>
                                                         <exclude reference="lub-EP-SI4"/>
+                                                        <exclude reference="wRg-Fw-xxV"/>
                                                     </mask>
                                                 </variation>
                                                 <connections>
@@ -1258,15 +1258,15 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="5Xh-ki-dZh"/>
-                                                <exclude reference="eBu-hu-9RR"/>
                                                 <exclude reference="C01-dx-nuy"/>
+                                                <exclude reference="eBu-hu-9RR"/>
                                                 <exclude reference="ZsU-pn-pOX"/>
                                                 <exclude reference="gcm-3G-m3d"/>
-                                                <exclude reference="n9u-Bs-SUY"/>
                                                 <exclude reference="NGC-7T-Dzm"/>
+                                                <exclude reference="n9u-Bs-SUY"/>
+                                                <exclude reference="2wg-iL-Z4q"/>
                                                 <exclude reference="BmO-Pn-KXN"/>
                                                 <exclude reference="ILa-GY-Kxe"/>
-                                                <exclude reference="2wg-iL-Z4q"/>
                                                 <exclude reference="ocf-72-XH4"/>
                                             </mask>
                                         </variation>
