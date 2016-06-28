@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E0137401D172E5C0041FDAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */; };
 		8E0137421D1739100041FDAD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137411D1739100041FDAD /* Constants.swift */; };
 		8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0137451D17525F0041FDAD /* newPostVC.swift */; };
 		8E01374D1D185CD10041FDAD /* newPostTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01374C1D185CD10041FDAD /* newPostTextField.swift */; };
@@ -30,11 +29,13 @@
 		8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6931D145AF6009D4506 /* FoodCell.swift */; };
 		8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6951D146C9C009D4506 /* itemVC.swift */; };
 		8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6971D14B2CD009D4506 /* CameraVC.swift */; };
+		8E69197B1D21A202003A6FE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */; };
+		8E6919801D22D6B3003A6FE2 /* BatchClientPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */; };
+		8E6919821D22DE26003A6FE2 /* LikesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6919811D22DE26003A6FE2 /* LikesManager.swift */; };
 		D455998AE30EE6517BEBD3CF /* Pods_grubb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF47434F0575E06892BACAB /* Pods_grubb.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E0137411D1739100041FDAD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8E0137451D17525F0041FDAD /* newPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostVC.swift; sourceTree = "<group>"; };
 		8E01374C1D185CD10041FDAD /* newPostTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = newPostTextField.swift; sourceTree = "<group>"; };
@@ -60,6 +61,9 @@
 		8E54A6931D145AF6009D4506 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 		8E54A6951D146C9C009D4506 /* itemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemVC.swift; sourceTree = "<group>"; };
 		8E54A6971D14B2CD009D4506 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchClientPush.swift; sourceTree = "<group>"; };
+		8E6919811D22DE26003A6FE2 /* LikesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesManager.swift; sourceTree = "<group>"; };
 		B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.debug.xcconfig"; sourceTree = "<group>"; };
 		EEF47434F0575E06892BACAB /* Pods_grubb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_grubb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.release.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 		8E54A6761D144996009D4506 /* grubb */ = {
 			isa = PBXGroup;
 			children = (
+				8E69197E1D22D69D003A6FE2 /* Services */,
 				8E0137491D184CD30041FDAD /* Util */,
 				8E54A68E1D144E86009D4506 /* Model */,
 				8E54A68D1D144E83009D4506 /* View */,
@@ -123,7 +128,7 @@
 				8E54A67B1D144996009D4506 /* Main.storyboard */,
 				8E54A6811D144996009D4506 /* Assets.xcassets */,
 				8E54A6831D144996009D4506 /* LaunchScreen.storyboard */,
-				8E01373F1D172E5C0041FDAD /* GoogleService-Info.plist */,
+				8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */,
 				8E54A6861D144996009D4506 /* Info.plist */,
 				8E54A67E1D144996009D4506 /* grubb.xcdatamodeld */,
 				8E0137541D189E180041FDAD /* grubb-Bridging-Header.h */,
@@ -166,6 +171,15 @@
 				8E01377B1D1DA36A0041FDAD /* foodPreview.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		8E69197E1D22D69D003A6FE2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */,
+				8E6919811D22DE26003A6FE2 /* LikesManager.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		C6B292F1ECF6E27324B9EFF8 /* Frameworks */ = {
@@ -211,7 +225,7 @@
 				TargetAttributes = {
 					8E54A6731D144996009D4506 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = E2C8DDCQR7;
+						DevelopmentTeam = 732LS35PLA;
 					};
 				};
 			};
@@ -239,9 +253,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E54A6851D144996009D4506 /* LaunchScreen.storyboard in Resources */,
+				8E69197B1D21A202003A6FE2 /* GoogleService-Info.plist in Resources */,
 				8E54A6821D144996009D4506 /* Assets.xcassets in Resources */,
 				8E54A67D1D144996009D4506 /* Main.storyboard in Resources */,
-				8E0137401D172E5C0041FDAD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +318,7 @@
 				8E54A67A1D144996009D4506 /* ViewController.swift in Sources */,
 				8E01376A1D19E4E80041FDAD /* DraggableView.swift in Sources */,
 				8E0137461D17525F0041FDAD /* newPostVC.swift in Sources */,
+				8E6919821D22DE26003A6FE2 /* LikesManager.swift in Sources */,
 				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
 				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
 				8E0137701D1A4E600041FDAD /* searchField.swift in Sources */,
@@ -313,6 +328,7 @@
 				8E0137781D1B398B0041FDAD /* MapVC.swift in Sources */,
 				8E01376E1D19E5200041FDAD /* OverlayView.swift in Sources */,
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
+				8E6919801D22D6B3003A6FE2 /* BatchClientPush.swift in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
 				8E01377C1D1DA36A0041FDAD /* foodPreview.swift in Sources */,
 				8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */,
@@ -441,7 +457,7 @@
 				);
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = grubbapp.grubb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
@@ -463,7 +479,7 @@
 				);
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = grubbapp.grubb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";

@@ -25,10 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(uid)
             NSUserDefaults.standardUserDefaults().setObject(uid, forKey: "USER_UID")
             NSUserDefaults.standardUserDefaults().synchronize()
+            
+            Batch.startWithAPIKey(BATCH_API_KEY)
+            BatchPush.registerForRemoteNotifications()
+            BatchPush.dismissNotifications()
+            
+            let editor = BatchUser.editor()
+            editor.setIdentifier(uid)
+            editor.save() // Do not forget to save the changes!
         })
         GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
-        Batch.startWithAPIKey(BATCH_API_KEY)
-        BatchPush.registerForRemoteNotifications()
         return true
     }
 
@@ -48,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        BatchPush.dismissNotifications()
     }
 
     func applicationWillTerminate(application: UIApplication) {

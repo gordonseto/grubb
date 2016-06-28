@@ -20,6 +20,7 @@ class Food {
     private var _imageUrl: String!
     private var _search_key: String!
     private var _placeID: String!
+    private var _author: String!
     var foodImage: UIImage?
     
     var key: String {
@@ -58,7 +59,11 @@ class Food {
         return _placeID
     }
     
-    init(key: String, name: String, restaurant: String, price: Double, categoryArray: [String], geolocation: CLLocation, placeID: String, search_key: String){
+    var author: String{
+        return _author
+    }
+    
+    init(key: String, name: String, restaurant: String, price: Double, categoryArray: [String], geolocation: CLLocation, placeID: String, search_key: String, author: String){
         _key = key
         _name = name
         _restaurant = restaurant
@@ -68,5 +73,6 @@ class Food {
         _search_key = search_key
         _imageUrl = "http://res.cloudinary.com/gordonseto/image/upload/v1465232634/trnorlc6ihzqjcngyybx.jpg"
         _placeID = placeID
+        _author = author
     }
 }

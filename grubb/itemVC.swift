@@ -35,6 +35,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     var numLikes = 0
     
     let locationManager = CLLocationManager()
+    var likesManager: LikesManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,8 +100,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             let geolocation = location
             let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
             var placeID = snapshot.value?["placeID"] as! String
-            
-            self.food = Food(key: self.key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key)
+            let author = snapshot.value!["author"] as! String
+            self.food = Food(key: self.key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key, author: author)
             
             self.food.foodImage = self.image
             
@@ -129,6 +130,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 } else {
                     self.foodNotLiked()
                 }
+                self.likesManager = LikesManager(uid: uid, key: self.food.key, author: self.food.author)
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -159,55 +161,19 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func onHeartTapped(sender: UITapGestureRecognizer) {
         print("tapped")
-        if likeImage.image == UIImage(named: "emptyHeart"){
-            if let uid = uid {
+        if let uid = uid {
+            if likeImage.image == UIImage(named: "emptyHeart"){
                 foodLiked()
                 numLikes += 1
                 updateLikesLabel(numLikes)
-                let time = NSDate().timeIntervalSince1970
-                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(time)
-                self.firebase.child("posts").child(food.key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
-                    if var post = currentData.value as? [String: AnyObject] {
-                        var likes = post["likes"] as? Int ?? 0
-                        likes += 1
-                        post["likes"] = likes
-                        currentData.value = post
-                        print(likes)
-                        return FIRTransactionResult.successWithValue(currentData)
-                    }
-                    return FIRTransactionResult.successWithValue(currentData)
-                }, andCompletionBlock: { (error, committed, snapshot) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
-                })
-            }
+                likesManager.likePost()
             
-        } else {
-            if let uid = uid {
+            } else {
                 foodNotLiked()
                 numLikes -= 1
                 updateLikesLabel(numLikes)
-                self.firebase.child("users").child(uid).child("likes").child(food.key).setValue(nil)
-                self.firebase.child("posts").child(food.key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
-                    if var post = currentData.value as? [String: AnyObject] {
-                        var likes = post["likes"] as? Int ?? 0
-                        likes -= 1
-                        post["likes"] = likes
-                        currentData.value = post
-                        
-                        return FIRTransactionResult.successWithValue(currentData)
-                    }
-                    return FIRTransactionResult.successWithValue(currentData)
-                    }, andCompletionBlock: { (error, committed, snapshot) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
-                })
+                likesManager.unlikePost()
             }
-        }
-        if let uid = uid {
-            let firebase = FIRDatabase.database().reference()
         }
     }
 
