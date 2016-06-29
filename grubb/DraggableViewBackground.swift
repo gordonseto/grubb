@@ -218,7 +218,6 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     }
     
     func cardSwipedRight(card: UIView) -> Void {
-        print("wat")
         delegate?.onCardSwiped(loadedCards[0].food.key)
         delegate?.onCardSwipedRight(loadedCards[0].food)
         loadedCards.removeAtIndex(0)

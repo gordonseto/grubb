@@ -11,6 +11,10 @@ import GoogleMaps
 import FirebaseDatabase
 import GeoFire
 
+protocol itemVCDelegate: class {
+    func onFoodLiked()
+}
+
 class itemVC: UIViewController, CLLocationManagerDelegate {
 
 
@@ -36,6 +40,10 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     var likesManager: LikesManager!
+    
+    var fromHome = false
+    
+    weak var delegate: itemVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,8 +174,10 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 foodLiked()
                 numLikes += 1
                 updateLikesLabel(numLikes)
+                if fromHome {
+                    popAndAnimateSwipe()
+                }
                 likesManager.likePost()
-            
             } else {
                 foodNotLiked()
                 numLikes -= 1
@@ -177,6 +187,16 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         }
     }
 
+    func popAndAnimateSwipe(){
+        let delay = 0.25 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            if let navController = self.navigationController {
+                navController.popViewControllerAnimated(true)
+                self.delegate?.onFoodLiked()
+            }
+        }
+    }
     
     func findDistanceFromSearch(){
         var distance = searchLocation.distanceFromLocation(food.geolocation)

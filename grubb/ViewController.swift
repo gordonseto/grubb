@@ -11,7 +11,7 @@ import FirebaseDatabase
 import GeoFire
 import AZDropdownMenu
 
-class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, itemVCDelegate {
     
     var food = [Food]()
     var searchedFood = [Food]()
@@ -187,8 +187,10 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         if segue.identifier == "itemVCFromHome" {
             if let destinationVC = segue.destinationViewController as? itemVC {
                 if let item = sender as? Food {
+                    destinationVC.delegate = self
                     destinationVC.food = item
                     destinationVC.searchLocation = center
+                    destinationVC.fromHome = true
                 }
             }
         }
@@ -300,6 +302,14 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     func onCardSwipedRight(food: Food){
         let likesManager = LikesManager(uid: uid, key: food.key, author: food.author)
         likesManager.likePost()
+    }
+    
+    func onFoodLiked(){
+        let delay = 0.4 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.draggableBackground.loadedCards[0].rightClickAction()
+        }
     }
 
 }

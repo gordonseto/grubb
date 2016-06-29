@@ -181,6 +181,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 if let item = sender as? foodPreview {
                     destinationVC.key = item.key
                     destinationVC.image = item.foodImage
+                    destinationVC.fromHome = false
                 }
             }
         }
