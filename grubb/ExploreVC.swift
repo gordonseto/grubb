@@ -72,6 +72,10 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
                 self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
             })
+            firebase.child("users").child(uid).child("likes").observeEventType(.ChildChanged, withBlock: {(snapshot) -> Void in
+                self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+                self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+            })
             firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
                 let newFood = snapshot.value as? NSNumber
                 self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")

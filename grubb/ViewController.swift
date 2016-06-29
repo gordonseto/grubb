@@ -113,6 +113,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         geofire = GeoFire(firebaseRef: geofireRef)
         
         firebase.child("users").child(uid).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            /*
             if let swiped = snapshot.value!["swiped"] as? [String: AnyObject] {
                 self.swiped = swiped
                 print(self.swiped)
@@ -120,7 +121,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             } else {
                 self.swiped = [String: AnyObject]()
             }
-            
+            */
+            self.swiped = [String: AnyObject]()
             self.circleQuery = self.geofire.queryAtLocation(center, withRadius: radius)
 
             self.queryHandle = self.circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
@@ -293,6 +295,11 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         let time = NSDate().timeIntervalSince1970
         firebase.child("users").child(uid).child("swiped").child(key).setValue(time)
         swipedInThisSession[key] = true
+    }
+    
+    func onCardSwipedRight(food: Food){
+        let likesManager = LikesManager(uid: uid, key: food.key, author: food.author)
+        likesManager.likePost()
     }
 
 }
