@@ -74,7 +74,7 @@
         <!--New PostVC-->
         <scene sceneID="8WU-si-Aiy">
             <objects>
-                <viewController id="bFj-lA-Ijb" customClass="newPostVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newPostVC" id="bFj-lA-Ijb" customClass="newPostVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KeN-xR-T2W"/>
                         <viewControllerLayoutGuide type="bottom" id="IxB-85-7yA"/>
@@ -632,12 +632,33 @@
                                             <action selector="backButtonPressed:" destination="nUg-HZ-ChK" eventType="touchUpInside" id="v7h-ZN-VGL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvW-Nv-P2h">
+                                        <rect key="frame" x="285" y="13" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EJy-Vz-aO9"/>
+                                            <constraint firstAttribute="width" constant="30" id="QXo-Va-zlj"/>
+                                            <constraint firstAttribute="width" constant="44" id="iak-5T-09Y"/>
+                                            <constraint firstAttribute="height" constant="44" id="nix-ka-g3R"/>
+                                        </constraints>
+                                        <state key="normal" image="noun_37665_cc"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="iak-5T-09Y"/>
+                                                <exclude reference="nix-ka-g3R"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="onMoreButtonPressed:" destination="nUg-HZ-ChK" eventType="touchUpInside" id="y1I-Ah-oQF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="GiD-8r-GsK" firstAttribute="leading" secondItem="eJl-p5-KyL" secondAttribute="leading" constant="8" id="0p0-Wo-Uzt"/>
                                     <constraint firstItem="GiD-8r-GsK" firstAttribute="top" secondItem="eJl-p5-KyL" secondAttribute="top" constant="42" id="26Z-ZF-PTF"/>
+                                    <constraint firstAttribute="trailing" secondItem="PvW-Nv-P2h" secondAttribute="trailing" constant="8" id="6A4-v8-vvR"/>
                                     <constraint firstItem="GiD-8r-GsK" firstAttribute="leading" secondItem="eJl-p5-KyL" secondAttribute="leading" constant="8" id="9Tt-Be-Fkh"/>
+                                    <constraint firstAttribute="bottom" secondItem="PvW-Nv-P2h" secondAttribute="bottom" constant="4" id="FaT-TK-Igo"/>
                                     <constraint firstAttribute="height" constant="55" id="Y8T-PN-8cF"/>
                                     <constraint firstAttribute="bottom" secondItem="GiD-8r-GsK" secondAttribute="bottom" constant="4" id="Zm4-dK-dfe"/>
                                     <constraint firstItem="GiD-8r-GsK" firstAttribute="top" secondItem="eJl-p5-KyL" secondAttribute="top" constant="28" id="gfy-rK-fC3"/>
@@ -868,6 +889,7 @@
                         <outlet property="priceLabel" destination="Ctw-ec-OWc" id="B1h-LC-HyG"/>
                         <outlet property="restaurantLabel" destination="KrS-lD-epW" id="a1g-Nc-nRu"/>
                         <outlet property="saveImage" destination="w0z-iA-Dvt" id="MsB-mM-3Ul"/>
+                        <segue destination="bFj-lA-Ijb" kind="show" identifier="editPostVC" id="pvM-6u-hTk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqD-IO-zFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1304,6 +1326,7 @@
                         <outlet property="priceLabel" destination="S9X-Eb-mCb" id="1O7-A6-Byz"/>
                         <outlet property="restaurantLabel" destination="cjG-hL-9WJ" id="Acf-A2-PQp"/>
                         <outlet property="saveImage" destination="Kn1-Dw-kpZ" id="Fjl-qS-7w0"/>
+                        <segue destination="bFj-lA-Ijb" kind="show" identifier="editPostVC" id="jvQ-x1-LbI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="csc-Hg-eRG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1320,5 +1343,9 @@
         <image name="IMG_0161" width="3024" height="4032"/>
         <image name="emptyHeart" width="700" height="700"/>
         <image name="noun_26915_cc" width="700" height="700"/>
+        <image name="noun_37665_cc" width="700" height="700"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jvQ-x1-LbI"/>
+    </inferredMetricsTieBreakers>
 </document>

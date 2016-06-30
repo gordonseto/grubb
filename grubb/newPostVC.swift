@@ -30,9 +30,12 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     var coordinate: CLLocationCoordinate2D!
     var image: UIImage?
     var categoryArray = [String]()
-    var placeID: String!
+    var numLikes: Int = 0
     
     var priceInputIsEditing: Bool = false
+    
+    var editMode = false
+    var food: Food!
     
     let TEXTVIEW_PLACEHOLDER = " Name of the dish"
     let MAX_TEXT = 80
@@ -49,7 +52,11 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         nameInput.delegate = self
         priceInput.delegate = self
         
-        predictCategory()
+        if editMode{
+            initializeEditMode()
+        } else {
+            predictCategory()
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
@@ -58,6 +65,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
+        
         foodImage.image = image!
         foodImage.clipsToBounds = true
         
@@ -111,8 +119,13 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                     dinnerButton.enabled = false
                                     dessertButton.enabled = false
                                     
-                                    let key = firebase.child("posts").childByAutoId().key
-                                
+                                    var key: String
+                                    if editMode {
+                                        key = self.food.key
+                                    } else {
+                                        key = firebase.child("posts").childByAutoId().key
+                                    }
+                                    
                                     let storage = FIRStorage.storage()
                                     let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
                                     let imagesRef = storageRef.child("images")
@@ -125,7 +138,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                             self.showErrorAlert("Oops! There was an error sharing your dish.", msg: "Please make sure you have an internet connection.")
                                             self.shareButton.enabled = true
                                         } else {
-                                            let post: [String: AnyObject] = ["name": self.nameInput.text!.lowercaseString.capitalizedString, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray, "placeID": self.placeID]
+                                            let post: [String: AnyObject] = ["name": self.nameInput.text!.lowercaseString.capitalizedString, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray, "likes": self.numLikes]
                                             
                                             self.firebase.child("posts").child(key).setValue(post)
                                             let seconds = NSDate().timeIntervalSince1970
@@ -294,6 +307,37 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
     }
     
+    func initializeEditMode(){
+        restaurant = food.restaurant
+        coordinate = food.geolocation.coordinate
+        image = food.foodImage
+        foodImage.image = image
+        foodImage.clipsToBounds = true
+        categoryArray = food.categoryArray
+        nameInput.text = food.name
+        priceInput.text = String.localizedStringWithFormat("%.2f", food.price)
+        
+        highlightCategoryButtons()
+    }
+    
+    func highlightCategoryButtons(){
+        for var i = 0; i < categoryArray.count; i++ {
+            var tag: Int
+            var category = categoryArray[i]
+            if category == "Breakfast" {
+                tag = 1
+            } else if category == "Lunch" {
+                tag = 2
+            } else if category == "Dinner" {
+                tag = 3
+            } else {
+                tag = 4
+            }
+            let button = self.view.viewWithTag(tag) as! UIButton
+            highlightButton(button)
+        }
+    }
+    
 }
 
 extension newPostVC: GMSAutocompleteViewControllerDelegate {
@@ -302,7 +346,6 @@ extension newPostVC: GMSAutocompleteViewControllerDelegate {
         print("Place coordinates: ", place.coordinate)
         restaurant = place.name
         coordinate = place.coordinate
-        placeID = place.placeID
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

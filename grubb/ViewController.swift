@@ -138,10 +138,9 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
                         let categoryArray = snapshot.value!["categoryArray"] as! [String]
                         let geolocation = location
                         let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
-                        var placeID = snapshot.value?["placeID"] as! String
                         let author = snapshot.value!["author"] as! String
                 
-                        let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key, author: author)
+                        let newFood = Food(key: key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, search_key: search_key, author: author)
                         self.food.append(newFood)
                         print(newFood.restaurant)
                         print("NAME: \(newFood.name)")

@@ -115,9 +115,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             let categoryArray = snapshot.value!["categoryArray"] as! [String]
             let geolocation = location
             let search_key = "\(name.lowercaseString) \(restaurant.lowercaseString) \(restaurant.stringByReplacingOccurrencesOfString("'", withString: "").lowercaseString)"
-            var placeID = snapshot.value?["placeID"] as! String
             let author = snapshot.value!["author"] as! String
-            self.food = Food(key: self.key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, placeID: placeID, search_key: search_key, author: author)
+            self.food = Food(key: self.key, name: name, restaurant: restaurant, price: price, categoryArray: categoryArray, geolocation: geolocation, search_key: search_key, author: author)
             
             self.food.foodImage = self.image
             
@@ -225,6 +224,24 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 }
             })
         }
+    }
+    
+    @IBAction func onMoreButtonPressed(sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let editAction = UIAlertAction(title: "Edit", style: .Default) { action -> Void in
+            let editVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewControllerWithIdentifier("newPostVC") as! newPostVC
+            editVC.editMode = true
+            editVC.food = self.food
+            editVC.numLikes = self.numLikes
+            self.presentViewController(editVC, animated: true, completion: nil)
+        }
+        alertController.addAction(editAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     func findDistanceFromSearch(){
