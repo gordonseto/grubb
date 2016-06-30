@@ -476,7 +476,7 @@
         <!--ExploreVC-->
         <scene sceneID="qYq-yb-miN">
             <objects>
-                <viewController id="Neu-CJ-BbI" customClass="ExploreVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExploreVC" id="Neu-CJ-BbI" customClass="ExploreVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fCO-W2-Qqb"/>
                         <viewControllerLayoutGuide type="bottom" id="Xez-eM-CGi"/>

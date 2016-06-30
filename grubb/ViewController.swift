@@ -52,16 +52,16 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         navigationLayer.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(navigationLayer)
         
-        let backButton = UIButton(frame: CGRectMake(8, 32, 30, 30))
+        let backButton = UIButton(frame: CGRectMake(8, 25, 30, 30))
         backButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
         backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
         
-        search = searchField(frame: CGRectMake(40, 30, self.view.frame.size.width * 0.7, 30))
+        search = searchField(frame: CGRectMake(40, 23, self.view.frame.size.width * 0.7, 30))
         search.delegate = self
         self.view.addSubview(search)
         
-        let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 50, 25, 40, 40))
+        let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 50, 18, 40, 40))
         filterButton.setImage(UIImage(named: "filterButton"), forState: UIControlState.Normal)
         filterButton.addTarget(self, action: #selector(onFilterTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(filterButton)
@@ -300,7 +300,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func onCardSwipedRight(food: Food){
-        let likesManager = LikesManager(uid: uid, key: food.key, author: food.author)
+        let likesManager = LikesManager(uid: uid, key: food.key, author: food.author, name: food.name)
         likesManager.likePost()
     }
     

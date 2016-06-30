@@ -125,6 +125,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func application(application: UIApplication,openURL url: NSURL,sourceApplication sourceApplication: String?,annotation annotation: AnyObject?) -> Bool {
+        if url.host == nil {
+            return true
+        }
+        
+        let urlString = url.absoluteString
+        let queryArray = urlString.componentsSeparatedByString("/")
+        let query = queryArray[3]
+        print(query as String!)
+        
+        let tabBarController: UITabBarController = self.window?.rootViewController as! UITabBarController
+        tabBarController.selectedIndex = 1
+        let exploreNVC = tabBarController.viewControllers![1] as! UINavigationController
+        let exploreVC = exploreNVC.viewControllers[0] as! ExploreVC
+        exploreVC.displayMode = 1
+        let item = foodPreview(key: query)
+        exploreVC.performSegueWithIdentifier("itemVCFromExplore", sender: item)
+
+        return true
+    }
 
 }
 

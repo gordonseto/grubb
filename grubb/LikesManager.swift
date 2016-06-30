@@ -13,6 +13,7 @@ class LikesManager {
     private var _uid: String!
     private var _key: String!
     private var _author: String!
+    private var _name: String!
     
     var firebase: FIRDatabaseReference!
     
@@ -28,10 +29,11 @@ class LikesManager {
         return _author
     }
     
-    init(uid: String, key: String, author: String){
+    init(uid: String, key: String, author: String, name: String){
         _uid = uid
         _key = key
         _author = author
+        _name = name
         
         firebase = FIRDatabase.database().reference()
     }
@@ -83,8 +85,9 @@ class LikesManager {
             pushClient.customPayload = ["aps": ["badge": 1, "sound": NSNull(), "content-available": 1]]
             pushClient.groupId = "likeNotifications"
             pushClient.message.title = "Grubb"
-            pushClient.message.body = "Someone has liked your dish."
+            pushClient.message.body = "Someone has liked your dish '\(_name)'"
             pushClient.recipients.customIds = [_author]
+            pushClient.deeplink = "grubb://dishes/\(key)"
             
             pushClient.send { (response, error) in
                 if let error = error {

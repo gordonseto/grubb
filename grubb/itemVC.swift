@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import FirebaseDatabase
+import FirebaseStorage
 import GeoFire
 
 protocol itemVCDelegate: class {
@@ -42,6 +43,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     var likesManager: LikesManager!
     
     var fromHome = false
+    var imagesRef: FIRStorageReference?
     
     weak var delegate: itemVCDelegate!
     
@@ -49,6 +51,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         
         locationManager.delegate = self
+        
+        likeImage.userInteractionEnabled = false
         
         if food == nil {
             getFoodData()
@@ -59,7 +63,11 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     
     func initializeView(){
         nameLabel.text = food.name
-        foodImage.image = food.foodImage
+        if food.foodImage != nil {
+            foodImage.image = food.foodImage
+        } else {
+            downloadFoodImage()
+        }
         priceLabel.text = String.localizedStringWithFormat("$%.2f", food.price)
         restaurantLabel.text = food.restaurant
         
@@ -138,7 +146,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 } else {
                     self.foodNotLiked()
                 }
-                self.likesManager = LikesManager(uid: uid, key: self.food.key, author: self.food.author)
+                self.likesManager = LikesManager(uid: uid, key: self.food.key, author: self.food.author, name: self.food.name)
+                self.likeImage.userInteractionEnabled = true
             }) { (error) in
                 print(error.localizedDescription)
             }
@@ -176,8 +185,9 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 updateLikesLabel(numLikes)
                 if fromHome {
                     popAndAnimateSwipe()
+                } else {
+                    likesManager.likePost()
                 }
-                likesManager.likePost()
             } else {
                 foodNotLiked()
                 numLikes -= 1
@@ -195,6 +205,25 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 navController.popViewControllerAnimated(true)
                 self.delegate?.onFoodLiked()
             }
+        }
+    }
+    
+    func downloadFoodImage(){
+        let storage = FIRStorage.storage()
+        let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
+        imagesRef = storageRef.child("images")
+        if let imagesRef = imagesRef {
+            let childRef = imagesRef.child(food.key)
+            childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                if (error != nil){
+                    print(error.debugDescription)
+                } else {
+                    let foodImage: UIImage! = UIImage(data: data!)
+                    self.food.foodImage = foodImage
+                    print("downloaded \(self.food.key)'s image")
+                    self.foodImage.image = foodImage
+                }
+            })
         }
     }
     

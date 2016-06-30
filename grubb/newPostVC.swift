@@ -125,7 +125,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                             self.showErrorAlert("Oops! There was an error sharing your dish.", msg: "Please make sure you have an internet connection.")
                                             self.shareButton.enabled = true
                                         } else {
-                                            let post: [String: AnyObject] = ["name": self.nameInput.text!, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray, "placeID": self.placeID]
+                                            let post: [String: AnyObject] = ["name": self.nameInput.text!.lowercaseString.capitalizedString, "author": uid, "price": price, "restaurant":  restaurant, "categoryArray": self.categoryArray, "placeID": self.placeID]
                                             
                                             self.firebase.child("posts").child(key).setValue(post)
                                             let seconds = NSDate().timeIntervalSince1970
@@ -290,7 +290,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "tabBarVC"){
             let tabBarVC = segue.destinationViewController as! UITabBarController
-            tabBarVC.selectedIndex = 0
+            tabBarVC.selectedIndex = 1
         }
     }
     

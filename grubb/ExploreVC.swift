@@ -12,6 +12,7 @@ import AVFoundation
 import GeoFire
 import FirebaseDatabase
 import FirebaseStorage
+import Batch
 
 class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
@@ -24,7 +25,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     let numOfCells: CGFloat = 3
     var displayMode = 0
     let LIKED_MODE = 0
-    let MYFOOD_MODE = 0
+    let MYFOOD_MODE = 1
     
     var imagesRef: FIRStorageReference?
     
@@ -58,6 +59,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     override func viewDidAppear(animated: Bool) {
         print(likedFoodPreviews.count)
         print(myFoodPreviews.count)
+        
+        BatchPush.dismissNotifications()
     }
     
     func getLikedandMyFood(){
