@@ -32,6 +32,7 @@
 		8E69197B1D21A202003A6FE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */; };
 		8E6919801D22D6B3003A6FE2 /* BatchClientPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */; };
 		8E6919821D22DE26003A6FE2 /* LikesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6919811D22DE26003A6FE2 /* LikesManager.swift */; };
+		8E6919851D25D76C003A6FE2 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6919841D25D76C003A6FE2 /* ReportVC.swift */; };
 		D455998AE30EE6517BEBD3CF /* Pods_grubb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF47434F0575E06892BACAB /* Pods_grubb.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchClientPush.swift; sourceTree = "<group>"; };
 		8E6919811D22DE26003A6FE2 /* LikesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesManager.swift; sourceTree = "<group>"; };
+		8E6919841D25D76C003A6FE2 /* ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
 		B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.debug.xcconfig"; sourceTree = "<group>"; };
 		EEF47434F0575E06892BACAB /* Pods_grubb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_grubb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.release.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				8E54A6971D14B2CD009D4506 /* CameraVC.swift */,
 				8E0137451D17525F0041FDAD /* newPostVC.swift */,
 				8E0137771D1B398B0041FDAD /* MapVC.swift */,
+				8E6919841D25D76C003A6FE2 /* ReportVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				8E54A6801D144996009D4506 /* grubb.xcdatamodeld in Sources */,
 				8E6919801D22D6B3003A6FE2 /* BatchClientPush.swift in Sources */,
 				8E54A6781D144996009D4506 /* AppDelegate.swift in Sources */,
+				8E6919851D25D76C003A6FE2 /* ReportVC.swift in Sources */,
 				8E01377C1D1DA36A0041FDAD /* foodPreview.swift in Sources */,
 				8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */,
 				8E0137421D1739100041FDAD /* Constants.swift in Sources */,

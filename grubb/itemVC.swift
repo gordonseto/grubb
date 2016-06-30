@@ -229,14 +229,23 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     @IBAction func onMoreButtonPressed(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        let editAction = UIAlertAction(title: "Edit", style: .Default) { action -> Void in
+        if let uid = self.uid where uid == self.food.author {
+            let editAction = UIAlertAction(title: "Edit", style: .Default) { action -> Void in
             let editVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewControllerWithIdentifier("newPostVC") as! newPostVC
-            editVC.editMode = true
-            editVC.food = self.food
-            editVC.numLikes = self.numLikes
-            self.presentViewController(editVC, animated: true, completion: nil)
+                editVC.editMode = true
+                editVC.food = self.food
+                editVC.numLikes = self.numLikes
+                self.presentViewController(editVC, animated: true, completion: nil)
+            }
+            alertController.addAction(editAction)
+        } else {
+            let reportAction = UIAlertAction(title: "Report", style: .Destructive) { action -> Void in
+                let reportVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewControllerWithIdentifier("ReportVC") as! ReportVC
+                reportVC.key = self.food.key
+                self.presentViewController(reportVC, animated: true, completion: nil)
+            }
+            alertController.addAction(reportAction)
         }
-        alertController.addAction(editAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
