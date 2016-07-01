@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMaps
 import FirebaseDatabase
 import FirebaseStorage
 import GeoFire
@@ -33,7 +32,6 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     var key: String!
     var image: UIImage!
     
-    var placesClient: GMSPlacesClient?
     var uid: String?
     var firebase: FIRDatabaseReference!
     
@@ -72,8 +70,6 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         restaurantLabel.text = food.restaurant
         
         checkLikedStatus()
-        
-        placesClient = GMSPlacesClient()
         
         findDistanceFromSearch()
     }
@@ -123,6 +119,9 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             self.initializeView()
         }) { (error) in
             print(error.localizedDescription)
+            if let navController = self.navigationController {
+                navController.popViewControllerAnimated(true)
+            }
         }
     }
     
@@ -238,6 +237,20 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 self.presentViewController(editVC, animated: true, completion: nil)
             }
             alertController.addAction(editAction)
+            /*
+            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) { action -> Void in
+                let alert = UIAlertController(title: "Are you sure you want to delete this dish?", message: "This will be permanent and cannot be undone.", preferredStyle: .Alert)
+                let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default) { action -> Void in
+                }
+                alert.addAction(cancel)
+                let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive) { action -> Void in
+                    self.deletePost(self.food.key)
+                }
+                alert.addAction(delete)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            alertController.addAction(deleteAction)
+            */
         } else {
             let reportAction = UIAlertAction(title: "Report", style: .Destructive) { action -> Void in
                 let reportVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewControllerWithIdentifier("ReportVC") as! ReportVC
@@ -280,5 +293,33 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             UIApplication.sharedApplication().openURL(NSURL(string:
                 "comgooglemaps://?q=\(restaurant_string)&center=\(food.geolocation.coordinate.latitude),\(food.geolocation.coordinate.longitude)&zoom=15&views=")!)
     }
+    /*
+    func deletePost(key: String){
+        let storage = FIRStorage.storage()
+        let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
+        let imagesRef = storageRef.child("images")
+        let childRef = imagesRef.child(key)
+        
+        childRef.deleteWithCompletion { (error) -> Void in
+            if (error != nil) {
+                print(error?.localizedDescription)
+            } else {
+                print("deletion successful")
+            }
+        }
+        
+        firebase.child("geolocations").child(key).setValue(nil)
+        firebase.child("posts").child(key).setValue(nil)
+        firebase.child("users").child(self.food.author).child("posts").child(key).setValue(nil)
+        
+        if let navController = self.navigationController {
+            if !fromHome {
+                let exploreVC = navController.viewControllers[0] as! ExploreVC
+                exploreVC.collection.reloadData()
+            }
+            navController.popViewControllerAnimated(true)
+        }
+    }
+     */
 
 }

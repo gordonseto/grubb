@@ -819,7 +819,7 @@
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8F-6n-lQR">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="519"/>
                                         <subviews>
-                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="IMG_0161" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-8s-zNk">
+                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-8s-zNk">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="355"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -847,7 +847,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="qaF-LX-a4I"/>
                                                 </constraints>
                                             </view>
-                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="emptyHeart" translatesAutoresizingMaskIntoConstraints="NO" id="w0z-iA-Dvt">
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w0z-iA-Dvt">
                                                 <rect key="frame" x="22" y="368" width="35" height="35"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -866,7 +866,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="UT7-Cw-quT" appends="YES" id="Qq4-mw-ZQ0"/>
                                                 </connections>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Denny's Crowfoot" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="KrS-lD-epW">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="KrS-lD-epW">
                                                 <rect key="frame" x="8" y="555" width="465" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="YmU-zT-sGm"/>
@@ -900,7 +900,7 @@
                                                     </mask>
                                                 </variation>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$23.95" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ec-OWc">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ec-OWc">
                                                 <rect key="frame" x="540" y="411" width="52" height="26"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="26" id="9vX-c4-yTc"/>
@@ -915,7 +915,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 km away" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-dg-slG">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi6-dg-slG">
                                                 <rect key="frame" x="482" y="375" width="110" height="22"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -934,7 +934,7 @@
                                                     <action selector="onViewInGoogleMapsPressed:" destination="nUg-HZ-ChK" eventType="touchUpInside" id="t8J-Bu-6nf"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3 likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMd-MM-ZIB">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMd-MM-ZIB">
                                                 <rect key="frame" x="65" y="374" width="56" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="FMg-oq-pSX"/>
@@ -1276,7 +1276,7 @@
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJD-fU-sis">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="519"/>
                                         <subviews>
-                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="IMG_0161" translatesAutoresizingMaskIntoConstraints="NO" id="6n5-O1-Rld">
+                                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6n5-O1-Rld">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="355"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1304,7 +1304,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="nlt-j8-Yyi"/>
                                                 </constraints>
                                             </view>
-                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="emptyHeart" translatesAutoresizingMaskIntoConstraints="NO" id="rcF-cb-vLT">
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rcF-cb-vLT">
                                                 <rect key="frame" x="22" y="368" width="35" height="35"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1323,7 +1323,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="xFx-R2-TgM" appends="YES" id="ZWj-qh-3x1"/>
                                                 </connections>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Denny's Crowfoot" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="U6s-2B-iD4">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="U6s-2B-iD4">
                                                 <rect key="frame" x="8" y="555" width="465" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="YaZ-sZ-8Uk"/>
@@ -1357,7 +1357,7 @@
                                                     </mask>
                                                 </variation>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$23.95" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEa-jU-L0q">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEa-jU-L0q">
                                                 <rect key="frame" x="540" y="411" width="52" height="26"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="v5s-fc-rV0"/>
@@ -1372,7 +1372,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 km away" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8B-0a-yp7">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8B-0a-yp7">
                                                 <rect key="frame" x="482" y="375" width="110" height="22"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1391,7 +1391,7 @@
                                                     <action selector="onViewInGoogleMapsPressed:" destination="jjc-3b-DhB" eventType="touchUpInside" id="pda-ao-cyx"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3 likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aht-jN-Vif">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aht-jN-Vif">
                                                 <rect key="frame" x="65" y="374" width="56" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="16s-zW-Snh"/>
@@ -1499,8 +1499,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IMG_0161" width="3024" height="4032"/>
-        <image name="emptyHeart" width="700" height="700"/>
         <image name="noun_26915_cc" width="700" height="700"/>
         <image name="noun_37665_cc" width="700" height="700"/>
     </resources>

@@ -41,6 +41,9 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     let MAX_TEXT = 80
     let MAX_DIGITS = 6
     
+    let LATITUDE_BOUND = 0.015
+    let LONGITUDE_BOUND = 0.035
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -184,6 +187,17 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBAction func onLocationPressed(sender: AnyObject){
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
+        if let currentLatitude = NSUserDefaults.standardUserDefaults().objectForKey("CURRENT_LATITUDE") as? Double {
+            if let currentLongitude = NSUserDefaults.standardUserDefaults().objectForKey("CURRENT_LONGITUDE") as? Double {
+                let neBoundsCorner = CLLocationCoordinate2D(latitude: currentLatitude + LATITUDE_BOUND,
+                                                            longitude: currentLongitude - LONGITUDE_BOUND)
+                let swBoundsCorner = CLLocationCoordinate2D(latitude: currentLatitude - LATITUDE_BOUND,
+                                                            longitude: currentLongitude + LONGITUDE_BOUND)
+                let bounds = GMSCoordinateBounds(coordinate: neBoundsCorner,
+                                                 coordinate: swBoundsCorner)
+                autocompleteController.autocompleteBounds = bounds
+            }
+        }
         self.presentViewController(autocompleteController, animated: true, completion: nil)
     }
     

@@ -69,8 +69,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             let firebase = FIRDatabase.database().reference()
             firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-                let newFood = snapshot.value as? NSNumber
-                self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+                if let newFood = snapshot.value as? NSNumber {
+                    self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+                }
             })
             firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
                 self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
@@ -80,8 +81,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
             })
             firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-                let newFood = snapshot.value as? NSNumber
-                self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")
+                if let newFood = snapshot.value as? NSNumber {
+                    self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")
+                }
             })
             firebase.child("users").child(uid).child("posts").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
                 self.removeFromFoodPreviewArray(snapshot.key, arrayName: "myFood")

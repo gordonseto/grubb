@@ -93,6 +93,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
                 circle = MKCircle(centerCoordinate: currentLocation!, radius: regionRadius)
                 self.map.addOverlay(circle!)
                 print(currentLocation)
+                if let currentLocation = currentLocation {
+                    NSUserDefaults.standardUserDefaults().setObject(currentLocation.latitude, forKey: "CURRENT_LATITUDE")
+                    NSUserDefaults.standardUserDefaults().setObject(currentLocation.longitude, forKey: "CURRENT_LONGITUDE")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                }
             }
         }
     }

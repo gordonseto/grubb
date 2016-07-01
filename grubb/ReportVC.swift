@@ -50,9 +50,11 @@ class ReportVC: UIViewController, UITextViewDelegate {
         submitButton.enabled = false
         textView.userInteractionEnabled = false
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
-            let report: [String: AnyObject] = ["reported_by": uid, "time": dateString, "message": textView.text]
-            firebase.child("reports").child(key).setValue(report)
-            submitButton.setTitle("Report submitted!", forState: .Normal)
+            if let message = textView.text as? String {
+                let report: [String: AnyObject] = ["reported_by": uid, "time": dateString, "message": message]
+                firebase.child("reports").child(key).setValue(report)
+                submitButton.setTitle("Report submitted!", forState: .Normal)
+            }
         }
     }
 }
