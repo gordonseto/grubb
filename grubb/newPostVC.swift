@@ -317,7 +317,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "tabBarVC"){
             let tabBarVC = segue.destinationViewController as! UITabBarController
-            tabBarVC.selectedIndex = 1
+            tabBarVC.selectedIndex = EXPLORE_INDEX
         }
     }
     

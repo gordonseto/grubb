@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "noun_435832_cc.png",
+      "filename" : "homeImage-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "homeImage-2.png",
       "scale" : "2x"
     },
     {

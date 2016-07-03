@@ -104,7 +104,11 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                     print(error.localizedDescription)
                 } else if (location != nil) {
                     print(location)
-                    self.getFood(location)
+                    if self.food == nil {
+                        self.getFood(location)
+                    } else {
+                        self.initializeView()
+                    }
                 } else {
                     print("GeoFire does not contain a location for \(self.key)")
                 }
@@ -305,7 +309,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     }
     
     func refreshView(sender: AnyObject){
-        self.initializeView()
+        self.locationManager.startUpdatingLocation()
         self.refreshControl.endRefreshing()
     }
     /*

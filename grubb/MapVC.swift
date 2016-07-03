@@ -26,6 +26,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var titleLogo: UILabel!
     var backButton: UIButton!
     
+    var peekMode = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -170,6 +172,18 @@ class MapVC: UIViewController, MKMapViewDelegate {
         backButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
         backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
+        
+        self.peekMode = true
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if !peekMode {
+            self.map.showsUserLocation = true
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.map.showsUserLocation = false
     }
     
     func onBackButtonTapped(){
@@ -180,6 +194,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
         map.showsUserLocation = true
         self.titleLogo.text = "Your Location"
         backButton.removeFromSuperview()
+        peekMode = false
     }
     
 }

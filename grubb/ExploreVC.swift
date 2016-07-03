@@ -50,6 +50,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         refreshControl.addTarget(self, action: Selector("refreshView:"), forControlEvents: UIControlEvents.ValueChanged)
         refreshControl.tintColor = UIColor.lightGrayColor()
         self.collection.addSubview(refreshControl)
+        self.collection.scrollEnabled = true
+        self.collection.alwaysBounceVertical = true
      
         getLikedandMyFood()
         
@@ -67,6 +69,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         print(likedFoodPreviews.count)
         print(myFoodPreviews.count)
         
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
         BatchPush.dismissNotifications()
     }
     
@@ -100,25 +103,38 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     func addToFoodPreviewArray(key: String, arrayName: String){
         var newFoodPreview = foodPreview(key: key)
+        var imageLoadedByOtherArray = false
         if arrayName == "likedFoods" {
-            likedFoodPreviews.append(newFoodPreview)
+            if let checkOtherArray = self.myFoodPreviews.indexOf({$0.key == newFoodPreview.key}) {
+                likedFoodPreviews.append(myFoodPreviews[checkOtherArray])
+                imageLoadedByOtherArray = true
+            } else {
+                likedFoodPreviews.append(newFoodPreview)
+            }
         } else {
-            myFoodPreviews.append(newFoodPreview)
+            if let checkOtherArray = self.likedFoodPreviews.indexOf({$0.key == newFoodPreview.key}) {
+                myFoodPreviews.append(likedFoodPreviews[checkOtherArray])
+                imageLoadedByOtherArray = true
+            } else {
+                myFoodPreviews.append(newFoodPreview)
+            }
         }
-        if let imagesRef = imagesRef {
-            let childRef = imagesRef.child(key)
-            childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
-                if (error != nil){
-                    print(error.debugDescription)
-                    self.stopLoadingAnimation()
-                } else {
-                    let foodImage: UIImage! = UIImage(data: data!)
-                    newFoodPreview.foodImage = foodImage
-                    print("downloaded \(key)'s image")
-                    self.collection.reloadData()
-                    self.stopLoadingAnimation()
-                }
-            })
+        if !imageLoadedByOtherArray {
+            if let imagesRef = imagesRef {
+                let childRef = imagesRef.child(key)
+                childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                    if (error != nil){
+                        print(error.debugDescription)
+                        self.stopLoadingAnimation()
+                    } else {
+                        let foodImage: UIImage! = UIImage(data: data!)
+                        newFoodPreview.foodImage = foodImage
+                        print("downloaded \(key)'s image")
+                        self.collection.reloadData()
+                        self.stopLoadingAnimation()
+                    }
+                })
+            }
         }
     }
     

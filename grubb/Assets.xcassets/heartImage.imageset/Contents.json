@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "noun_435813_cc.png",
+      "filename" : "heartImage-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "heartImage-2.png",
       "scale" : "2x"
     },
     {

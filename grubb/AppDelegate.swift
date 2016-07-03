@@ -35,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             editor.save() // Do not forget to save the changes!
         })
         GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
+        
+        UITabBar.appearance().tintColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 83/255.0, alpha: 1.0)
         return true
     }
 
@@ -137,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(query as String!)
         
         let tabBarController: UITabBarController = self.window?.rootViewController as! UITabBarController
-        tabBarController.selectedIndex = 1
+        tabBarController.selectedIndex = EXPLORE_INDEX
         let exploreNVC = tabBarController.viewControllers![1] as! UINavigationController
         let exploreVC = exploreNVC.viewControllers[0] as! ExploreVC
         exploreVC.displayMode = 1
