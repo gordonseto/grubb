@@ -26,6 +26,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var food: Food!
     var searchLocation: CLLocation!
@@ -43,6 +44,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     var fromHome = false
     var imagesRef: FIRStorageReference?
     
+    var refreshControl: UIRefreshControl!
+    
     weak var delegate: itemVCDelegate!
     
     override func viewDidLoad() {
@@ -53,6 +56,11 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         likeImage.userInteractionEnabled = false
         
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: Selector("refreshView:"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.tintColor = UIColor.lightGrayColor()
+        self.scrollView.addSubview(refreshControl)
         
         if food == nil {
             getFoodData()
@@ -294,6 +302,11 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             print(restaurant_string)
             UIApplication.sharedApplication().openURL(NSURL(string:
                 "comgooglemaps://?q=\(restaurant_string)&center=\(food.geolocation.coordinate.latitude),\(food.geolocation.coordinate.longitude)&zoom=15&views=")!)
+    }
+    
+    func refreshView(sender: AnyObject){
+        self.initializeView()
+        self.refreshControl.endRefreshing()
     }
     /*
     func deletePost(key: String){

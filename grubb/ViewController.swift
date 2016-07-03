@@ -102,6 +102,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         } else {
             radius = DEFAULT_SEARCH_RADIUS
         }
+        
+        self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
     }
     
     func queryDishes(draggableBackground: DraggableViewBackground, center: CLLocation, radius: Double){

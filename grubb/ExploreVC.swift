@@ -32,6 +32,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     var loadingLabel: UILabel!
     var activityIndicator: UIActivityIndicatorView!
     
+    var refreshControl: UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,6 +45,11 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         layout.minimumLineSpacing = 0
         
         self.navigationController?.navigationBarHidden = true
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: Selector("refreshView:"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.tintColor = UIColor.lightGrayColor()
+        self.collection.addSubview(refreshControl)
      
         getLikedandMyFood()
         
@@ -209,6 +216,11 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     func stopLoadingAnimation(){
         activityIndicator.removeFromSuperview()
         loadingLabel.removeFromSuperview()
+    }
+    
+    func refreshView(sender: AnyObject){
+        self.collection.reloadData()
+        self.refreshControl.endRefreshing()
     }
 
 }
