@@ -52,6 +52,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         
         likeImage.userInteractionEnabled = false
         
+        self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        
         if food == nil {
             getFoodData()
         } else {

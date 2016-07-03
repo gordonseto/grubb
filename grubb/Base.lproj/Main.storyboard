@@ -624,8 +624,8 @@
                                         <state key="normal" image="noun_26915_cc"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="jzm-FE-3ic"/>
                                                 <exclude reference="ePk-Wj-vrZ"/>
+                                                <exclude reference="jzm-FE-3ic"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1093,7 +1093,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1N-IK-4QW">
                                 <rect key="frame" x="222" y="500" width="156" height="43"/>
-                                <color key="backgroundColor" red="1" green="0.35665173682660567" blue="0.32734857988872157" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.35686274509803922" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="82" id="8bU-AB-9eM"/>
                                     <constraint firstAttribute="width" constant="156" id="cNP-wj-YUG"/>
@@ -1289,11 +1289,11 @@
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
+                                                        <exclude reference="9ch-7r-MjK"/>
                                                         <exclude reference="IqX-qi-Oyu"/>
                                                         <exclude reference="Jmu-JG-IR6"/>
-                                                        <exclude reference="9ch-7r-MjK"/>
-                                                        <exclude reference="aAX-yf-1CY"/>
                                                         <exclude reference="Tbh-ds-NaV"/>
+                                                        <exclude reference="aAX-yf-1CY"/>
                                                     </mask>
                                                 </variation>
                                             </imageView>
@@ -1440,15 +1440,15 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="q97-4K-KPC"/>
-                                                <exclude reference="xlt-27-Pis"/>
                                                 <exclude reference="vCt-M6-ccV"/>
+                                                <exclude reference="xlt-27-Pis"/>
                                                 <exclude reference="sZC-a1-A2u"/>
                                                 <exclude reference="w3P-An-eJE"/>
-                                                <exclude reference="kii-0p-lh2"/>
                                                 <exclude reference="45X-kH-REC"/>
-                                                <exclude reference="cRd-1c-byy"/>
+                                                <exclude reference="kii-0p-lh2"/>
                                                 <exclude reference="EBD-J8-Gcj"/>
                                                 <exclude reference="anH-on-lt4"/>
+                                                <exclude reference="cRd-1c-byy"/>
                                                 <exclude reference="Obi-q1-CXI"/>
                                             </mask>
                                         </variation>
