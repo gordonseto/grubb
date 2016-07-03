@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "yesButton-01-1.png",
+      "filename" : "filledHeartImage.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "yesButton-01.png",
       "scale" : "2x"
     },
     {

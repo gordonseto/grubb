@@ -15,7 +15,7 @@
         <!--CameraVC-->
         <scene sceneID="qP0-Rx-nIR">
             <objects>
-                <viewController id="0Ix-PG-Quu" customClass="CameraVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0Ix-PG-Quu" customClass="CameraVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fFE-gZ-vzc"/>
                         <viewControllerLayoutGuide type="bottom" id="QQP-np-HUS"/>
@@ -76,7 +76,7 @@
         <!--New PostVC-->
         <scene sceneID="8WU-si-Aiy">
             <objects>
-                <viewController storyboardIdentifier="newPostVC" id="bFj-lA-Ijb" customClass="newPostVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newPostVC" id="bFj-lA-Ijb" customClass="newPostVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KeN-xR-T2W"/>
                         <viewControllerLayoutGuide type="bottom" id="IxB-85-7yA"/>
@@ -272,7 +272,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BrC-aN-2jO">
                                                 <rect key="frame" x="165" y="32" width="270" height="60"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-Wl-OHI" customClass="categoryButton" customModule="grubb" customModuleProvider="target">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-Wl-OHI" customClass="categoryButton" customModule="Grubb" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -295,7 +295,7 @@
                                                             <action selector="onCategoryTapped:" destination="bFj-lA-Ijb" eventType="touchUpInside" id="7HE-Jv-9ba"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXT-fS-Ckq" customClass="categoryButton" customModule="grubb" customModuleProvider="target">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXT-fS-Ckq" customClass="categoryButton" customModule="Grubb" customModuleProvider="target">
                                                         <rect key="frame" x="70" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -316,7 +316,7 @@
                                                             <action selector="onCategoryTapped:" destination="bFj-lA-Ijb" eventType="touchUpInside" id="cNh-Q0-bGq"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0B-zn-zA5" customClass="categoryButton" customModule="grubb" customModuleProvider="target">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0B-zn-zA5" customClass="categoryButton" customModule="Grubb" customModuleProvider="target">
                                                         <rect key="frame" x="140" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -337,7 +337,7 @@
                                                             <action selector="onCategoryTapped:" destination="bFj-lA-Ijb" eventType="touchUpInside" id="ByA-4C-PPR"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPI-N7-GeM" customClass="categoryButton" customModule="grubb" customModuleProvider="target">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPI-N7-GeM" customClass="categoryButton" customModule="Grubb" customModuleProvider="target">
                                                         <rect key="frame" x="210" y="0.0" width="60" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -480,7 +480,7 @@
         <!--ExploreVC-->
         <scene sceneID="qYq-yb-miN">
             <objects>
-                <viewController storyboardIdentifier="ExploreVC" id="Neu-CJ-BbI" customClass="ExploreVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExploreVC" id="Neu-CJ-BbI" customClass="ExploreVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fCO-W2-Qqb"/>
                         <viewControllerLayoutGuide type="bottom" id="Xez-eM-CGi"/>
@@ -489,7 +489,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hro-64-11x" customClass="navigationView" customModule="grubb" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hro-64-11x" customClass="navigationView" customModule="Grubb" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="STJ-IA-Pwi">
@@ -533,7 +533,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FoodCell" id="UiN-g6-fG9" customClass="FoodCell" customModule="grubb" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FoodCell" id="UiN-g6-fG9" customClass="FoodCell" customModule="Grubb" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="116" height="119"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -605,7 +605,7 @@
         <!--ReportVC-->
         <scene sceneID="vus-pe-T80">
             <objects>
-                <viewController storyboardIdentifier="ReportVC" id="yie-d1-e6c" customClass="ReportVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReportVC" id="yie-d1-e6c" customClass="ReportVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tyn-Ls-jBA"/>
                         <viewControllerLayoutGuide type="bottom" id="VL8-fM-2EX"/>
@@ -614,7 +614,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r53-zu-fil" customClass="navigationView" customModule="grubb" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r53-zu-fil" customClass="navigationView" customModule="Grubb" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJd-O9-VzV">
@@ -625,7 +625,7 @@
                                             <constraint firstAttribute="height" constant="44" id="ePk-Wj-vrZ"/>
                                             <constraint firstAttribute="width" constant="44" id="jzm-FE-3ic"/>
                                         </constraints>
-                                        <state key="normal" image="noun_26915_cc"/>
+                                        <state key="normal" image="backButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="ePk-Wj-vrZ"/>
@@ -675,7 +675,7 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZn-F2-vHu" customClass="navigationView" customModule="grubb" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZn-F2-vHu" customClass="navigationView" customModule="Grubb" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="141" width="600" height="192"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hgk-4g-kiY">
@@ -745,7 +745,7 @@
         <!--MapVC-->
         <scene sceneID="slw-hh-4vS">
             <objects>
-                <viewController id="uZy-EJ-I5s" customClass="MapVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uZy-EJ-I5s" customClass="MapVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aEp-A9-bQn"/>
                         <viewControllerLayoutGuide type="bottom" id="QbG-ds-rKe"/>
@@ -766,7 +766,7 @@
                                     </mask>
                                 </variation>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8O-D8-9xR" customClass="navigationView" customModule="grubb" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8O-D8-9xR" customClass="navigationView" customModule="Grubb" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -862,7 +862,7 @@
         <!--View Controller-->
         <scene sceneID="7NM-Tb-a5J">
             <objects>
-                <viewController id="nOG-dl-fEG" customClass="ViewController" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nOG-dl-fEG" customClass="ViewController" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="M1n-mu-tjl"/>
                         <viewControllerLayoutGuide type="bottom" id="Fya-hc-QRc"/>
@@ -902,7 +902,7 @@
         <!--ItemVC-->
         <scene sceneID="jHG-s8-g29">
             <objects>
-                <viewController id="jjc-3b-DhB" customClass="itemVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jjc-3b-DhB" customClass="itemVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Zzj-CU-UDW"/>
                         <viewControllerLayoutGuide type="bottom" id="7yK-Q8-TfC"/>
@@ -914,7 +914,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEX-17-ce5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7EO-kq-Qlv">
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7EO-kq-Qlv">
                                         <rect key="frame" x="16" y="42" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="2BS-OS-2BX"/>
@@ -922,7 +922,7 @@
                                             <constraint firstAttribute="height" constant="44" id="WZ1-6b-OpT"/>
                                             <constraint firstAttribute="height" constant="30" id="aVW-RU-09I"/>
                                         </constraints>
-                                        <state key="normal" image="noun_26915_cc"/>
+                                        <state key="normal" image="backButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="2BS-OS-2BX"/>
@@ -933,7 +933,7 @@
                                             <action selector="backButtonPressed:" destination="jjc-3b-DhB" eventType="touchUpInside" id="PvI-gv-9JP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cij-dv-Ddm">
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cij-dv-Ddm">
                                         <rect key="frame" x="285" y="13" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="CFL-tv-LpJ"/>
@@ -941,7 +941,7 @@
                                             <constraint firstAttribute="width" constant="44" id="N0E-DU-phV"/>
                                             <constraint firstAttribute="height" constant="44" id="Pm0-lL-Slj"/>
                                         </constraints>
-                                        <state key="normal" image="noun_37665_cc"/>
+                                        <state key="normal" image="moreButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="N0E-DU-phV"/>
@@ -1193,6 +1193,7 @@
                         <outlet property="foodImage" destination="6n5-O1-Rld" id="z39-Vq-ptG"/>
                         <outlet property="likeImage" destination="rcF-cb-vLT" id="oh8-pk-qlY"/>
                         <outlet property="likesLabel" destination="aht-jN-Vif" id="RMf-yq-kKR"/>
+                        <outlet property="moreButton" destination="Cij-dv-Ddm" id="SAl-Qe-nqQ"/>
                         <outlet property="nameLabel" destination="6y0-hV-IVf" id="AxN-Sm-TRu"/>
                         <outlet property="priceLabel" destination="XEa-jU-L0q" id="vBl-mI-8Yj"/>
                         <outlet property="restaurantLabel" destination="U6s-2B-iD4" id="AQa-2U-i88"/>
@@ -1212,7 +1213,7 @@
         <!--ItemVC-->
         <scene sceneID="85j-VE-2dy">
             <objects>
-                <viewController id="Fda-lW-l4j" customClass="itemVC" customModule="grubb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Fda-lW-l4j" customClass="itemVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6zx-5i-eBX"/>
                         <viewControllerLayoutGuide type="bottom" id="BhX-Mp-zUG"/>
@@ -1224,7 +1225,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fAi-Ku-UGA">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0Z-Q4-B6S">
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0Z-Q4-B6S">
                                         <rect key="frame" x="16" y="42" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Ml6-M8-CVM"/>
@@ -1232,7 +1233,7 @@
                                             <constraint firstAttribute="width" constant="30" id="mVB-BU-zby"/>
                                             <constraint firstAttribute="height" constant="44" id="pIy-5d-aCh"/>
                                         </constraints>
-                                        <state key="normal" image="noun_26915_cc"/>
+                                        <state key="normal" image="backButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="XM3-hD-bTJ"/>
@@ -1243,7 +1244,7 @@
                                             <action selector="backButtonPressed:" destination="Fda-lW-l4j" eventType="touchUpInside" id="LHt-3n-7L8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQo-zu-4xG">
+                                    <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQo-zu-4xG">
                                         <rect key="frame" x="285" y="13" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="RXK-Hi-Yee"/>
@@ -1251,7 +1252,7 @@
                                             <constraint firstAttribute="height" constant="44" id="jm5-6Q-VkI"/>
                                             <constraint firstAttribute="width" constant="44" id="mcG-kb-tRP"/>
                                         </constraints>
-                                        <state key="normal" image="noun_37665_cc"/>
+                                        <state key="normal" image="moreButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="mcG-kb-tRP"/>
@@ -1503,6 +1504,7 @@
                         <outlet property="foodImage" destination="9EX-pQ-TXJ" id="08Q-Pn-5UJ"/>
                         <outlet property="likeImage" destination="eDL-Lp-VlN" id="gtA-6Q-Wa8"/>
                         <outlet property="likesLabel" destination="6EF-oo-TJv" id="nkb-ex-1Y6"/>
+                        <outlet property="moreButton" destination="YQo-zu-4xG" id="FdD-qt-aXF"/>
                         <outlet property="nameLabel" destination="3ld-12-opt" id="mXb-2S-gnU"/>
                         <outlet property="priceLabel" destination="v76-av-RYX" id="SG2-Nj-xXV"/>
                         <outlet property="restaurantLabel" destination="2L3-0d-uAO" id="NUv-F2-JbM"/>
@@ -1521,10 +1523,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="backButton" width="128" height="128"/>
         <image name="cameraImage" width="37" height="33"/>
         <image name="heartImage" width="37" height="31"/>
         <image name="homeImage" width="37" height="33"/>
-        <image name="noun_26915_cc" width="700" height="700"/>
-        <image name="noun_37665_cc" width="700" height="700"/>
+        <image name="moreButton" width="65" height="15"/>
     </resources>
 </document>

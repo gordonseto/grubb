@@ -49,7 +49,7 @@
 		8E0137771D1B398B0041FDAD /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		8E01377B1D1DA36A0041FDAD /* foodPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = foodPreview.swift; sourceTree = "<group>"; };
 		8E01377D1D1DF5930041FDAD /* navigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = navigationView.swift; sourceTree = "<group>"; };
-		8E54A6741D144996009D4506 /* grubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E54A6741D144996009D4506 /* Grubb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grubb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E54A6771D144996009D4506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E54A6791D144996009D4506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8E54A67C1D144996009D4506 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 		8E54A6751D144996009D4506 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8E54A6741D144996009D4506 /* grubb.app */,
+				8E54A6741D144996009D4506 /* Grubb.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,7 +213,7 @@
 			);
 			name = grubb;
 			productName = grubb;
-			productReference = 8E54A6741D144996009D4506 /* grubb.app */;
+			productReference = 8E54A6741D144996009D4506 /* Grubb.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -462,7 +462,7 @@
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grubb;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -484,7 +484,7 @@
 				INFOPLIST_FILE = grubb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grubb;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 			};

@@ -42,6 +42,7 @@ class OverlayView: UIView{
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
         imageView.frame = CGRectMake(50, 50, 100, 100)
     }
 }

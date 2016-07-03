@@ -42,8 +42,9 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
+        self.hideKeyboardWhenTappedAround()
+        
         draggableBackground = DraggableViewBackground(frame: self.view.frame)
         self.view.addSubview(draggableBackground)
         draggableBackground.delegate = self
@@ -52,8 +53,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         navigationLayer.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(navigationLayer)
         
-        let backButton = UIButton(frame: CGRectMake(8, 25, 30, 30))
-        backButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
+        let backButton = UIButton(frame: CGRectMake(8, 22, 30, 30))
+        backButton.setImage(UIImage(named: "backButton"), forState: UIControlState.Normal)
         backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
         
@@ -61,9 +62,10 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         search.delegate = self
         self.view.addSubview(search)
         
-        let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 50, 18, 40, 40))
+        let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 38, 25, 25, 25))
         filterButton.setImage(UIImage(named: "filterButton"), forState: UIControlState.Normal)
         filterButton.addTarget(self, action: #selector(onFilterTapped), forControlEvents: .TouchUpInside)
+        filterButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
         self.view.addSubview(filterButton)
         
         filterLayer = UIView(frame: CGRectMake(0, 71, self.view.frame.size.width, 70))

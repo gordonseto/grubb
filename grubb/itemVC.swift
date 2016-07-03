@@ -27,6 +27,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var moreButton: UIButton!
     
     var food: Food!
     var searchLocation: CLLocation!
@@ -56,6 +57,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         likeImage.userInteractionEnabled = false
         
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        
+        moreButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("refreshView:"), forControlEvents: UIControlEvents.ValueChanged)

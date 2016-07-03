@@ -252,6 +252,10 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     // push view up when keyboard is blocking price input
     func keyboardWillShow(notification: NSNotification) {
         if priceInputIsEditing {
+            if priceInput.text == "0.00" {
+                priceInput.text = ""
+                print("hi")
+            }
             if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                 self.view.frame.origin.y -= keyboardSize.height
             }

@@ -48,9 +48,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
         titleLogo.minimumScaleFactor = 0.8
         self.view.addSubview(titleLogo)
         
-        let peekButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
-        peekButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width - 23, 40)
-        peekButton.setImage(UIImage(named: "noun_293383_cc"), forState: UIControlState.Normal)
+        let peekButton = UIButton(frame: CGRectMake(0, 0, 30, 27))
+        peekButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width - 23, 37)
+        peekButton.setImage(UIImage(named: "binoculars"), forState: UIControlState.Normal)
+        peekButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+        peekButton.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
         peekButton.addTarget(self, action: #selector(onPeekButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(peekButton)
         
@@ -168,8 +170,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
         circle = MKCircle(centerCoordinate: currentLocation!, radius: regionRadius)
         self.map.addOverlay(circle!)
         
-        backButton = UIButton(frame: CGRectMake(8, 27, 22, 22))
-        backButton.setImage(UIImage(named: "noun_26915_cc"), forState: UIControlState.Normal)
+        backButton = UIButton(frame: CGRectMake(8, 22, 30, 30))
+        backButton.setImage(UIImage(named: "backButton"), forState: UIControlState.Normal)
         backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
         
