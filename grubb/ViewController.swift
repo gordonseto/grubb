@@ -310,6 +310,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func onCardSwipedRight(food: Food){
+        print("hi")
         if userLikes[food.key] == nil {
             let likesManager = LikesManager(uid: uid, key: food.key, author: food.author, name: food.name)
             likesManager.likePost()
@@ -325,6 +326,10 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         dispatch_after(time, dispatch_get_main_queue()) {
             self.draggableBackground.loadedCards[0].rightClickAction()
         }
+    }
+    
+    func removeFromUserLikes(key: String){
+        self.userLikes[key] = nil
     }
 
 }

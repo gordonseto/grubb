@@ -13,6 +13,7 @@ import GeoFire
 
 protocol itemVCDelegate: class {
     func onFoodLiked()
+    func removeFromUserLikes(key: String)
 }
 
 class itemVC: UIViewController, CLLocationManagerDelegate {
@@ -207,6 +208,9 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 foodNotLiked()
                 numLikes -= 1
                 updateLikesLabel(numLikes)
+                if fromHome {
+                    delegate?.removeFromUserLikes(self.food.key)
+                }
                 likesManager.unlikePost()
             }
         }
@@ -254,7 +258,6 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 self.presentViewController(editVC, animated: true, completion: nil)
             }
             alertController.addAction(editAction)
-            /*
             let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) { action -> Void in
                 let alert = UIAlertController(title: "Are you sure you want to delete this dish?", message: "This will be permanent and cannot be undone.", preferredStyle: .Alert)
                 let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default) { action -> Void in
@@ -267,7 +270,6 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 self.presentViewController(alert, animated: true, completion: nil)
             }
             alertController.addAction(deleteAction)
-            */
         } else {
             let reportAction = UIAlertAction(title: "Report", style: .Destructive) { action -> Void in
                 let reportVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewControllerWithIdentifier("ReportVC") as! ReportVC
@@ -315,7 +317,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         self.locationManager.startUpdatingLocation()
         self.refreshControl.endRefreshing()
     }
-    /*
+    
     func deletePost(key: String){
         let storage = FIRStorage.storage()
         let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
@@ -329,11 +331,20 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 print("deletion successful")
             }
         }
-        
+     
         firebase.child("geolocations").child(key).setValue(nil)
         firebase.child("posts").child(key).setValue(nil)
         firebase.child("users").child(self.food.author).child("posts").child(key).setValue(nil)
-        
+
+        firebase.child("users").queryOrderedByChild("likes/\(food.key)").queryStartingAtValue(0).observeSingleEventOfType(.Value, withBlock: { snapshot in
+                print(snapshot)
+                for child in snapshot.children {
+                    let child = child as! FIRDataSnapshot
+                    print(child.key)
+                    self.firebase.child("users").child(child.key).child("likes").child(self.food.key).setValue(nil)
+                }
+            })
+ 
         if let navController = self.navigationController {
             if !fromHome {
                 let exploreVC = navController.viewControllers[0] as! ExploreVC
@@ -341,7 +352,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             }
             navController.popViewControllerAnimated(true)
         }
-    }
-     */
-
+    
+ }
+ 
 }

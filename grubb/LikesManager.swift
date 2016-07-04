@@ -40,7 +40,6 @@ class LikesManager {
     
     func likePost(){
         let time = NSDate().timeIntervalSince1970
-        firebase.child("users").child(_uid).child("likes").child(_key).setValue(time)
         firebase.child("posts").child(_key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
             if var post = currentData.value as? [String: AnyObject] {
                 var likes = post["likes"] as? Int ?? 0
@@ -55,12 +54,12 @@ class LikesManager {
                 if let error = error {
                     print(error.localizedDescription)
                 }
+            self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(time)
+            self.sendLikeNotification()
         })
-        sendLikeNotification()
     }
     
     func unlikePost(){
-        firebase.child("users").child(_uid).child("likes").child(_key).setValue(nil)
         firebase.child("posts").child(_key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
             if var post = currentData.value as? [String: AnyObject] {
                 var likes = post["likes"] as? Int ?? 0
@@ -75,6 +74,7 @@ class LikesManager {
                 if let error = error {
                     print(error.localizedDescription)
                 }
+            self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(nil)
         })
     }
     

@@ -195,7 +195,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(screenWidth / CGFloat(3.0), screenWidth / CGFloat(3.0))
+        return CGSizeMake((screenWidth - 2) / CGFloat(3.0), (screenWidth - 2) / CGFloat(3.0))
     }
     
     @IBAction func onSegmentedControlChanged(sender: AnyObject) {
