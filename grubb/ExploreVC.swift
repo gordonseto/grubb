@@ -46,6 +46,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
         self.navigationController?.navigationBarHidden = true
         
+        segmentedControl.selectedSegmentIndex = displayMode
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("refreshView:"), forControlEvents: UIControlEvents.ValueChanged)
         refreshControl.tintColor = UIColor.lightGrayColor()
@@ -58,8 +60,6 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         let storage = FIRStorage.storage()
         let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
         imagesRef = storageRef.child("images")
-        
-        displayMode = segmentedControl.selectedSegmentIndex
         
         startLoadingAnimation()
         

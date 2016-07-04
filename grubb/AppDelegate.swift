@@ -140,10 +140,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabBarController: UITabBarController = self.window?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = EXPLORE_INDEX
-        let exploreNVC = tabBarController.viewControllers![1] as! UINavigationController
+        let exploreNVC = tabBarController.viewControllers![EXPLORE_INDEX] as! UINavigationController
         let exploreVC = exploreNVC.viewControllers[0] as! ExploreVC
         exploreVC.displayMode = 1
         let item = foodPreview(key: query)
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
         exploreVC.performSegueWithIdentifier("itemVCFromExplore", sender: item)
 
         return true

@@ -40,6 +40,8 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     var swiped: [String: AnyObject]!
     var swipedInThisSession: [String: AnyObject]!
     
+    var userLikes = [String: AnyObject]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -127,6 +129,11 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             }
             */
             self.swiped = [String: AnyObject]()
+            
+            if let userLikes = snapshot.value!["likes"] as? [String: AnyObject] {
+                self.userLikes = userLikes
+            }
+            
             self.circleQuery = self.geofire.queryAtLocation(center, withRadius: radius)
 
             self.queryHandle = self.circleQuery.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
@@ -303,8 +310,13 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func onCardSwipedRight(food: Food){
-        let likesManager = LikesManager(uid: uid, key: food.key, author: food.author, name: food.name)
-        likesManager.likePost()
+        if userLikes[food.key] == nil {
+            let likesManager = LikesManager(uid: uid, key: food.key, author: food.author, name: food.name)
+            likesManager.likePost()
+        } else {
+            let time = NSDate().timeIntervalSince1970
+            firebase.child("users").child(uid).child("likes").child(food.key).setValue(time)
+        }
     }
     
     func onFoodLiked(){

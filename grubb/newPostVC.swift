@@ -133,7 +133,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                     let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
                                     let imagesRef = storageRef.child("images")
                                     let childRef = imagesRef.child(key)
-                                    let imgData: NSData = UIImageJPEGRepresentation(img, 1)!
+                                    let imgData: NSData = UIImageJPEGRepresentation(img, 0.2)!
                                     
                                     let uploadTask = childRef.putData(imgData, metadata: nil) { metadata, error in
                                         if (error != nil) {
@@ -322,6 +322,9 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         if(segue.identifier == "tabBarVC"){
             let tabBarVC = segue.destinationViewController as! UITabBarController
             tabBarVC.selectedIndex = EXPLORE_INDEX
+            let exploreNVC = tabBarVC.viewControllers![EXPLORE_INDEX] as! UINavigationController
+            let exploreVC = exploreNVC.viewControllers[0] as! ExploreVC
+            exploreVC.displayMode = 1
         }
     }
     
