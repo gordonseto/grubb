@@ -21,6 +21,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     var likedFoodPreviews = [foodPreview]()
     var myFoodPreviews = [foodPreview]()
+    var downloadedFoodPreviews = [foodPreview]()
     let screenWidth = UIScreen.mainScreen().bounds.size.width
     let numOfCells: CGFloat = 3
     var displayMode = 0
@@ -58,7 +59,11 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         self.collection.scrollEnabled = true
         self.collection.alwaysBounceVertical = true
      
-        getLikedandMyFood()
+        if displayMode == LIKED_MODE {
+            getLikedFood()
+        } else {
+            getMyFood()
+        }
         
         let storage = FIRStorage.storage()
         let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
@@ -74,7 +79,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
         segmentedControl.selectedSegmentIndex = displayMode
         dismissNotifications()
-        
+    
     }
     
     func dismissNotifications(){
@@ -84,7 +89,22 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         BatchPush.dismissNotifications()
         NSUserDefaults.standardUserDefaults().setObject(0, forKey: "NOTIFICATIONS")
     }
-    
+    /*
+    func getLikedFood(){
+        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
+            let firebase = FIRDatabase.database().reference()
+            firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                print(snapshot.value)
+                if Int(snapshot.childrenCount) > likedFoodPreviews.count {
+                    
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    */
+    /*
     func getLikedandMyFood(){
         likedFoodPreviews = []
         myFoodPreviews = []
@@ -111,6 +131,37 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 self.removeFromFoodPreviewArray(snapshot.key, arrayName: "myFood")
             })
         }
+    }
+     */
+
+    func getLikedFood(){
+        likedFoodPreviews = []
+        let firebase = FIRDatabase.database().reference()
+        firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            if let newFood = snapshot.value as? NSNumber {
+                self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+            }
+        })
+        firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
+            self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+        })
+        firebase.child("users").child(uid).child("likes").observeEventType(.ChildChanged, withBlock: {(snapshot) -> Void in
+            self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+            self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
+        })
+    }
+    
+    func getMyFood(){
+        myFoodPreviews = []
+        let firebase = FIRDatabase.database().reference()
+        firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            if let newFood = snapshot.value as? NSNumber {
+                self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")
+            }
+        })
+        firebase.child("users").child(uid).child("posts").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
+            self.removeFromFoodPreviewArray(snapshot.key, arrayName: "myFood")
+        })
     }
     
     func addToFoodPreviewArray(key: String, arrayName: String){
@@ -212,6 +263,13 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     @IBAction func onSegmentedControlChanged(sender: AnyObject) {
         displayMode = segmentedControl.selectedSegmentIndex
+        if displayMode == LIKED_MODE && likedFoodPreviews.count == 0 {
+            getLikedFood()
+        } else {
+            if myFoodPreviews.count == 0 {
+                getMyFood()
+            }
+        }
         collection.reloadData()
     }
 
