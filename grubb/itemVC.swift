@@ -39,6 +39,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     var firebase: FIRDatabaseReference!
     
     var numLikes = 0
+    var userLiked = false
     
     let locationManager = CLLocationManager()
     var likesManager: LikesManager!
@@ -159,8 +160,10 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 // Get user value
                 if let foodLiked = snapshot.value![self.food.key] as? Double{
                     self.foodLiked()
+                    self.userLiked = true
                 } else {
                     self.foodNotLiked()
+                    self.userLiked = false
                 }
                 self.likesManager = LikesManager(uid: uid, key: self.food.key, author: self.food.author, name: self.food.name)
                 self.likeImage.userInteractionEnabled = true
@@ -194,8 +197,10 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func onHeartTapped(sender: UITapGestureRecognizer) {
         print("tapped")
+        print(likeImage.image)
         if let uid = uid {
-            if likeImage.image == UIImage(named: "emptyHeart"){
+            if !userLiked{
+                userLiked = true
                 foodLiked()
                 numLikes += 1
                 updateLikesLabel(numLikes)
@@ -205,6 +210,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                     likesManager.likePost()
                 }
             } else {
+                userLiked = false
                 foodNotLiked()
                 numLikes -= 1
                 updateLikesLabel(numLikes)

@@ -40,6 +40,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     weak var delegate: DraggableViewBackgroundDelegate!
     
     let CARD_OFFSET: CGFloat = 5
+    let SIZE_OFFSET: CGFloat = 10
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -66,7 +67,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     
     
     func addToCards(cardIndex: Int, newFood: Food) -> Void {
-        let draggableView = DraggableView(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2, (self.frame.size.height - CARD_HEIGHT)/2 - 20, CARD_WIDTH, CARD_HEIGHT))
+        let draggableView = DraggableView(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2 + SIZE_OFFSET/2, (self.frame.size.height - CARD_HEIGHT)/2 - 20, CARD_WIDTH - SIZE_OFFSET, CARD_HEIGHT))
         draggableView.food = newFood
         draggableView.name.text = newFood.name
         draggableView.price.text = String.localizedStringWithFormat("$%.2f", newFood.price)
@@ -128,7 +129,9 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         }
         if loadedCards.count > 0 {
             loadedCards[0].userInteractionEnabled = true
+            loadedCards[0].frame = CGRectMake((self.frame.size.width - CARD_WIDTH)/2, (self.frame.size.height - CARD_HEIGHT)/2 - 20, CARD_WIDTH, CARD_HEIGHT)
             loadedCards[0].center.y -= CARD_OFFSET
+            loadedCards[0].adjustView()
         }
         stopLoadingAnimation()
     }
@@ -254,6 +257,8 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     func onCardBeingSwiped(distance: CGFloat) {
         let cardOrigin = (self.frame.size.height - CARD_HEIGHT)/2 + CARD_HEIGHT/2 - 20
         if loadedCards.count > 1 {
+            loadedCards[1].frame = CGRectMake((self.frame.size.width - CARD_WIDTH)/2 + SIZE_OFFSET/2 - (min(abs(distance)/5, SIZE_OFFSET))/2, (self.frame.size.height - CARD_HEIGHT)/2 - 20, CARD_WIDTH - SIZE_OFFSET + min(abs(distance)/5, SIZE_OFFSET), CARD_HEIGHT)
+            loadedCards[1].adjustView()
             loadedCards[1].center.y = cardOrigin - min(abs(distance)/10, CARD_OFFSET)
         }
     }
@@ -261,7 +266,9 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     func cardClicked() {
         let cardOrigin = (self.frame.size.height - CARD_HEIGHT)/2 + CARD_HEIGHT/2 - 20
         if loadedCards.count > 1 {
-            self.loadedCards[1].center.y = cardOrigin - self.CARD_OFFSET
+            loadedCards[1].frame = CGRectMake((self.frame.size.width - CARD_WIDTH)/2, (self.frame.size.height - CARD_HEIGHT)/2 - 20, CARD_WIDTH, CARD_HEIGHT)
+            loadedCards[1].adjustView()
+            loadedCards[1].center.y = cardOrigin - self.CARD_OFFSET
         }
     }
     

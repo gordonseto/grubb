@@ -108,6 +108,13 @@ class DraggableView: UIView {
         //self.layer.shadowOffset = CGSizeMake(1, 1);
     }
     
+    func adjustView() {
+        name.frame = CGRectMake(8, self.frame.size.height - 105, self.frame.size.width * 0.6, 100)
+        price.frame = CGRectMake(-8, self.frame.size.height - 105, self.frame.size.width, 100)
+        restaurant.frame = CGRectMake(8, self.frame.size.height - 85, self.frame.size.width * 0.6, 100)
+        foodImage.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 70)
+    }
+    
     func beingDragged(gestureRecognizer: UIPanGestureRecognizer) -> Void {
         xFromCenter = Float(gestureRecognizer.translationInView(self).x)
         yFromCenter = Float(gestureRecognizer.translationInView(self).y)

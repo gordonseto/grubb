@@ -1282,8 +1282,8 @@
                                         <state key="normal" image="moreButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="mcG-kb-tRP"/>
                                                 <exclude reference="jm5-6Q-VkI"/>
+                                                <exclude reference="mcG-kb-tRP"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1306,9 +1306,9 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="na5-9R-8aA"/>
+                                        <exclude reference="QxJ-m8-3Mx"/>
                                         <exclude reference="dcN-YE-4ox"/>
                                         <exclude reference="h6Z-4O-5g4"/>
-                                        <exclude reference="QxJ-m8-3Mx"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -1331,11 +1331,11 @@
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="zK6-Tf-ZIn"/>
-                                                        <exclude reference="z7G-bV-TvL"/>
-                                                        <exclude reference="n55-Ad-V87"/>
-                                                        <exclude reference="mip-Wv-8Sz"/>
                                                         <exclude reference="RgU-ye-gvw"/>
+                                                        <exclude reference="mip-Wv-8Sz"/>
+                                                        <exclude reference="n55-Ad-V87"/>
+                                                        <exclude reference="z7G-bV-TvL"/>
+                                                        <exclude reference="zK6-Tf-ZIn"/>
                                                     </mask>
                                                 </variation>
                                             </imageView>
@@ -1394,8 +1394,8 @@
                                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="vOb-Hl-d7f"/>
                                                         <exclude reference="L38-sP-BhN"/>
+                                                        <exclude reference="vOb-Hl-d7f"/>
                                                     </mask>
                                                 </variation>
                                             </textView>
@@ -1487,15 +1487,15 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Lpw-Lw-zIH"/>
-                                                <exclude reference="eZs-zG-t0x"/>
                                                 <exclude reference="Nyh-Wd-otj"/>
+                                                <exclude reference="eZs-zG-t0x"/>
                                                 <exclude reference="VHx-Zu-YwY"/>
                                                 <exclude reference="2DT-Fv-cfu"/>
                                                 <exclude reference="fdD-Ka-PXA"/>
                                                 <exclude reference="gb1-Vl-FiV"/>
                                                 <exclude reference="kWh-Dr-hvy"/>
-                                                <exclude reference="PUS-tu-b2l"/>
                                                 <exclude reference="3Vi-B0-71o"/>
+                                                <exclude reference="PUS-tu-b2l"/>
                                                 <exclude reference="VBW-p1-8Dy"/>
                                                 <exclude reference="Qw3-b9-Q1U"/>
                                                 <exclude reference="nTa-IQ-BTP"/>

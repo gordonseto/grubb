@@ -51,8 +51,6 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
         self.navigationController?.navigationBarHidden = true
         
-        segmentedControl.selectedSegmentIndex = displayMode
-        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("refreshView:"), forControlEvents: UIControlEvents.ValueChanged)
         refreshControl.tintColor = UIColor.lightGrayColor()
@@ -74,6 +72,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         print(likedFoodPreviews.count)
         print(myFoodPreviews.count)
         
+        segmentedControl.selectedSegmentIndex = displayMode
         dismissNotifications()
         
     }

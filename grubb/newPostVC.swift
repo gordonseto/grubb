@@ -1,3 +1,5 @@
+
+
 //
 //  newPostVC.swift
 //  grubb
@@ -162,7 +164,19 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                             let delay = 1.0 * Double(NSEC_PER_SEC)
                                             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                                             dispatch_after(time, dispatch_get_main_queue()) {
-                                                self.performSegueWithIdentifier("tabBarVC", sender: nil)
+                                                if !self.editMode {
+                                                    let tabBarVC = self.presentingViewController as! UITabBarController
+                                                    let cameraVC = tabBarVC.viewControllers![CAMERA_INDEX] as! CameraVC
+                                                    cameraVC.cameraIsCancelled = true
+                                                    let exploreNVC = tabBarVC.viewControllers![EXPLORE_INDEX] as! UINavigationController
+                                                    let exploreVC = exploreNVC.viewControllers[0] as! ExploreVC
+                                                    exploreVC.displayMode = 1
+                                                    tabBarVC.selectedIndex = EXPLORE_INDEX
+                                                    self.dismissViewControllerAnimated(true, completion: nil)
+                                                    cameraVC.cameraIsCancelled = false
+                                                } else {
+                                                    self.dismissViewControllerAnimated(true, completion: nil)
+                                                }
                                             }
                                         }
                                     }
