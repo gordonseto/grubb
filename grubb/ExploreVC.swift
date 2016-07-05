@@ -34,6 +34,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     var refreshControl: UIRefreshControl!
     
+    var uid: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,6 +45,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
+        
+        uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as! String
+        dismissNotifications()
         
         self.navigationController?.navigationBarHidden = true
         
@@ -69,8 +74,16 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         print(likedFoodPreviews.count)
         print(myFoodPreviews.count)
         
+        dismissNotifications()
+        
+    }
+    
+    func dismissNotifications(){
+        let firebase = FIRDatabase.database().reference()
+        firebase.child("users").child(uid).child("notifications").setValue(0)
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         BatchPush.dismissNotifications()
+        NSUserDefaults.standardUserDefaults().setObject(0, forKey: "NOTIFICATIONS")
     }
     
     func getLikedandMyFood(){

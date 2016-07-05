@@ -15,6 +15,8 @@ class LikesManager {
     private var _author: String!
     private var _name: String!
     
+    private var notifications: Int = 1
+    
     var firebase: FIRDatabaseReference!
     
     var uid: String {
@@ -54,9 +56,29 @@ class LikesManager {
                 if let error = error {
                     print(error.localizedDescription)
                 }
+            })
+        if uid != _author {
+            firebase.child("users").child(self._author).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
+                    if var user = currentData.value as? [String: AnyObject] {
+                        var notifications = user["notifications"] as? Int ?? 0
+                        notifications += 1
+                        self.notifications = notifications
+                        user["notifications"] = notifications
+                        currentData.value = user
+                        print(notifications)
+                        return FIRTransactionResult.successWithValue(currentData)
+                    }
+                    return FIRTransactionResult.successWithValue(currentData)
+                    }, andCompletionBlock: { (error, committed, snapshot) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                        self.sendLikeNotification(self.notifications)
+                        self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(time)
+            })
+        } else {
             self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(time)
-            self.sendLikeNotification()
-        })
+        }
     }
     
     func unlikePost(){
@@ -78,11 +100,11 @@ class LikesManager {
         })
     }
     
-    func sendLikeNotification(){
+    func sendLikeNotification(notifications: Int){
         if let pushClient = BatchClientPush(apiKey: BATCH_API_KEY, restKey: BATCH_REST_KEY) {
             
             pushClient.sandbox = false
-            pushClient.customPayload = ["aps": ["badge": 1, "sound": NSNull(), "content-available": 1]]
+            pushClient.customPayload = ["aps": ["badge": notifications, "sound": NSNull(), "content-available": 1]]
             pushClient.groupId = "likeNotifications"
             pushClient.message.title = "Grubb"
             pushClient.message.body = "Someone has liked your dish '\(_name)'"

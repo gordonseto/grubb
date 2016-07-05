@@ -133,7 +133,12 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                                     let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
                                     let imagesRef = storageRef.child("images")
                                     let childRef = imagesRef.child(key)
-                                    let imgData: NSData = UIImageJPEGRepresentation(img, 0.2)!
+                                    var imgData: NSData!
+                                    if editMode {
+                                        imgData = UIImageJPEGRepresentation(img, 1)!
+                                    } else {
+                                        imgData = UIImageJPEGRepresentation(img, 0.2)!
+                                    }
                                     
                                     let uploadTask = childRef.putData(imgData, metadata: nil) { metadata, error in
                                         if (error != nil) {
@@ -359,6 +364,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
     }
     
+    @IBAction func onFoodImageTapped(sender: UITapGestureRecognizer) {
+    }
 }
 
 extension newPostVC: GMSAutocompleteViewControllerDelegate {

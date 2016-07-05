@@ -18,6 +18,8 @@ protocol DraggableViewDelegate: class {
     func cardSwipedLeft(card: UIView) -> Void
     func cardSwipedRight(card: UIView) -> Void
     func onCardTapped(sender: Food)
+    func onCardBeingSwiped(distance: CGFloat)
+    func cardClicked()
 }
 
 class DraggableView: UIView {
@@ -96,10 +98,14 @@ class DraggableView: UIView {
     }
     
     func setupView() -> Void {
-        self.layer.cornerRadius = 10.0;
-        self.layer.shadowRadius = 3;
-        self.layer.shadowOpacity = 0.2;
-        self.layer.shadowOffset = CGSizeMake(1, 1);
+        //self.layer.cornerRadius = 10.0;
+        self.layer.cornerRadius = 3.0
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.clipsToBounds = true
+        //self.layer.shadowRadius = 3;
+        //self.layer.shadowOpacity = 0.2;
+        //self.layer.shadowOffset = CGSizeMake(1, 1);
     }
     
     func beingDragged(gestureRecognizer: UIPanGestureRecognizer) -> Void {
@@ -120,6 +126,7 @@ class DraggableView: UIView {
             let scaleTransform = CGAffineTransformScale(transform, CGFloat(scale), CGFloat(scale))
             self.transform = scaleTransform
             self.updateOverlay(CGFloat(xFromCenter))
+            delegate?.onCardBeingSwiped(CGFloat(xFromCenter))
         case UIGestureRecognizerState.Ended:
             self.afterSwipeAction()
         case UIGestureRecognizerState.Possible:
@@ -183,6 +190,7 @@ class DraggableView: UIView {
     
     func rightClickAction() -> Void {
         let finishPoint = CGPointMake(600, self.center.y)
+        delegate.cardClicked()
         UIView.animateWithDuration(0.3,
                                    animations: {
                                     self.center = finishPoint
@@ -196,6 +204,7 @@ class DraggableView: UIView {
     
     func leftClickAction() -> Void {
         let finishPoint: CGPoint = CGPointMake(-600, self.center.y)
+        delegate.cardClicked()
         UIView.animateWithDuration(0.3,
                                    animations: {
                                     self.center = finishPoint

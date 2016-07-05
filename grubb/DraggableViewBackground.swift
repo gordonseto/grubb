@@ -39,6 +39,8 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     var food = [Food]()
     weak var delegate: DraggableViewBackgroundDelegate!
     
+    let CARD_OFFSET: CGFloat = 5
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -71,6 +73,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         draggableView.restaurant.text = newFood.restaurant
         draggableView.delegate = self
         draggableView.tag = CARD_TAG
+        draggableView.userInteractionEnabled = false
         allCards.append(draggableView)
 
         let numLoadedCardsCap = allCards.count > MAX_BUFFER_SIZE ? MAX_BUFFER_SIZE : allCards.count
@@ -122,6 +125,10 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         cardsLoadedIndex = 0
         for var i = 0; i < deckOfCards.count; i++ {
             addToCards(i, newFood: deckOfCards[i])
+        }
+        if loadedCards.count > 0 {
+            loadedCards[0].userInteractionEnabled = true
+            loadedCards[0].center.y -= CARD_OFFSET
         }
         stopLoadingAnimation()
     }
@@ -210,15 +217,20 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     }
     
     func cardSwipedLeft(card: UIView) -> Void {
-        delegate?.onCardSwiped(loadedCards[0].food.key)
-        loadedCards.removeAtIndex(0)
-        displayNextCards()
+        cardSwiped(card)
     }
     
     func cardSwipedRight(card: UIView) -> Void {
-        delegate?.onCardSwiped(loadedCards[0].food.key)
         delegate?.onCardSwipedRight(loadedCards[0].food)
+        cardSwiped(card)
+    }
+    
+    func cardSwiped(card: UIView){
+        delegate?.onCardSwiped(loadedCards[0].food.key)
         loadedCards.removeAtIndex(0)
+        if loadedCards.count > 0 {
+            loadedCards[0].userInteractionEnabled = true
+        }
         displayNextCards()
     }
     
@@ -237,6 +249,20 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     
     func onRestartTapped(){
         delegate?.onRestartTapped()
+    }
+    
+    func onCardBeingSwiped(distance: CGFloat) {
+        let cardOrigin = (self.frame.size.height - CARD_HEIGHT)/2 + CARD_HEIGHT/2 - 20
+        if loadedCards.count > 1 {
+            loadedCards[1].center.y = cardOrigin - min(abs(distance)/10, CARD_OFFSET)
+        }
+    }
+    
+    func cardClicked() {
+        let cardOrigin = (self.frame.size.height - CARD_HEIGHT)/2 + CARD_HEIGHT/2 - 20
+        if loadedCards.count > 1 {
+            self.loadedCards[1].center.y = cardOrigin - self.CARD_OFFSET
+        }
     }
     
     func swipeRight() -> Void {
