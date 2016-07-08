@@ -42,7 +42,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     var firebase: FIRDatabaseReference!
     
     var loadingImages: Bool = false
-    var loadedLikedFood = 0
+    var loadedFood = 0
+    
+    var downloadTasks = [FIRStorageDownloadTask]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,12 +69,6 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         self.collection.addSubview(refreshControl)
         self.collection.scrollEnabled = true
         self.collection.alwaysBounceVertical = true
-     
-        if displayMode == LIKED_MODE {
-            getLikedFood()
-        } else {
-            //getMyFood()
-        }
         
         let storage = FIRStorage.storage()
         let storageRef = storage.referenceForURL(FIREBASE_STORAGE)
@@ -88,6 +84,12 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         
         segmentedControl.selectedSegmentIndex = displayMode
         dismissNotifications()
+        
+        if displayMode == LIKED_MODE {
+            getLikedFood()
+        } else {
+            getMyFood()
+        }
     
     }
     
@@ -100,23 +102,50 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     
     func getLikedFood(){
+        likedFoodPreviews = []
+        loadedFood = 0
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 print(snapshot.value)
-                let snapshotDict = snapshot.value as! [String:Int]
-                let totalLikes = Array(snapshotDict.keys).sort({snapshotDict[$0] > snapshotDict[$1]})
-                print(totalLikes)
+               
+                self.parseSnapshot(snapshot, arrayName: "likes")
                 
-                print(totalLikes.count)
-                for key in totalLikes {
-                    self.likedFoodPreviews.append(foodPreview(key: key))
-                }
-                
-                self.collection.reloadData()
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func getMyFood(){
+        myFoodPreviews = []
+        loadedFood = 0
+        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
+            firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                print(snapshot.value)
+                
+                self.parseSnapshot(snapshot, arrayName: "myFood")
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func parseSnapshot(snapshot: FIRDataSnapshot, arrayName: String){
+        let snapshotDict = snapshot.value as! [String:Int]
+        let totalKeys = Array(snapshotDict.keys).sort({snapshotDict[$0] > snapshotDict[$1]})
+        print(totalKeys)
+        
+        print(totalKeys.count)
+        for key in totalKeys {
+            if arrayName == "likes" {
+                self.likedFoodPreviews.append(foodPreview(key: key))
+            } else {
+                self.myFoodPreviews.append(foodPreview(key:key))
+            }
+        }
+        
+        self.collection.reloadData()
     }
 
     /*
@@ -236,42 +265,68 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     */
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        print(indexPath.item)
-        if indexPath.item > (loadedLikedFood) {
+        print("row \(indexPath.item)")
+        if indexPath.item > loadedFood {
             if !loadingImages {
-                downloadNextBatch()
+                loadingImages = true
+                let delay = 0.0001 * Double(NSEC_PER_SEC)
+                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                dispatch_after(time, dispatch_get_main_queue()) {
+                    self.downloadNextBatch()
+                }
             }
+        } else {
         }
     }
     
     func downloadNextBatch() {
         loadingImages = true
         var loaded = 0
-        for var i = loadedLikedFood; i < loadedLikedFood + NUM_IMAGES_LOADED; i++ {
-            if i < likedFoodPreviews.count {
-                downloadImage(i)
-                loaded++
+        print(loadedFood)
+        for var i = loadedFood; i < loadedFood + NUM_IMAGES_LOADED; i++ {
+            if displayMode == LIKED_MODE {
+                if i < likedFoodPreviews.count {
+                    print("downloading image for \(i)")
+                    downloadImage(likedFoodPreviews[i], index: i)
+                    loaded++
+                }
+            } else {
+                if i < myFoodPreviews.count {
+                    downloadImage(myFoodPreviews[i], index: i)
+                    loaded++
+                }
             }
         }
-        loadedLikedFood += loaded
+        loadedFood += loaded
         loadingImages = false
     }
     
-    func downloadImage(index: Int){
-        let foodPreview = likedFoodPreviews[index]
-        if let imagesRef = imagesRef {
-            let childRef = imagesRef.child(foodPreview.key)
-            childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
-                if (error != nil){
-                    print(error.debugDescription)
-                    self.stopLoadingAnimation()
-                } else {
-                    let foodImage: UIImage! = UIImage(data: data!)
-                    self.likedFoodPreviews[index].foodImage = foodImage
-                    print("downloaded \(foodPreview.key)'s image")
-                    self.collection.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
-                }
-            })
+    func downloadImage(foodPrev: foodPreview, index: Int) {
+
+        if let foundIndex = downloadedFoodPreviews.indexOf({$0.key == foodPrev.key}){
+            foodPrev.foodImage = downloadedFoodPreviews[foundIndex].foodImage
+            self.collection.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+            self.stopLoadingAnimation()
+        } else {
+            if let imagesRef = imagesRef {
+                let childRef = imagesRef.child(foodPrev.key)
+                let downloadTask = childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                    if (error != nil){
+                        print(error.debugDescription)
+                        self.stopLoadingAnimation()
+                    } else {
+                        let foodImage: UIImage! = UIImage(data: data!)
+                        var newDownloadedFood = foodPreview(key: foodPrev.key)
+                        newDownloadedFood.foodImage = foodImage
+                        self.downloadedFoodPreviews.append(newDownloadedFood)
+                        foodPrev.foodImage = newDownloadedFood.foodImage
+                        print("downloaded \(foodPrev.key)'s image")
+                        self.collection.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+                        self.stopLoadingAnimation()
+                    }
+                })
+                downloadTasks.append(downloadTask)
+            }
         }
     }
     
@@ -285,6 +340,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         else {
             foodPrev = myFoodPreviews[indexPath.row]
         }
+        print("configuring \(indexPath.row) with \(foodPrev.foodImage)")
         cell.configureCell(foodPrev)
         return cell
         
@@ -294,9 +350,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         let item: foodPreview
         
         if displayMode == LIKED_MODE {
-            item = likedFoodPreviews[likedFoodPreviews.count - 1 - indexPath.row]
+            item = likedFoodPreviews[indexPath.row]
         } else {
-            item = myFoodPreviews[myFoodPreviews.count - 1 - indexPath.row]
+            item = myFoodPreviews[indexPath.row]
         }
         performSegueWithIdentifier("itemVCFromExplore", sender: item)
     }
@@ -323,14 +379,15 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     @IBAction func onSegmentedControlChanged(sender: AnyObject) {
         displayMode = segmentedControl.selectedSegmentIndex
-        if displayMode == LIKED_MODE && likedFoodPreviews.count == 0 {
-            getLikedFood()
-        } else {
-            if myFoodPreviews.count == 0 {
-               // getMyFood()
-            }
+        for downloadTask in downloadTasks {
+            downloadTask.cancel()
         }
         collection.reloadData()
+        if displayMode == LIKED_MODE {
+            getLikedFood()
+        } else {
+            getMyFood()
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
