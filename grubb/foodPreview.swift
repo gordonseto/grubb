@@ -15,7 +15,12 @@ class foodPreview {
     var foodImage: UIImage?
     
     var key: String {
-        return _key
+        get {
+            return _key
+        }
+        set {
+            _key = key
+        }
     }
     
     init(key: String){

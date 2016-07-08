@@ -21,8 +21,6 @@ class FoodCell: UICollectionViewCell {
     
     func configureCell(foodPrev: foodPreview) {
         let image: UIImage? = foodPrev.foodImage
-        if image != nil {
-            foodImage.image = image
-        }
+        foodImage.image = image
     }
 }

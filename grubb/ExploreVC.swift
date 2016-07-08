@@ -28,6 +28,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     let LIKED_MODE = 0
     let MYFOOD_MODE = 1
     
+    let NUM_IMAGES_LOADED = 15
+    
     var imagesRef: FIRStorageReference?
     
     var loadingLabel: UILabel!
@@ -36,6 +38,11 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     var refreshControl: UIRefreshControl!
     
     var uid: String = ""
+    
+    var firebase: FIRDatabaseReference!
+    
+    var loadingImages: Bool = false
+    var loadedLikedFood = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +53,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
+        
+        firebase = FIRDatabase.database().reference()
         
         uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as! String
         dismissNotifications()
@@ -62,7 +71,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         if displayMode == LIKED_MODE {
             getLikedFood()
         } else {
-            getMyFood()
+            //getMyFood()
         }
         
         let storage = FIRStorage.storage()
@@ -83,27 +92,33 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func dismissNotifications(){
-        let firebase = FIRDatabase.database().reference()
         firebase.child("users").child(uid).child("notifications").setValue(0)
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         BatchPush.dismissNotifications()
         NSUserDefaults.standardUserDefaults().setObject(0, forKey: "NOTIFICATIONS")
     }
-    /*
+    
+    
     func getLikedFood(){
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
-            let firebase = FIRDatabase.database().reference()
             firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 print(snapshot.value)
-                if Int(snapshot.childrenCount) > likedFoodPreviews.count {
-                    
+                let snapshotDict = snapshot.value as! [String:Int]
+                let totalLikes = Array(snapshotDict.keys).sort({snapshotDict[$0] > snapshotDict[$1]})
+                print(totalLikes)
+                
+                print(totalLikes.count)
+                for key in totalLikes {
+                    self.likedFoodPreviews.append(foodPreview(key: key))
                 }
+                
+                self.collection.reloadData()
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
     }
-    */
+
     /*
     func getLikedandMyFood(){
         likedFoodPreviews = []
@@ -134,9 +149,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
      */
 
+    /*
     func getLikedFood(){
         likedFoodPreviews = []
-        let firebase = FIRDatabase.database().reference()
         firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             if let newFood = snapshot.value as? NSNumber {
                 self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
@@ -153,7 +168,6 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     func getMyFood(){
         myFoodPreviews = []
-        let firebase = FIRDatabase.database().reference()
         firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             if let newFood = snapshot.value as? NSNumber {
                 self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")
@@ -163,7 +177,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             self.removeFromFoodPreviewArray(snapshot.key, arrayName: "myFood")
         })
     }
-    
+ 
+ */
+    /*
     func addToFoodPreviewArray(key: String, arrayName: String){
         var newFoodPreview = foodPreview(key: key)
         var imageLoadedByOtherArray = false
@@ -218,16 +234,56 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         }
         collection.reloadData()
     }
+    */
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        print(indexPath.item)
+        if indexPath.item > (loadedLikedFood) {
+            if !loadingImages {
+                downloadNextBatch()
+            }
+        }
+    }
+    
+    func downloadNextBatch() {
+        loadingImages = true
+        var loaded = 0
+        for var i = loadedLikedFood; i < loadedLikedFood + NUM_IMAGES_LOADED; i++ {
+            if i < likedFoodPreviews.count {
+                downloadImage(i)
+                loaded++
+            }
+        }
+        loadedLikedFood += loaded
+        loadingImages = false
+    }
+    
+    func downloadImage(index: Int){
+        let foodPreview = likedFoodPreviews[index]
+        if let imagesRef = imagesRef {
+            let childRef = imagesRef.child(foodPreview.key)
+            childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
+                if (error != nil){
+                    print(error.debugDescription)
+                    self.stopLoadingAnimation()
+                } else {
+                    let foodImage: UIImage! = UIImage(data: data!)
+                    self.likedFoodPreviews[index].foodImage = foodImage
+                    print("downloaded \(foodPreview.key)'s image")
+                    self.collection.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+                }
+            })
+        }
+    }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FoodCell", forIndexPath: indexPath) as! FoodCell
         let foodPrev: foodPreview!
         if displayMode == LIKED_MODE {
-            foodPrev = likedFoodPreviews[likedFoodPreviews.count - 1 - indexPath.row]
+            foodPrev = likedFoodPreviews[indexPath.row]
         }
         else {
-            foodPrev = myFoodPreviews[myFoodPreviews.count - 1 - indexPath.row]
+            foodPrev = myFoodPreviews[indexPath.row]
         }
         cell.configureCell(foodPrev)
         return cell
@@ -261,13 +317,17 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         return CGSizeMake((screenWidth - 2) / CGFloat(3.0), (screenWidth - 2) / CGFloat(3.0))
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1
+    }
+    
     @IBAction func onSegmentedControlChanged(sender: AnyObject) {
         displayMode = segmentedControl.selectedSegmentIndex
         if displayMode == LIKED_MODE && likedFoodPreviews.count == 0 {
             getLikedFood()
         } else {
             if myFoodPreviews.count == 0 {
-                getMyFood()
+               // getMyFood()
             }
         }
         collection.reloadData()
@@ -305,8 +365,23 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func refreshView(sender: AnyObject){
-        self.collection.reloadData()
+        
+        //firebase.child("users").child(uid).child("likes").removeAllObservers()
+        //firebase.child("users").child(uid).child("posts").removeAllObservers()
+        
+        //likedFoodPreviews = []
+        //myFoodPreviews = []
+        collection.reloadData()
         self.refreshControl.endRefreshing()
+        
+        /*
+        if displayMode == LIKED_MODE {
+            getLikedFood()
+        } else {
+           // getMyFood()
+        }
+         */
+        
     }
 
 }
