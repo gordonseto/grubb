@@ -43,6 +43,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     var loadingImages: Bool = false
     var loadedFood = 0
+    var previousSnapshotDict: [String: Int]?
     
     var downloadTasks = [FIRStorageDownloadTask]()
     
@@ -102,8 +103,6 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     
     func getLikedFood(){
-        likedFoodPreviews = []
-        loadedFood = 0
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 print(snapshot.value)
@@ -117,11 +116,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func getMyFood(){
-        myFoodPreviews = []
-        loadedFood = 0
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-                print(snapshot.value)
                 
                 self.parseSnapshot(snapshot, arrayName: "myFood")
                 
@@ -132,138 +128,37 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func parseSnapshot(snapshot: FIRDataSnapshot, arrayName: String){
-        let snapshotDict = snapshot.value as! [String:Int]
-        let totalKeys = Array(snapshotDict.keys).sort({snapshotDict[$0] > snapshotDict[$1]})
-        print(totalKeys)
+        if let snapshotDict = snapshot.value as? [String:Int] {
         
-        print(totalKeys.count)
-        for key in totalKeys {
-            if arrayName == "likes" {
-                self.likedFoodPreviews.append(foodPreview(key: key))
-            } else {
-                self.myFoodPreviews.append(foodPreview(key:key))
+            if let previousSnapshotDict = previousSnapshotDict {
+                if snapshotDict == previousSnapshotDict {
+                    return
+                }
             }
-        }
         
-        self.collection.reloadData()
+            likedFoodPreviews = []
+            myFoodPreviews = []
+            loadedFood = 0
+            previousSnapshotDict = snapshotDict
+        
+            let totalKeys = Array(snapshotDict.keys).sort({snapshotDict[$0] > snapshotDict[$1]})
+            print(totalKeys)
+        
+            print(totalKeys.count)
+            for key in totalKeys {
+                if arrayName == "likes" {
+                    self.likedFoodPreviews.append(foodPreview(key: key))
+                } else {
+                    self.myFoodPreviews.append(foodPreview(key:key))
+                }
+            }
+        
+            self.collection.reloadData()
+        } else {
+            self.stopLoadingAnimation()
+        }
     }
 
-    /*
-    func getLikedandMyFood(){
-        likedFoodPreviews = []
-        myFoodPreviews = []
-        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
-            let firebase = FIRDatabase.database().reference()
-            firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-                if let newFood = snapshot.value as? NSNumber {
-                    self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-                }
-            })
-            firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
-                self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-            })
-            firebase.child("users").child(uid).child("likes").observeEventType(.ChildChanged, withBlock: {(snapshot) -> Void in
-                self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-                self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-            })
-            firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-                if let newFood = snapshot.value as? NSNumber {
-                    self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")
-                }
-            })
-            firebase.child("users").child(uid).child("posts").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
-                self.removeFromFoodPreviewArray(snapshot.key, arrayName: "myFood")
-            })
-        }
-    }
-     */
-
-    /*
-    func getLikedFood(){
-        likedFoodPreviews = []
-        firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-            if let newFood = snapshot.value as? NSNumber {
-                self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-            }
-        })
-        firebase.child("users").child(uid).child("likes").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
-            self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-        })
-        firebase.child("users").child(uid).child("likes").observeEventType(.ChildChanged, withBlock: {(snapshot) -> Void in
-            self.removeFromFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-            self.addToFoodPreviewArray(snapshot.key, arrayName: "likedFoods")
-        })
-    }
-    
-    func getMyFood(){
-        myFoodPreviews = []
-        firebase.child("users").child(uid).child("posts").queryOrderedByValue().observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-            if let newFood = snapshot.value as? NSNumber {
-                self.addToFoodPreviewArray(snapshot.key, arrayName: "myFood")
-            }
-        })
-        firebase.child("users").child(uid).child("posts").observeEventType(.ChildRemoved, withBlock: {(snapshot) -> Void in
-            self.removeFromFoodPreviewArray(snapshot.key, arrayName: "myFood")
-        })
-    }
- 
- */
-    /*
-    func addToFoodPreviewArray(key: String, arrayName: String){
-        var newFoodPreview = foodPreview(key: key)
-        var imageLoadedByOtherArray = false
-        if arrayName == "likedFoods" {
-            if let checkOtherArray = self.myFoodPreviews.indexOf({$0.key == newFoodPreview.key}) {
-                likedFoodPreviews.append(myFoodPreviews[checkOtherArray])
-                imageLoadedByOtherArray = true
-            } else {
-                likedFoodPreviews.append(newFoodPreview)
-            }
-        } else {
-            if let checkOtherArray = self.likedFoodPreviews.indexOf({$0.key == newFoodPreview.key}) {
-                myFoodPreviews.append(likedFoodPreviews[checkOtherArray])
-                imageLoadedByOtherArray = true
-            } else {
-                myFoodPreviews.append(newFoodPreview)
-            }
-        }
-        if !imageLoadedByOtherArray {
-            if let imagesRef = imagesRef {
-                let childRef = imagesRef.child(key)
-                childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
-                    if (error != nil){
-                        print(error.debugDescription)
-                        self.stopLoadingAnimation()
-                    } else {
-                        let foodImage: UIImage! = UIImage(data: data!)
-                        newFoodPreview.foodImage = foodImage
-                        print("downloaded \(key)'s image")
-                        self.collection.reloadData()
-                        self.stopLoadingAnimation()
-                    }
-                })
-            }
-        }
-    }
-    
-    func removeFromFoodPreviewArray(key: String, arrayName: String){
-        print("REMOVE \(key)")
-        if arrayName == "likedFoods" {
-            let foodPreviewKeys = likedFoodPreviews.map { $0.key }
-            let index = foodPreviewKeys.indexOf(key)
-            if index != nil {
-                likedFoodPreviews.removeAtIndex(index!)
-            }
-        } else {
-            let foodPreviewKeys = myFoodPreviews.map { $0.key }
-            let index = foodPreviewKeys.indexOf(key)
-            if index != nil {
-                myFoodPreviews.removeAtIndex(index!)
-            }
-        }
-        collection.reloadData()
-    }
-    */
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         print("row \(indexPath.item)")
         if indexPath.item > loadedFood {
@@ -282,11 +177,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     func downloadNextBatch() {
         loadingImages = true
         var loaded = 0
-        print(loadedFood)
         for var i = loadedFood; i < loadedFood + NUM_IMAGES_LOADED; i++ {
             if displayMode == LIKED_MODE {
                 if i < likedFoodPreviews.count {
-                    print("downloading image for \(i)")
                     downloadImage(likedFoodPreviews[i], index: i)
                     loaded++
                 }
@@ -423,21 +316,13 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     func refreshView(sender: AnyObject){
         
-        //firebase.child("users").child(uid).child("likes").removeAllObservers()
-        //firebase.child("users").child(uid).child("posts").removeAllObservers()
-        
-        //likedFoodPreviews = []
-        //myFoodPreviews = []
-        collection.reloadData()
         self.refreshControl.endRefreshing()
-        
-        /*
+
         if displayMode == LIKED_MODE {
             getLikedFood()
         } else {
-           // getMyFood()
+           getMyFood()
         }
-         */
         
     }
 

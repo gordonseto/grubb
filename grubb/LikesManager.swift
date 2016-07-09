@@ -46,6 +46,7 @@ class LikesManager {
             if var post = currentData.value as? [String: AnyObject] {
                 var likes = post["likes"] as? Int ?? 0
                 likes += 1
+                print("adding like to \(self.key)")
                 post["likes"] = likes
                 currentData.value = post
                 print(likes)
@@ -55,6 +56,9 @@ class LikesManager {
             }, andCompletionBlock: { (error, committed, snapshot) in
                 if let error = error {
                     print(error.localizedDescription)
+                    print("TRANSACTION FAILED!")
+                } else {
+                    self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(time)
                 }
             })
         if uid != _author {
@@ -71,13 +75,12 @@ class LikesManager {
                     return FIRTransactionResult.successWithValue(currentData)
                     }, andCompletionBlock: { (error, committed, snapshot) in
                         if let error = error {
-                            print(error.localizedDescription)
+                            //print(error.localizedDescription)
+                            print("TRANSACTION FAILED!")
+                        } else {
+                            self.sendLikeNotification(self.notifications)
                         }
-                        self.sendLikeNotification(self.notifications)
-                        self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(time)
             })
-        } else {
-            self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(time)
         }
     }
     
@@ -85,6 +88,7 @@ class LikesManager {
         firebase.child("posts").child(_key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
             if var post = currentData.value as? [String: AnyObject] {
                 var likes = post["likes"] as? Int ?? 0
+                print("removing like from \(self.key)")
                 likes -= 1
                 post["likes"] = likes
                 currentData.value = post
@@ -95,8 +99,9 @@ class LikesManager {
             }, andCompletionBlock: { (error, committed, snapshot) in
                 if let error = error {
                     print(error.localizedDescription)
-                }
-            self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(nil)
+                } else {
+                    self.firebase.child("users").child(self._uid).child("likes").child(self._key).setValue(nil)
+            }
         })
     }
     

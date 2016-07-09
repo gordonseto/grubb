@@ -37,6 +37,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
         
         UITabBar.appearance().tintColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 83/255.0, alpha: 1.0)
+        
+        let connectedRef = FIRDatabase.database().referenceWithPath(".info/connected")
+        connectedRef.observeEventType(.Value, withBlock: { snapshot in
+            if let connected = snapshot.value as? Bool where connected {
+                print("Connected")
+            } else {
+                print("Not connected")
+                dispatch_async(dispatch_get_main_queue()) {
+                    let rootVC = self.window?.rootViewController as! UITabBarController
+                    let tabBarIndex = rootVC.selectedIndex
+                    let navigationController = rootVC.viewControllers![tabBarIndex] as! UINavigationController
+                    let topVC = navigationController.presentedViewController
+                    topVC?.showErrorAlert("Oops! Your connection appears to be offline.", msg: "Please reconnect to internet.")
+                }
+            }
+        })
+        
         return true
     }
 

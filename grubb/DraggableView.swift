@@ -17,7 +17,7 @@ let ROTATION_ANGLE: Float = 3.14/8  //%%% Higher = stronger rotation angle
 protocol DraggableViewDelegate: class {
     func cardSwipedLeft(card: UIView) -> Void
     func cardSwipedRight(card: UIView) -> Void
-    func onCardTapped(sender: Food)
+    func onCardTapped(sender: DraggableView)
     func onCardBeingSwiped(distance: CGFloat)
     func cardClicked()
 }
@@ -36,6 +36,8 @@ class DraggableView: UIView {
     var restaurant: UILabel!
     var foodImage: UIImageView!
     var food: Food!
+    
+    var failedToLoad: Bool = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -91,10 +93,11 @@ class DraggableView: UIView {
         
         var tapCard = UITapGestureRecognizer(target: self, action: "onCardTapped")
         self.addGestureRecognizer(tapCard)
+        
     }
     
     func onCardTapped(){
-        delegate?.onCardTapped(food)
+        delegate?.onCardTapped(self)
     }
     
     func setupView() -> Void {

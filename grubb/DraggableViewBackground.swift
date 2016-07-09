@@ -102,11 +102,13 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
             childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
                 if (error != nil){
                     print(error.debugDescription)
+                    card.failedToLoad = true
                 } else {
                     let foodImage: UIImage! = UIImage(data: data!)
                     card.food.foodImage = foodImage
                     card.foodImage.image = foodImage
                     print("loaded \(card.food.restaurant)'s image")
+                    card.failedToLoad = false
             }
             })
         } else {
@@ -246,8 +248,16 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         }
     }
     
-    func onCardTapped(food: Food){
-        delegate?.onCardTapped(food)
+    func onCardTapped(card: DraggableView){
+        if card.foodImage.image == nil {
+            for card in loadedCards {
+                if card.failedToLoad == true {
+                    loadCardImage(card)
+                }
+            }
+        } else {
+            delegate?.onCardTapped(card.food)
+        }
     }
     
     func onRestartTapped(){

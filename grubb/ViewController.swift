@@ -119,7 +119,6 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         geofire = GeoFire(firebaseRef: geofireRef)
         
         firebase.child("users").child(uid).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            /*
             if let swiped = snapshot.value!["swiped"] as? [String: AnyObject] {
                 self.swiped = swiped
                 print(self.swiped)
@@ -127,9 +126,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             } else {
                 self.swiped = [String: AnyObject]()
             }
-            */
-            self.swiped = [String: AnyObject]()
-            
+ 
             if let userLikes = snapshot.value!["likes"] as? [String: AnyObject] {
                 self.userLikes = userLikes
             }
