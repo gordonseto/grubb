@@ -28,7 +28,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     let LIKED_MODE = 0
     let MYFOOD_MODE = 1
     
-    let NUM_IMAGES_LOADED = 15
+    let NUM_IMAGES_LOADED = 21
     
     var imagesRef: FIRStorageReference?
     
@@ -94,14 +94,6 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     
     }
     
-    func dismissNotifications(){
-        firebase.child("users").child(uid).child("notifications").setValue(0)
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
-        BatchPush.dismissNotifications()
-        NSUserDefaults.standardUserDefaults().setObject(0, forKey: "NOTIFICATIONS")
-    }
-    
-    
     func getLikedFood(){
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
@@ -161,7 +153,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
 
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         print("row \(indexPath.item)")
-        if indexPath.item > loadedFood {
+        if indexPath.item >= loadedFood {
             if !loadingImages {
                 loadingImages = true
                 let delay = 0.0001 * Double(NSEC_PER_SEC)

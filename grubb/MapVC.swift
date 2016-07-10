@@ -25,6 +25,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     
     var titleLogo: UILabel!
     var backButton: UIButton!
+    var settingsButton: UIButton!
     
     var peekMode = false
     
@@ -47,6 +48,13 @@ class MapVC: UIViewController, MKMapViewDelegate {
         titleLogo.textColor = UIColor.darkGrayColor()
         titleLogo.minimumScaleFactor = 0.8
         self.view.addSubview(titleLogo)
+        
+        settingsButton = UIButton(frame: CGRectMake(8, 22, 29, 25))
+        settingsButton.setImage(UIImage(named: "settings"), forState: UIControlState.Normal)
+        settingsButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+        settingsButton.addTarget(self, action: #selector(onSettingsButtonTapped), forControlEvents: .TouchUpInside)
+        settingsButton.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
+        self.view.addSubview(settingsButton)
         
         let peekButton = UIButton(frame: CGRectMake(0, 0, 30, 27))
         peekButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width - 23, 37)
@@ -175,6 +183,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
         backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
         
+        settingsButton.removeFromSuperview()
+        
         self.peekMode = true
     }
     
@@ -197,6 +207,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
         self.titleLogo.text = "Your Location"
         backButton.removeFromSuperview()
         peekMode = false
+        self.view.addSubview(settingsButton)
+    }
+    
+    func onSettingsButtonTapped(){
+        performSegueWithIdentifier("settingsVC", sender: nil)
     }
     
 }

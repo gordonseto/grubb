@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import GeoFire
 import AZDropdownMenu
+import Batch
 
 class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, itemVCDelegate {
     
@@ -110,6 +111,10 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
     }
     
+    override func viewDidAppear(animated: Bool) {
+        dismissNotifications()
+    }
+    
     func queryDishes(draggableBackground: DraggableViewBackground, center: CLLocation, radius: Double){
         var cardIndex = 0
         var cardsRetrieved = 0
@@ -119,16 +124,21 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         geofire = GeoFire(firebaseRef: geofireRef)
         
         firebase.child("users").child(uid).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            if let swiped = snapshot.value!["swiped"] as? [String: AnyObject] {
-                self.swiped = swiped
-                print(self.swiped)
-                print(self.swiped.count)
+            if let onlySwipedSetting = NSUserDefaults.standardUserDefaults().objectForKey("ONLY_SWIPED_SETTING") as? Bool {
+                if onlySwipedSetting {
+                    self.parseSwiped(snapshot)
+                } else {
+                    self.swiped = [String:AnyObject]()
+                }
             } else {
-                self.swiped = [String: AnyObject]()
+                self.parseSwiped(snapshot)
             }
+            
  
             if let userLikes = snapshot.value!["likes"] as? [String: AnyObject] {
                 self.userLikes = userLikes
+            } else {
+                self.userLikes = [String:AnyObject]()
             }
             
             self.circleQuery = self.geofire.queryAtLocation(center, withRadius: radius)
@@ -179,6 +189,16 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
             
         }) { (error) in
             print(error.localizedDescription)
+        }
+    }
+    
+    func parseSwiped(snapshot: FIRDataSnapshot){
+        if let swiped = snapshot.value!["swiped"] as? [String: AnyObject] {
+            self.swiped = swiped
+            print(self.swiped)
+            print(self.swiped.count)
+        } else {
+            self.swiped = [String:AnyObject]()
         }
     }
     
@@ -329,6 +349,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         self.userLikes[key] = nil
     }
 
+
 }
 
 extension UIViewController {
@@ -346,6 +367,16 @@ extension UIViewController {
         let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
         alert.addAction(action)
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func dismissNotifications(){
+        let firebase = FIRDatabase.database().reference()
+        if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String  {
+            firebase.child("users").child(uid).child("notifications").setValue(0)
+            UIApplication.sharedApplication().cancelAllLocalNotifications()
+            BatchPush.dismissNotifications()
+            NSUserDefaults.standardUserDefaults().setObject(0, forKey: "NOTIFICATIONS")
+        }
     }
 }
 

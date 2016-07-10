@@ -35,6 +35,7 @@
 		8E6919821D22DE26003A6FE2 /* LikesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6919811D22DE26003A6FE2 /* LikesManager.swift */; };
 		8E6919851D25D76C003A6FE2 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6919841D25D76C003A6FE2 /* ReportVC.swift */; };
 		8E85BF341D301F7400FEA09F /* OfflineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E85BF331D301F7400FEA09F /* OfflineManager.swift */; };
+		8EC06F0A1D32B640003A233F /* settingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC06F091D32B640003A233F /* settingsVC.swift */; };
 		D455998AE30EE6517BEBD3CF /* Pods_grubb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF47434F0575E06892BACAB /* Pods_grubb.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		8E6919811D22DE26003A6FE2 /* LikesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesManager.swift; sourceTree = "<group>"; };
 		8E6919841D25D76C003A6FE2 /* ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
 		8E85BF331D301F7400FEA09F /* OfflineManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineManager.swift; sourceTree = "<group>"; };
+		8EC06F091D32B640003A233F /* settingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingsVC.swift; sourceTree = "<group>"; };
 		B83BF073F95B9F655447B335 /* Pods-grubb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.debug.xcconfig"; sourceTree = "<group>"; };
 		EEF47434F0575E06892BACAB /* Pods_grubb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_grubb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFADB9F121BA857DF89FBC94 /* Pods-grubb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grubb.release.xcconfig"; path = "Pods/Target Support Files/Pods-grubb/Pods-grubb.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				8E0137771D1B398B0041FDAD /* MapVC.swift */,
 				8E6919841D25D76C003A6FE2 /* ReportVC.swift */,
 				8E3496FC1D2B734500273B0F /* foodImageModalVC.swift */,
+				8EC06F091D32B640003A233F /* settingsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				8E54A67A1D144996009D4506 /* ViewController.swift in Sources */,
 				8E01376A1D19E4E80041FDAD /* DraggableView.swift in Sources */,
 				8E6919821D22DE26003A6FE2 /* LikesManager.swift in Sources */,
+				8EC06F0A1D32B640003A233F /* settingsVC.swift in Sources */,
 				8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */,
 				8E85BF341D301F7400FEA09F /* OfflineManager.swift in Sources */,
 				8E54A6901D14564A009D4506 /* Food.swift in Sources */,
@@ -479,7 +483,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
 				PRODUCT_NAME = Grubb;
-				PROVISIONING_PROFILE = "6c06f6f3-42c8-4d2f-bd4f-8ca1ed1813fc";
+				PROVISIONING_PROFILE = "c215af3d-f5d6-4cb6-b3ff-e3b43c5914e8";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -491,8 +495,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Gordon Seto (732LS35PLA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gordon Seto (732LS35PLA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gordon Seto (49XEV2WTJ3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gordon Seto (49XEV2WTJ3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -501,7 +505,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
 				PRODUCT_NAME = Grubb;
-				PROVISIONING_PROFILE = "6c06f6f3-42c8-4d2f-bd4f-8ca1ed1813fc";
+				PROVISIONING_PROFILE = "c215af3d-f5d6-4cb6-b3ff-e3b43c5914e8";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 			};
 			name = Release;

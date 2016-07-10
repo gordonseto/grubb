@@ -74,6 +74,10 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        dismissNotifications()
+    }
+    
     func initializeView(){
         nameLabel.text = food.name
         if food.foodImage != nil {
