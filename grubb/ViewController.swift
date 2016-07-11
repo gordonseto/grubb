@@ -61,15 +61,18 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
         backButton.addTarget(self, action: #selector(onBackButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(backButton)
         
-        search = searchField(frame: CGRectMake(40, 23, self.view.frame.size.width * 0.7, 30))
+        search = searchField(frame: CGRectMake(40, 35, self.view.frame.size.width * 0.75, 30))
+        search.center = CGPoint(x: self.view.frame.size.width/2 + 18, y: 38)
         search.delegate = self
         self.view.addSubview(search)
         
+        /*
         let filterButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 38, 25, 25, 25))
         filterButton.setImage(UIImage(named: "filterButton"), forState: UIControlState.Normal)
         filterButton.addTarget(self, action: #selector(onFilterTapped), forControlEvents: .TouchUpInside)
         filterButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
         self.view.addSubview(filterButton)
+        
         
         filterLayer = UIView(frame: CGRectMake(0, 71, self.view.frame.size.width, 70))
         filterLayer.backgroundColor = UIColor.clearColor()
@@ -87,6 +90,7 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
                 self!.filterSelected(indexPath.row)
             }
         }
+        */
         
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             self.uid = uid

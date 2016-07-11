@@ -70,6 +70,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         if food == nil {
             getFoodData()
         } else {
+            self.key = food.key
             initializeView()
         }
     }
@@ -113,11 +114,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                     print(error.localizedDescription)
                 } else if (location != nil) {
                     print(location)
-                    if self.food == nil {
-                        self.getFood(location)
-                    } else {
-                        self.initializeView()
-                    }
+                    self.getFood(location)
                 } else {
                     print("GeoFire does not contain a location for \(self.key)")
                 }
@@ -246,6 +243,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
                 if (error != nil){
                     print(error.debugDescription)
+                    self.foodImage.image = UIImage(named: "reloadImage")
                 } else {
                     let foodImage: UIImage! = UIImage(data: data!)
                     self.food.foodImage = foodImage
@@ -324,7 +322,11 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     }
     
     func refreshView(sender: AnyObject){
-        self.locationManager.startUpdatingLocation()
+        if !fromHome {
+            self.locationManager.startUpdatingLocation()
+        } else {
+            self.getFood(food.geolocation)
+        }
         self.refreshControl.endRefreshing()
     }
     
@@ -364,5 +366,9 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         }
     
  }
+
+    @IBAction func onImageTapped(sender: UITapGestureRecognizer) {
+        print("hi")
+    }
  
 }

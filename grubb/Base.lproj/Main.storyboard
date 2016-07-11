@@ -1143,6 +1143,9 @@
                                                         <exclude reference="aAX-yf-1CY"/>
                                                     </mask>
                                                 </variation>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="TOs-A9-Eeh" appends="YES" id="x0d-iH-is4"/>
+                                                </connections>
                                             </imageView>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IE1-jp-hBv">
                                                 <rect key="frame" x="22" y="531" width="538" height="5"/>
@@ -1350,6 +1353,11 @@
                         <action selector="onHeartTapped:" destination="jjc-3b-DhB" id="DXV-kT-Y1F"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="TOs-A9-Eeh">
+                    <connections>
+                        <action selector="onImageTapped:" destination="jjc-3b-DhB" id="Cz7-8T-OWB"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-802" y="2074"/>
         </scene>
@@ -1454,6 +1462,9 @@
                                                         <exclude reference="zK6-Tf-ZIn"/>
                                                     </mask>
                                                 </variation>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="RM8-vf-0hn" appends="YES" id="khA-Hn-MD1"/>
+                                                </connections>
                                             </imageView>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lR9-w2-YkS">
                                                 <rect key="frame" x="22" y="531" width="538" height="5"/>
@@ -1659,6 +1670,11 @@
                 <tapGestureRecognizer id="xQ4-Uv-qfu">
                     <connections>
                         <action selector="onHeartTapped:" destination="Fda-lW-l4j" id="vnx-ng-Lmx"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="RM8-vf-0hn">
+                    <connections>
+                        <action selector="onImageTapped:" destination="Fda-lW-l4j" id="Wb8-np-tzv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
