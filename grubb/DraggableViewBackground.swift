@@ -98,13 +98,13 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         let imagesRef = storageRef.child("images")
         let childRef = imagesRef.child(card.food.key)
         
-        if card.food.foodImage == nil || card.food.foodImage == UIImage(named: "reloadImage") {
-            card.food.foodImage = nil
+        if card.food.foodImage == nil || card.foodImage.image == UIImage(named: "reloadImage") {
+            card.foodImage.image = nil
             childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
                 if (error != nil){
                     print(error.debugDescription)
                     card.failedToLoad = true
-                    card.food.foodImage = UIImage(named: "reloadImage")
+                    card.foodImage.image = UIImage(named: "reloadImage")
                 } else {
                     let foodImage: UIImage! = UIImage(data: data!)
                     card.food.foodImage = foodImage
