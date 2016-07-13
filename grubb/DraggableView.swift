@@ -160,11 +160,19 @@ class DraggableView: UIView {
     }
     
     func afterSwipeAction() -> Void {
-        let floatXFromCenter = Float(xFromCenter)
-        if floatXFromCenter > ACTION_MARGIN {
-            self.rightAction()
-        } else if floatXFromCenter < -ACTION_MARGIN {
-            self.leftAction()
+        if Reachability.isConnectedToNetwork() {
+            let floatXFromCenter = Float(xFromCenter)
+            if floatXFromCenter > ACTION_MARGIN {
+                self.rightAction()
+            } else if floatXFromCenter < -ACTION_MARGIN {
+                self.leftAction()
+            } else {
+                UIView.animateWithDuration(0.3, animations: {() -> Void in
+                    self.center = self.originPoint
+                    self.transform = CGAffineTransformMakeRotation(0)
+                    self.overlayView.alpha = 0
+                })
+            }
         } else {
             UIView.animateWithDuration(0.3, animations: {() -> Void in
                 self.center = self.originPoint
@@ -199,30 +207,34 @@ class DraggableView: UIView {
     }
     
     func rightClickAction() -> Void {
-        let finishPoint = CGPointMake(600, self.center.y)
-        delegate.cardClicked()
-        UIView.animateWithDuration(0.3,
-                                   animations: {
-                                    self.center = finishPoint
-                                    self.transform = CGAffineTransformMakeRotation(1)
-            }, completion: {
-                (value: Bool) in
-                self.removeFromSuperview()
-        })
-        delegate.cardSwipedRight(self)
+        if Reachability.isConnectedToNetwork() {
+            let finishPoint = CGPointMake(600, self.center.y)
+            delegate.cardClicked()
+            UIView.animateWithDuration(0.3,
+                                    animations: {
+                                        self.center = finishPoint
+                                        self.transform = CGAffineTransformMakeRotation(1)
+                }, completion: {
+                    (value: Bool) in
+                    self.removeFromSuperview()
+            })
+            delegate.cardSwipedRight(self)
+        }
     }
     
     func leftClickAction() -> Void {
-        let finishPoint: CGPoint = CGPointMake(-600, self.center.y)
-        delegate.cardClicked()
-        UIView.animateWithDuration(0.3,
-                                   animations: {
-                                    self.center = finishPoint
-                                    self.transform = CGAffineTransformMakeRotation(1)
-            }, completion: {
-                (value: Bool) in
-                self.removeFromSuperview()
-        })
-        delegate.cardSwipedLeft(self)
+        if Reachability.isConnectedToNetwork() {
+            let finishPoint: CGPoint = CGPointMake(-600, self.center.y)
+            delegate.cardClicked()
+            UIView.animateWithDuration(0.3,
+                                    animations: {
+                                        self.center = finishPoint
+                                        self.transform = CGAffineTransformMakeRotation(1)
+                }, completion: {
+                    (value: Bool) in
+                    self.removeFromSuperview()
+            })
+            delegate.cardSwipedLeft(self)
+        }
     }
 }

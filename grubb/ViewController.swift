@@ -331,7 +331,6 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
     }
     
     func onCardSwipedRight(food: Food){
-        print("hi")
         if userLikes[food.key] == nil {
             let likesManager = LikesManager(uid: uid, key: food.key, author: food.author, name: food.name)
             likesManager.likePost()

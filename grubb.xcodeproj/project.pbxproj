@@ -30,6 +30,7 @@
 		8E54A6941D145AF6009D4506 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6931D145AF6009D4506 /* FoodCell.swift */; };
 		8E54A6961D146C9C009D4506 /* itemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6951D146C9C009D4506 /* itemVC.swift */; };
 		8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A6971D14B2CD009D4506 /* CameraVC.swift */; };
+		8E58AAC01D36E65A00684F5E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58AABF1D36E65A00684F5E /* Reachability.swift */; };
 		8E69197B1D21A202003A6FE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */; };
 		8E6919801D22D6B3003A6FE2 /* BatchClientPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */; };
 		8E6919821D22DE26003A6FE2 /* LikesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6919811D22DE26003A6FE2 /* LikesManager.swift */; };
@@ -66,6 +67,7 @@
 		8E54A6931D145AF6009D4506 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 		8E54A6951D146C9C009D4506 /* itemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemVC.swift; sourceTree = "<group>"; };
 		8E54A6971D14B2CD009D4506 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		8E58AABF1D36E65A00684F5E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		8E69197A1D21A202003A6FE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchClientPush.swift; sourceTree = "<group>"; };
 		8E6919811D22DE26003A6FE2 /* LikesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesManager.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				8E69197F1D22D6B3003A6FE2 /* BatchClientPush.swift */,
 				8E6919811D22DE26003A6FE2 /* LikesManager.swift */,
 				8E85BF331D301F7400FEA09F /* OfflineManager.swift */,
+				8E58AABF1D36E65A00684F5E /* Reachability.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				8E54A6981D14B2CD009D4506 /* CameraVC.swift in Sources */,
 				8E3496FB1D2B72FD00273B0F /* newPostVC.swift in Sources */,
 				8E3496FD1D2B734500273B0F /* foodImageModalVC.swift in Sources */,
+				8E58AAC01D36E65A00684F5E /* Reachability.swift in Sources */,
 				8E0137511D187D140041FDAD /* categoryButton.swift in Sources */,
 				8E54A6921D1458C0009D4506 /* ExploreVC.swift in Sources */,
 				8E0137781D1B398B0041FDAD /* MapVC.swift in Sources */,
