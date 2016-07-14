@@ -208,6 +208,13 @@ class DraggableView: UIView {
     
     func rightClickAction() -> Void {
         if Reachability.isConnectedToNetwork() {
+            
+            self.overlayView.setMode(GGOverlayViewMode.GGOverlayViewModeRight)
+            UIView.animateWithDuration(0.2, animations: {
+                () -> Void in
+                self.overlayView.alpha = 1
+            })
+            
             let finishPoint = CGPointMake(600, self.center.y)
             delegate.cardClicked()
             UIView.animateWithDuration(0.3,
@@ -224,6 +231,13 @@ class DraggableView: UIView {
     
     func leftClickAction() -> Void {
         if Reachability.isConnectedToNetwork() {
+            
+            self.overlayView.setMode(GGOverlayViewMode.GGOverlayViewModeLeft)
+            UIView.animateWithDuration(0.2, animations: {
+                () -> Void in
+                self.overlayView.alpha = 1
+            })
+            
             let finishPoint: CGPoint = CGPointMake(-600, self.center.y)
             delegate.cardClicked()
             UIView.animateWithDuration(0.3,

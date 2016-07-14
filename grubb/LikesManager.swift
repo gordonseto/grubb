@@ -45,9 +45,11 @@ class LikesManager {
         firebase.child("posts").child(_key).runTransactionBlock({ (currentData: FIRMutableData) -> FIRTransactionResult in
             if var post = currentData.value as? [String: AnyObject] {
                 var likes = post["likes"] as? Int ?? 0
+                print("likes")
                 likes += 1
                 print("adding like to \(self.key)")
                 post["likes"] = likes
+                print("likes after: \(post["likes"])")
                 currentData.value = post
                 print(likes)
                 return FIRTransactionResult.successWithValue(currentData)

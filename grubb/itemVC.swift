@@ -160,10 +160,10 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
             firebase.child("users").child(uid).child("likes").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 // Get user value
                 if let foodLiked = snapshot.value![self.food.key] as? Double{
-                    self.foodLiked()
+                    self.likeImage.image = UIImage(named: "filledHeart")
                     self.userLiked = true
                 } else {
-                    self.foodNotLiked()
+                    self.likeImage.image = UIImage(named: "emptyHeart")
                     self.userLiked = false
                 }
                 self.likesManager = LikesManager(uid: uid, key: self.food.key, author: self.food.author, name: self.food.name)
@@ -190,10 +190,14 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     
     func foodLiked(){
         likeImage.image = UIImage(named: "filledHeart")
+        numLikes += 1
+        updateLikesLabel(numLikes)
     }
     
     func foodNotLiked(){
         likeImage.image = UIImage(named: "emptyHeart")
+        numLikes -= 1
+        updateLikesLabel(numLikes)
     }
     
     @IBAction func onHeartTapped(sender: UITapGestureRecognizer) {
@@ -201,24 +205,40 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         print(likeImage.image)
         if let uid = uid {
             if !userLiked{
-                userLiked = true
                 foodLiked()
-                numLikes += 1
-                updateLikesLabel(numLikes)
-                if fromHome {
-                    popAndAnimateSwipe()
+                if Reachability.isConnectedToNetwork() {
+                    userLiked = true
+                    if fromHome {
+                        popAndAnimateSwipe()
+                    } else {
+                        likesManager.likePost()
+                    }
                 } else {
-                    likesManager.likePost()
+                    likeImage.userInteractionEnabled = false
+                    let delay = 0.2 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue()) {
+                        self.foodNotLiked()
+                        self.likeImage.userInteractionEnabled = true
+                    }
                 }
             } else {
-                userLiked = false
                 foodNotLiked()
-                numLikes -= 1
-                updateLikesLabel(numLikes)
-                if fromHome {
-                    delegate?.removeFromUserLikes(self.food.key)
+                if Reachability.isConnectedToNetwork() {
+                    userLiked = false
+                    if fromHome {
+                        delegate?.removeFromUserLikes(self.food.key)
+                    }
+                    likesManager.unlikePost()
+                } else {
+                    likeImage.userInteractionEnabled = false
+                    let delay = 0.2 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue()) {
+                        self.foodLiked()
+                        self.likeImage.userInteractionEnabled = true
+                    }
                 }
-                likesManager.unlikePost()
             }
         }
     }
