@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 83/255.0, alpha: 1.0)
         
+        /*
         let connectedRef = FIRDatabase.database().referenceWithPath(".info/connected")
         connectedRef.observeEventType(.Value, withBlock: { snapshot in
             if let connected = snapshot.value as? Bool where connected {
@@ -53,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         })
+        */
         
         return true
     }

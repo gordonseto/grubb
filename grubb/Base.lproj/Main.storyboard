@@ -10,6 +10,7 @@
         <mutableArray key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
             <string>HelveticaNeue</string>
+            <string>HelveticaNeue</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -914,8 +915,8 @@
                                         <state key="normal" image="backButton"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="jQN-7L-O4g"/>
                                                 <exclude reference="EG0-Gd-ocq"/>
+                                                <exclude reference="jQN-7L-O4g"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -958,15 +959,15 @@
                                 <rect key="frame" x="0.0" y="134" width="600" height="54"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfZ-9y-iVh">
-                                        <rect key="frame" x="8" y="11" width="584" height="31"/>
+                                        <rect key="frame" x="12" y="11" width="580" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Show Unswiped Dishes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sh-1x-DiF">
-                                                <rect key="frame" x="0.0" y="0.0" width="535" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="531" height="31"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jj4-aP-edP">
-                                                <rect key="frame" x="535" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="531" y="0.0" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="onSwitchChanged:" destination="oEI-JK-erj" eventType="valueChanged" id="xLl-PZ-eLD"/>
                                                 </connections>
@@ -976,20 +977,56 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="NfZ-9y-iVh" firstAttribute="leading" secondItem="0oR-kv-Zxe" secondAttribute="leading" constant="8" id="6gX-Ti-ev2"/>
+                                    <constraint firstItem="NfZ-9y-iVh" firstAttribute="leading" secondItem="0oR-kv-Zxe" secondAttribute="leading" constant="12" id="6gX-Ti-ev2"/>
                                     <constraint firstAttribute="trailing" secondItem="NfZ-9y-iVh" secondAttribute="trailing" constant="8" id="Af7-nE-3xC"/>
                                     <constraint firstAttribute="height" constant="54" id="Tcz-lW-5dD"/>
                                     <constraint firstItem="NfZ-9y-iVh" firstAttribute="centerX" secondItem="0oR-kv-Zxe" secondAttribute="centerX" id="UjB-dC-97m"/>
                                     <constraint firstItem="NfZ-9y-iVh" firstAttribute="centerY" secondItem="0oR-kv-Zxe" secondAttribute="centerY" id="vEI-7o-uuD"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6S-IF-Hg2" customClass="navigationView" customModule="Grubb" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="189" width="600" height="54"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="View Tutorial" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFe-f9-Yl9">
+                                        <rect key="frame" x="13" y="11" width="531" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="BmR-0M-9p1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="xFe-f9-Yl9" firstAttribute="leading" secondItem="g6S-IF-Hg2" secondAttribute="leading" constant="12" id="UJZ-Xl-Uuv"/>
+                                    <constraint firstItem="xFe-f9-Yl9" firstAttribute="leading" secondItem="g6S-IF-Hg2" secondAttribute="leading" constant="12" id="VlB-a4-o5k"/>
+                                    <constraint firstItem="xFe-f9-Yl9" firstAttribute="centerY" secondItem="g6S-IF-Hg2" secondAttribute="centerY" id="XUl-pO-HDz"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="Z4c-i8-0lX"/>
+                                    <constraint firstAttribute="height" constant="54" id="tGX-lY-aS9"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Z4c-i8-0lX"/>
+                                        <exclude reference="UJZ-Xl-Uuv"/>
+                                        <exclude reference="VlB-a4-o5k"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="nQD-3n-fIk" appends="YES" id="OqQ-74-VLm"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="g6S-IF-Hg2" firstAttribute="leading" secondItem="ubz-Cs-LJ3" secondAttribute="leadingMargin" constant="-20" id="4h8-Xw-CQ4"/>
+                            <constraint firstItem="g6S-IF-Hg2" firstAttribute="top" secondItem="0oR-kv-Zxe" secondAttribute="bottom" constant="10" id="Czo-t8-URo"/>
                             <constraint firstItem="0oR-kv-Zxe" firstAttribute="leading" secondItem="ubz-Cs-LJ3" secondAttribute="leading" id="IWd-HN-8zg"/>
                             <constraint firstAttribute="trailing" secondItem="0oR-kv-Zxe" secondAttribute="trailing" id="Kdf-gb-542"/>
                             <constraint firstItem="0oR-kv-Zxe" firstAttribute="top" secondItem="swG-wT-c3n" secondAttribute="bottom" constant="70" id="LhW-fQ-R6i"/>
+                            <constraint firstItem="xFe-f9-Yl9" firstAttribute="leading" secondItem="0Sh-1x-DiF" secondAttribute="leading" id="M2W-MK-AHK"/>
                             <constraint firstItem="1OV-t3-vlZ" firstAttribute="top" secondItem="ubz-Cs-LJ3" secondAttribute="topMargin" id="PAb-Ce-A3y"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g6S-IF-Hg2" secondAttribute="trailing" constant="-20" id="XS7-Hr-3jx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1OV-t3-vlZ" secondAttribute="trailing" constant="-20" id="kw4-Ef-svS"/>
                             <constraint firstItem="1OV-t3-vlZ" firstAttribute="leading" secondItem="ubz-Cs-LJ3" secondAttribute="leadingMargin" constant="-20" id="wCi-fq-7Jl"/>
                         </constraints>
@@ -999,6 +1036,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDN-ll-7ag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="nQD-3n-fIk">
+                    <connections>
+                        <action selector="onViewTutorialPressed:" destination="oEI-JK-erj" id="ob8-Od-UwV"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2908" y="500"/>
         </scene>

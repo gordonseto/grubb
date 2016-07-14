@@ -11,6 +11,7 @@ import FirebaseDatabase
 import GeoFire
 import AZDropdownMenu
 import Batch
+import Onboard
 
 class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, itemVCDelegate {
     
@@ -380,6 +381,49 @@ extension UIViewController {
             BatchPush.dismissNotifications()
             NSUserDefaults.standardUserDefaults().setObject(0, forKey: "NOTIFICATIONS")
         }
+    }
+    
+    func generateOnboardingVC() -> OnboardingViewController {
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let firstPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-1"), buttonText: "") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        firstPage.iconWidth = screenSize.width
+        firstPage.iconHeight = screenSize.height
+        firstPage.topPadding = 20
+        
+        let secondPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-2"), buttonText: "") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        secondPage.iconWidth = screenSize.width
+        secondPage.iconHeight = screenSize.height
+        secondPage.topPadding = 20
+        
+        let thirdPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-3"), buttonText: "") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        thirdPage.iconWidth = screenSize.width
+        thirdPage.iconHeight = screenSize.height
+        thirdPage.topPadding = 20
+        
+        let fourthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-4"), buttonText: "") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        fourthPage.iconWidth = screenSize.width
+        fourthPage.iconHeight = screenSize.height
+        fourthPage.topPadding = 20
+        
+        let fifthPage = OnboardingContentViewController(title: "", body: "", image: nil, buttonText: "Start Grubbing.") { () -> Void in
+            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "HAS_ONBOARDED")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        fifthPage.actionButton.titleLabel!.font = UIFont(name:"HelveticaNeue-Bold", size: 30.0)
+        fifthPage.bottomPadding = screenSize.height/2.0 - 40
+        
+        let onboardingVC = OnboardingViewController(backgroundImage: UIImage(named: "onBoardBackground"), contents: [firstPage, secondPage, thirdPage, fourthPage, fifthPage])
+        onboardingVC.shouldMaskBackground = false
+        
+        return onboardingVC
     }
 }
 

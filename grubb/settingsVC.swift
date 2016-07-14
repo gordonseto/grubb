@@ -39,4 +39,9 @@ class settingsVC: UIViewController {
     @IBAction func onSwitchChanged(sender: AnyObject) {
         NSUserDefaults.standardUserDefaults().setObject(swipedSwitch.on, forKey: "ONLY_SWIPED_SETTING")
     }
+    
+    @IBAction func onViewTutorialPressed(sender: UITapGestureRecognizer) {
+        let onboardVC = generateOnboardingVC()
+        self.presentViewController(onboardVC, animated: true, completion: nil)
+    }
 }

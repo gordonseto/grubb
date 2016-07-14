@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import GoogleMaps
+import Onboard
 
 class MapVC: UIViewController, MKMapViewDelegate {
 
@@ -77,7 +78,14 @@ class MapVC: UIViewController, MKMapViewDelegate {
             regionRadius = DEFAULT_SEARCH_RADIUS
         }
         
-        locationAuthStatus()
+        if let hasOnboarded = NSUserDefaults.standardUserDefaults().objectForKey("HAS_ONBOARDED") {
+            locationAuthStatus()
+        } else {
+            let onBoardVC = generateOnboardingVC()
+            self.presentViewController(onBoardVC, animated: true, completion: nil)
+        
+            locationAuthStatus()
+        }
     }
     
     func locationAuthStatus() {
