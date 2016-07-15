@@ -413,18 +413,41 @@ extension UIViewController {
         fourthPage.iconHeight = screenSize.height
         fourthPage.topPadding = 20
         
-        let fifthPage = OnboardingContentViewController(title: "", body: "", image: nil, buttonText: "Start Grubbing.") { () -> Void in
+        let fifthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named:"grubbWhite"), buttonText: "Start Grubbing") { () -> Void in
             NSUserDefaults.standardUserDefaults().setObject(true, forKey: "HAS_ONBOARDED")
             self.dismissViewControllerAnimated(true, completion: nil)
         }
-        fifthPage.actionButton.titleLabel!.font = UIFont(name:"HelveticaNeue-Bold", size: 30.0)
-        fifthPage.bottomPadding = screenSize.height/2.0 - 40
+        
+        fifthPage.iconImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        fifthPage.iconWidth = 200
+        fifthPage.iconHeight = 200
+        fifthPage.topPadding = screenSize.height*0.25
+        fifthPage.iconImageView.userInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("iconTapped"))
+        fifthPage.iconImageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        fifthPage.actionButton.titleLabel!.font = UIFont(name:"HelveticaNeue-Bold", size: 30)
+        /*
+        fifthPage.actionButton.setTitleColor(UIColor(red: 77.0/255.0, green: 207.0/255.0, blue: 207.0/255.0, alpha: 1.0), forState: .Normal)
+        fifthPage.actionButton.layer.borderColor = UIColor.whiteColor().CGColor
+        fifthPage.actionButton.layer.borderWidth = 4.0
+        fifthPage.actionButton.layer.cornerRadius = 10.0
+        fifthPage.actionButton.layer.backgroundColor = UIColor.whiteColor().CGColor
+         */
+        fifthPage.bottomPadding = screenSize.height*0.3
         
         let onboardingVC = OnboardingViewController(backgroundImage: UIImage(named: "onBoardBackground"), contents: [firstPage, secondPage, thirdPage, fourthPage, fifthPage])
         onboardingVC.shouldMaskBackground = false
         
         return onboardingVC
     }
+    
+    func iconTapped(){
+        print("hi")
+        NSUserDefaults.standardUserDefaults().setObject(true, forKey: "HAS_ONBOARDED")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
 
     

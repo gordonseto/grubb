@@ -80,8 +80,8 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
     
     override func viewDidAppear(animated: Bool) {
-        print(likedFoodPreviews.count)
-        print(myFoodPreviews.count)
+        //print(likedFoodPreviews.count)
+        //print(myFoodPreviews.count)
         
         segmentedControl.selectedSegmentIndex = displayMode
         dismissNotifications()
@@ -97,12 +97,12 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     func getLikedFood(){
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             firebase.child("users").child(uid).child("likes").queryOrderedByValue().observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-                print(snapshot.value)
+                //print(snapshot.value)
                
                 self.parseSnapshot(snapshot, arrayName: "likes")
                 
             }) { (error) in
-                print(error.localizedDescription)
+                //print(error.localizedDescription)
             }
         }
     }
@@ -114,7 +114,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 self.parseSnapshot(snapshot, arrayName: "myFood")
                 
             }) { (error) in
-                print(error.localizedDescription)
+                //print(error.localizedDescription)
             }
         }
     }
@@ -134,9 +134,9 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
             previousSnapshotDict = snapshotDict
         
             let totalKeys = Array(snapshotDict.keys).sort({snapshotDict[$0] > snapshotDict[$1]})
-            print(totalKeys)
+            //print(totalKeys)
         
-            print(totalKeys.count)
+            //print(totalKeys.count)
             for key in totalKeys {
                 if arrayName == "likes" {
                     self.likedFoodPreviews.append(foodPreview(key: key))
@@ -152,7 +152,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
 
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        print("row \(indexPath.item)")
+        //print("row \(indexPath.item)")
         if indexPath.item >= loadedFood {
             if !loadingImages {
                 loadingImages = true
@@ -197,7 +197,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                 let childRef = imagesRef.child(foodPrev.key)
                 let downloadTask = childRef.dataWithMaxSize(1 * 1024 * 1024, completion: { (data, error) in
                     if (error != nil){
-                        print(error.debugDescription)
+                        //print(error.debugDescription)
                         self.stopLoadingAnimation()
                     } else {
                         let foodImage: UIImage! = UIImage(data: data!)
@@ -205,7 +205,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                         newDownloadedFood.foodImage = foodImage
                         self.downloadedFoodPreviews.append(newDownloadedFood)
                         foodPrev.foodImage = newDownloadedFood.foodImage
-                        print("downloaded \(foodPrev.key)'s image")
+                        //print("downloaded \(foodPrev.key)'s image")
                         self.collection.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
                         self.stopLoadingAnimation()
                     }
@@ -225,7 +225,7 @@ class ExploreVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
         else {
             foodPrev = myFoodPreviews[indexPath.row]
         }
-        print("configuring \(indexPath.row) with \(foodPrev.foodImage)")
+        //print("configuring \(indexPath.row) with \(foodPrev.foodImage)")
         cell.configureCell(foodPrev)
         return cell
         
