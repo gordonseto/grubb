@@ -63,9 +63,10 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             predictCategory()
         }
         
+        /*
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-        
+        */
         
     }
     
@@ -267,7 +268,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             }
         }
     }
-    
+    /*
     // push view up when keyboard is blocking price input
     func keyboardWillShow(notification: NSNotification) {
         if priceInputIsEditing {
@@ -288,7 +289,7 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             }
         }
     }
-    
+    */
     func predictCategory(){
         let hour = Int(NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate()))
         
