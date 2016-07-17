@@ -35,6 +35,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     
     var loadingLabel: UILabel!
     var activityIndicator: UIActivityIndicatorView!
+    var noDishes: UILabel!
     
     var food = [Food]()
     weak var delegate: DraggableViewBackgroundDelegate!
@@ -188,6 +189,17 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     func stopLoadingAnimation(){
         activityIndicator.removeFromSuperview()
         loadingLabel.removeFromSuperview()
+    }
+    
+    func displayNoDishes(){
+        noDishes = UILabel(frame: CGRectMake(0, 0, 220, 120))
+        noDishes.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/2 - 30)
+        noDishes.textAlignment = NSTextAlignment.Center
+        noDishes.numberOfLines = 4
+        noDishes.font = UIFont(name: "HelveticaNeue", size: 15)
+        noDishes.text = "There are no new dishes here. Try searching another area or posting your own."
+        noDishes.textColor = UIColor.grayColor()
+        self.addSubview(noDishes)
     }
     
     func createDraggableViewWithDataAtIndex(index: NSInteger) -> DraggableView {

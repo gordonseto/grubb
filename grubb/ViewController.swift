@@ -185,6 +185,11 @@ class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextF
                 self.totalCardsRetrieved = cardsRetrieved
                 if self.totalCardsRetrieved == 0 {
                     draggableBackground.stopLoadingAnimation()
+                    draggableBackground.displayNoDishes()
+                } else {
+                    if let noDishes = draggableBackground.noDishes {
+                        noDishes.removeFromSuperview()
+                    }
                 }
             })
         
@@ -406,27 +411,34 @@ extension UIViewController {
         thirdPage.iconHeight = screenSize.height
         thirdPage.topPadding = 20
         
-        let fourthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-4"), buttonText: "") { () -> Void in
+        let fourthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-6"), buttonText: "") { () -> Void in
             // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
         }
         fourthPage.iconWidth = screenSize.width
         fourthPage.iconHeight = screenSize.height
         fourthPage.topPadding = 20
         
-        let fifthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named:"grubbWhite"), buttonText: "Start Grubbing") { () -> Void in
+        let fifthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named: "onBoarding-4"), buttonText: "") { () -> Void in
+            // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+        }
+        fifthPage.iconWidth = screenSize.width
+        fifthPage.iconHeight = screenSize.height
+        fifthPage.topPadding = 20
+        
+        let sixthPage = OnboardingContentViewController(title: "", body: "", image: UIImage(named:"grubbWhite"), buttonText: "Get Started") { () -> Void in
             NSUserDefaults.standardUserDefaults().setObject(true, forKey: "HAS_ONBOARDED")
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
-        fifthPage.iconImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        fifthPage.iconWidth = 200
-        fifthPage.iconHeight = 200
-        fifthPage.topPadding = screenSize.height*0.25
-        fifthPage.iconImageView.userInteractionEnabled = true
+        sixthPage.iconImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        sixthPage.iconWidth = 200
+        sixthPage.iconHeight = 200
+        sixthPage.topPadding = screenSize.height*0.25
+        sixthPage.iconImageView.userInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("iconTapped"))
-        fifthPage.iconImageView.addGestureRecognizer(tapGestureRecognizer)
+        sixthPage.iconImageView.addGestureRecognizer(tapGestureRecognizer)
         
-        fifthPage.actionButton.titleLabel!.font = UIFont(name:"HelveticaNeue-Bold", size: 30)
+        sixthPage.actionButton.titleLabel!.font = UIFont(name:"HelveticaNeue-Bold", size: 30)
         /*
         fifthPage.actionButton.setTitleColor(UIColor(red: 77.0/255.0, green: 207.0/255.0, blue: 207.0/255.0, alpha: 1.0), forState: .Normal)
         fifthPage.actionButton.layer.borderColor = UIColor.whiteColor().CGColor
@@ -434,9 +446,9 @@ extension UIViewController {
         fifthPage.actionButton.layer.cornerRadius = 10.0
         fifthPage.actionButton.layer.backgroundColor = UIColor.whiteColor().CGColor
          */
-        fifthPage.bottomPadding = screenSize.height*0.3
+        sixthPage.bottomPadding = screenSize.height*0.3
         
-        let onboardingVC = OnboardingViewController(backgroundImage: UIImage(named: "onBoardBackground"), contents: [firstPage, secondPage, thirdPage, fourthPage, fifthPage])
+        let onboardingVC = OnboardingViewController(backgroundImage: UIImage(named: "onBoardBackground"), contents: [firstPage, secondPage, thirdPage, fourthPage, fifthPage, sixthPage])
         onboardingVC.shouldMaskBackground = false
         
         return onboardingVC
