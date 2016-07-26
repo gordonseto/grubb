@@ -11,7 +11,7 @@ import MapKit
 import GoogleMaps
 import Onboard
 
-class MapVC: UIViewController, MKMapViewDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var radiusLabel: UILabel!
@@ -29,6 +29,9 @@ class MapVC: UIViewController, MKMapViewDelegate {
     var settingsButton: UIButton!
     
     var peekMode = false
+    
+    var mapHasBeenDragged: Bool = false
+    var realLocation: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +51,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
         titleLogo.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
         titleLogo.textColor = UIColor.darkGrayColor()
         titleLogo.minimumScaleFactor = 0.8
+        let titleClick = UITapGestureRecognizer(target: self, action: "onTitleTapped:")
+        titleClick.delegate = self
+        titleLogo.addGestureRecognizer(titleClick)
+        titleLogo.userInteractionEnabled = true
         self.view.addSubview(titleLogo)
         
         settingsButton = UIButton(frame: CGRectMake(8, 22, 29, 25))
@@ -68,6 +75,11 @@ class MapVC: UIViewController, MKMapViewDelegate {
         searchButton.layer.cornerRadius = 4.0
         
         map.delegate = self
+        
+        mapHasBeenDragged = false
+        let panRec = UIPanGestureRecognizer(target: self, action: "onMapDragged:")
+        panRec.delegate = self
+        map.addGestureRecognizer(panRec)
         
         self.navigationController?.navigationBarHidden = true
         
@@ -104,8 +116,8 @@ class MapVC: UIViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         if let loc = userLocation.location {
-            centerMapOnLocation(loc)
-            if let loc: CLLocation! = loc {
+            if !mapHasBeenDragged {
+                centerMapOnLocation(loc)
                 if let circle = circle {
                     self.map.removeOverlay(circle)
                 }
@@ -113,11 +125,12 @@ class MapVC: UIViewController, MKMapViewDelegate {
                 circle = MKCircle(centerCoordinate: currentLocation!, radius: regionRadius)
                 self.map.addOverlay(circle!)
                 print(currentLocation)
-                if let currentLocation = currentLocation {
-                    NSUserDefaults.standardUserDefaults().setObject(currentLocation.latitude, forKey: "CURRENT_LATITUDE")
-                    NSUserDefaults.standardUserDefaults().setObject(currentLocation.longitude, forKey: "CURRENT_LONGITUDE")
-                    NSUserDefaults.standardUserDefaults().synchronize()
-                }
+            }
+            if let currentLocation = currentLocation {
+                NSUserDefaults.standardUserDefaults().setObject(currentLocation.latitude, forKey: "CURRENT_LATITUDE")
+                NSUserDefaults.standardUserDefaults().setObject(currentLocation.longitude, forKey: "CURRENT_LONGITUDE")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                realLocation = currentLocation
             }
         }
     }
@@ -169,6 +182,26 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func onTitleTapped(gestureRecognizer: UIGestureRecognizer) {
+        if let realLocation = realLocation {
+            mapHasBeenDragged = false
+            let center = realLocation
+            setSearchLocation(center)
+            centerMapOnLocation(CLLocation(latitude: center.latitude, longitude: center.longitude))
+        }
+    }
+
+    func onMapDragged(gestureRecognizer: UIGestureRecognizer) {
+        let center = map.centerCoordinate
+            
+        mapHasBeenDragged = true
+        setSearchLocation(center)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     func onPeekButtonTapped(){
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
@@ -178,13 +211,10 @@ class MapVC: UIViewController, MKMapViewDelegate {
     func peekLocation(place: GMSPlace){
         map.showsUserLocation = false
         self.titleLogo.text = place.name
-        currentLocation = place.coordinate
+        
+        realLocation = place.coordinate
+        setSearchLocation(place.coordinate)
         centerMapOnLocation(CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude))
-        if let circle = circle {
-            self.map.removeOverlay(circle)
-        }
-        circle = MKCircle(centerCoordinate: currentLocation!, radius: regionRadius)
-        self.map.addOverlay(circle!)
         
         backButton = UIButton(frame: CGRectMake(8, 22, 30, 30))
         backButton.setImage(UIImage(named: "backButton"), forState: UIControlState.Normal)
@@ -194,6 +224,15 @@ class MapVC: UIViewController, MKMapViewDelegate {
         settingsButton.removeFromSuperview()
         
         self.peekMode = true
+    }
+    
+    func setSearchLocation(coordinate: CLLocationCoordinate2D) {
+        currentLocation = coordinate
+        if let circle = circle {
+            self.map.removeOverlay(circle)
+        }
+        circle = MKCircle(centerCoordinate: currentLocation!, radius: regionRadius)
+        self.map.addOverlay(circle!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -216,6 +255,12 @@ class MapVC: UIViewController, MKMapViewDelegate {
         backButton.removeFromSuperview()
         peekMode = false
         self.view.addSubview(settingsButton)
+        
+        guard let lat = NSUserDefaults.standardUserDefaults().objectForKey("CURRENT_LATITUDE") as? CLLocationDegrees else { return }
+        guard let long = NSUserDefaults.standardUserDefaults().objectForKey("CURRENT_LONGITUDE") as? CLLocationDegrees else { return }
+    
+        setSearchLocation(CLLocationCoordinate2DMake(lat, long))
+        centerMapOnLocation(CLLocation(latitude: lat, longitude: long))
     }
     
     func onSettingsButtonTapped(){

@@ -22,7 +22,7 @@ protocol DraggableViewDelegate: class {
     func cardClicked()
 }
 
-class DraggableView: UIView {
+final class DraggableView: UIView {
     weak var delegate: DraggableViewDelegate!
     var panGestureRecognizer: UIPanGestureRecognizer!
     var originPoint: CGPoint!

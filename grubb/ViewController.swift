@@ -13,7 +13,7 @@ import AZDropdownMenu
 import Batch
 import Onboard
 
-class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, itemVCDelegate {
+final class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, itemVCDelegate {
     
     var food = [Food]()
     var searchedFood = [Food]()

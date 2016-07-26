@@ -17,7 +17,7 @@ protocol DraggableViewBackgroundDelegate: class {
     func onCardSwipedRight(food: Food)
 }
 
-class DraggableViewBackground: UIView, DraggableViewDelegate {
+final class DraggableViewBackground: UIView, DraggableViewDelegate {
     var exampleCardLabels: [String]!
     var allCards: [DraggableView]!
     
