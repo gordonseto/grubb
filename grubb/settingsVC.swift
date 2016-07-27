@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import SloppySwiper
 
 class settingsVC: UIViewController {
 
     @IBOutlet weak var swipedSwitch: UISwitch!
     
+    var swiper: SloppySwiper!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        //self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        if let navigationcontroller = self.navigationController {
+            swiper = SloppySwiper(navigationController: navigationcontroller)
+            navigationcontroller.delegate = swiper
+        }
         
         swipedSwitch.onTintColor = UIColor(red: 61.0/255.0, green: 147.0/255.0, blue: 245.0/255.0, alpha: 1.0)
         
@@ -25,6 +32,7 @@ class settingsVC: UIViewController {
             NSUserDefaults.standardUserDefaults().setObject(true, forKey: "ONLY_SWIPED_SETTING")
             swipedSwitch.on = true
         }
+        
     }
 
     

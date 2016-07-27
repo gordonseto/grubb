@@ -10,6 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 import GeoFire
+import SloppySwiper
 
 protocol itemVCDelegate: class {
     func onFoodLiked()
@@ -51,6 +52,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     
     weak var delegate: itemVCDelegate!
     
+    var swiper: SloppySwiper!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,7 +61,11 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         
         likeImage.userInteractionEnabled = false
         
-        self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate = nil;
+        if let navigationcontroller = self.navigationController {
+            swiper = SloppySwiper(navigationController: navigationcontroller)
+            navigationcontroller.delegate = swiper
+        }
         
         moreButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
         

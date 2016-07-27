@@ -16,4 +16,5 @@ target 'grubb' do
   pod 'AZDropdownMenu'
   pod 'Batch'
   pod 'Onboard'
+  pod 'SloppySwiper'
 end
