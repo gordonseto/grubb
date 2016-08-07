@@ -12,6 +12,7 @@ import GeoFire
 import AZDropdownMenu
 import Batch
 import Onboard
+import SloppySwiper
 
 final class ViewController: UIViewController, DraggableViewBackgroundDelegate, UITextFieldDelegate, itemVCDelegate {
     
@@ -44,10 +45,17 @@ final class ViewController: UIViewController, DraggableViewBackgroundDelegate, U
     
     var userLikes = [String: AnyObject]()
     
+    var swiper: SloppySwiper!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.hideKeyboardWhenTappedAround()
+        
+        if let navigationcontroller = self.navigationController {
+            swiper = SloppySwiper(navigationController: navigationcontroller)
+            navigationcontroller.delegate = swiper
+        }
         
         draggableBackground = DraggableViewBackground(frame: self.view.frame)
         self.view.addSubview(draggableBackground)

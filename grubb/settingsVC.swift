@@ -9,7 +9,7 @@
 import UIKit
 import SloppySwiper
 
-class settingsVC: UIViewController {
+class settingsVC: UIViewController, UIViewControllerTransitioningDelegate {
 
     @IBOutlet weak var swipedSwitch: UISwitch!
     
@@ -52,4 +52,5 @@ class settingsVC: UIViewController {
         let onboardVC = generateOnboardingVC()
         self.presentViewController(onboardVC, animated: true, completion: nil)
     }
+    
 }

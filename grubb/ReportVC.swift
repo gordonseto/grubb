@@ -39,6 +39,9 @@ class ReportVC: UIViewController, UITextViewDelegate {
     }
 
     @IBAction func onSubmitPressed(sender: AnyObject) {
+        
+        guard let key = key else { return }
+        
         let firebase = FIRDatabase.database().reference()
         let date = NSDate()
         let formatter = NSDateFormatter()
@@ -52,7 +55,7 @@ class ReportVC: UIViewController, UITextViewDelegate {
         if let uid = NSUserDefaults.standardUserDefaults().objectForKey("USER_UID") as? String {
             if let message = textView.text as? String {
                 let report: [String: AnyObject] = ["reported_by": uid, "time": dateString, "message": message]
-                firebase.child("reports").child(key).setValue(report)
+                firebase.child("reports").child(key).childByAutoId().setValue(report)
                 submitButton.setTitle("Report submitted!", forState: .Normal)
             }
         }

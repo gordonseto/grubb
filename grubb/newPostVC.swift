@@ -52,6 +52,8 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         prefersStatusBarHidden()
         self.hideKeyboardWhenTappedAround()
         
+        priceInput.keyboardType = UIKeyboardType.DecimalPad
+        
         firebase = FIRDatabase.database().reference()
         
         nameInput.delegate = self
@@ -223,10 +225,16 @@ class newPostVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         priceInputIsEditing = true
+        if textField.text == "0.00" {
+            textField.text = ""
+        }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         priceInputIsEditing = false
+        if textField.text == "" {
+            textField.text = "0.00"
+        }
     }
     
     

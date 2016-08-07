@@ -284,7 +284,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
     @IBAction func onMoreButtonPressed(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        if let uid = self.uid where uid == self.food.author {
+        if let uid = self.uid where uid == self.food.author || uid == "7Lygg2Sv6oTGO84bwyHo7bfIfd52" {
             let editAction = UIAlertAction(title: "Edit", style: .Default) { action -> Void in
             let editVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewControllerWithIdentifier("newPostVC") as! newPostVC
                 editVC.editMode = true
