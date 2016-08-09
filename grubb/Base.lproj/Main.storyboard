@@ -449,24 +449,6 @@
             </objects>
             <point key="canvasLocation" x="1161" y="-448"/>
         </scene>
-        <!--Food Image ModalVC-->
-        <scene sceneID="hsh-WN-WZA">
-            <objects>
-                <viewController storyboardIdentifier="foodImageModalVC" id="hZ3-dL-b1P" customClass="foodImageModalVC" customModule="Grubb" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GYb-XZ-T6a"/>
-                        <viewControllerLayoutGuide type="bottom" id="TsQ-NV-YQg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VFX-vD-ZCy">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6mR-SA-HAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1198" y="-1223"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Dik-o4-AVW">
             <objects>

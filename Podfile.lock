@@ -1,7 +1,6 @@
 PODS:
   - AZDropdownMenu (1.1.1)
   - Batch (1.5.4)
-  - BubbleTransition (1.0.3)
   - Firebase (3.2.1):
     - Firebase/Core (= 3.2.1)
   - Firebase/Analytics (3.2.1):
@@ -49,7 +48,6 @@ PODS:
 DEPENDENCIES:
   - AZDropdownMenu
   - Batch
-  - BubbleTransition
   - Firebase
   - Firebase/Auth
   - Firebase/Database
@@ -72,7 +70,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AZDropdownMenu: 0ba09d5f7b1b8dc795824ec281c4dde8515f4498
   Batch: 13083f81837fe1da9ea84b0533a2965c73ff74c6
-  BubbleTransition: a7ae6678721406d60f604cbbea1ace505563119d
   Firebase: 6c80ac28d59d06bfd9152a7b6ea17625ca93183d
   FirebaseAnalytics: 6f75b04e6bfb8e0b6e9ef298e04c24eea3b13863
   FirebaseAuth: 94b851fc345ce98036dfedfdc2eddeaef8fa3b4c
@@ -89,6 +86,6 @@ SPEC CHECKSUMS:
   Onboard: c46261255c0bcbe26ab2823782764c96fca7a33e
   SloppySwiper: 7fdffc91062af8fb80574dee80082cb9e0cee507
 
-PODFILE CHECKSUM: 2dcab33afc1136667808f3957712d8f022772bbf
+PODFILE CHECKSUM: 30d4cf7e9c6ee40ebeb61167a339039970c2c6f6
 
 COCOAPODS: 1.0.1

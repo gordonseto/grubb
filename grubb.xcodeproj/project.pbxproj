@@ -489,7 +489,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
 				PRODUCT_NAME = Grubb;
-				PROVISIONING_PROFILE = "c215af3d-f5d6-4cb6-b3ff-e3b43c5914e8";
+				PROVISIONING_PROFILE = "6c06f6f3-42c8-4d2f-bd4f-8ca1ed1813fc";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -512,7 +512,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grubbapp.grubb;
 				PRODUCT_NAME = Grubb;
-				PROVISIONING_PROFILE = "c215af3d-f5d6-4cb6-b3ff-e3b43c5914e8";
+				PROVISIONING_PROFILE = "6c06f6f3-42c8-4d2f-bd4f-8ca1ed1813fc";
 				SWIFT_OBJC_BRIDGING_HEADER = "grubb/grubb-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};

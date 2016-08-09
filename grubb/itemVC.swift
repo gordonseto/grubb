@@ -191,7 +191,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         if likes == 1 {
             likesLabel.text = "\(likes) like"
         } else {
-        likesLabel.text = "\(likes) likes"
+            likesLabel.text = "\(likes) likes"
         }
     }
     
