@@ -11,6 +11,7 @@ import CoreData
 import Firebase
 import GoogleMaps
 import Batch
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(GOOGLE_PLACES_API_KEY)
         
         UITabBar.appearance().tintColor = UIColor(red: 255/255.0, green: 91/255.0, blue: 83/255.0, alpha: 1.0)
+        
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
         
         /*
         let connectedRef = FIRDatabase.database().referenceWithPath(".info/connected")

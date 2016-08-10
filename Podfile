@@ -17,4 +17,5 @@ target 'grubb' do
   pod 'Batch'
   pod 'Onboard'
   pod 'SloppySwiper'
+  pod 'IQKeyboardManagerSwift'
 end
