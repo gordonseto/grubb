@@ -199,6 +199,8 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
         likeImage.image = UIImage(named: "filledHeart")
         numLikes += 1
         updateLikesLabel(numLikes)
+        bounceView(likesLabel, amount: 1.2)
+        bounceView(likeImage, amount: 1.2)
     }
     
     func foodNotLiked(){
@@ -248,6 +250,7 @@ class itemVC: UIViewController, CLLocationManagerDelegate {
                 }
             }
         }
+        
     }
 
     func popAndAnimateSwipe(){
